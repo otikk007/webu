@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#0E0F12;color:#F2F1EC;font-family:'Noto Sans Georgian',sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#F2F1EC;text-decoration:none}
+a:hover{color:#C6F432}
+input::placeholder{color:#6E6F76}
+@keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.12) translate(-2%,-1.5%)}}
+@keyframes lgB{0%,12%{transform:translate(0,0)}42%,56%{transform:translate(var(--d),0)}86%,100%{transform:translate(0,0)}}
+@keyframes lgC{0%,48%{transform:translate(0,0) scale(.3)}62%{transform:translate(0,var(--f)) scale(1)}80%,100%{transform:translate(0,calc(var(--f) * 1.8)) scale(0)}}
+@keyframes lgA{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes tgK{0%,18%{transform:translateX(0);background:#F2F1EC}38%,68%{transform:translateX(1em);background:#0E0F12}88%,100%{transform:translateX(0);background:#F2F1EC}}
+@keyframes tgB{0%,18%{opacity:0}38%,68%{opacity:1}88%,100%{opacity:0}}
+@keyframes grow{0%{transform:scaleY(0)}22%,78%{transform:scaleY(1)}92%,100%{transform:scaleY(0)}}
+@keyframes trace{from{stroke-dashoffset:1080}to{stroke-dashoffset:0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes wbuild{0%{opacity:0;transform:translateY(14px)}10%,84%{opacity:1;transform:none}94%,100%{opacity:0;transform:translateY(-6px)}}
+@keyframes wcur{0%,34%{opacity:0;transform:translate(150px,90px)}42%{opacity:1}54%{transform:translate(28px,14px)}57%{transform:translate(28px,14px) scale(.8)}61%{transform:translate(28px,14px) scale(1)}84%{opacity:1;transform:translate(28px,14px)}94%,100%{opacity:0;transform:translate(28px,14px)}}
+@keyframes wpress{0%,56%{transform:scale(1)}58.5%{transform:scale(.9)}62%,100%{transform:scale(1)}}
+@keyframes wring{0%,57%{opacity:0;transform:scale(.4)}60%{opacity:.9}72%,100%{opacity:0;transform:scale(2.2)}}
+@keyframes wpop{0%,62%{transform:scale(0)}69%{transform:scale(1.12)}73%,84%{transform:scale(1)}92%,100%{transform:scale(0)}}
+@keyframes usel{0%,24%{left:19%;top:10.5%;width:46%;height:79%}32%,54%{left:21.6%;top:14.8%;width:40.7%;height:36.2%}62%,92%{left:21.6%;top:71%;width:24%;height:12.6%}100%{left:19%;top:10.5%;width:46%;height:79%}}
+@keyframes ubtn{0%,64%{background:#C6F432;color:#0E0F12}70%,78%{background:#8B6CFF;color:#F2F1EC}84%,90%{background:#0E0F12;color:#F2F1EC}97%,100%{background:#C6F432;color:#0E0F12}}
+@keyframes uswatch{0%,64%{transform:translateY(0)}70%,78%{transform:translateY(44px)}84%,90%{transform:translateY(88px)}97%,100%{transform:translateY(0)}}
+@keyframes uimg{0%,30%{background:#2a2b31}38%,54%{background:#3a3160}62%,100%{background:#2a2b31}}
+@keyframes ulabel{0%,24%{content:''}}
+</style>
+</helmet>
+<svg width="0" height="0" style="position:absolute"><defs><filter id="goo-s" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceGraphic" stdDeviation="2.4" result="b"></feGaussianBlur><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="g"></feColorMatrix><feComposite in="SourceGraphic" in2="g" operator="atop"></feComposite></filter><filter id="goo-l" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceGraphic" stdDeviation="9" result="b"></feGaussianBlur><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="g"></feColorMatrix><feComposite in="SourceGraphic" in2="g" operator="atop"></feComposite></filter><filter id="goo" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b"></feGaussianBlur><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11" result="g"></feColorMatrix><feComposite in="SourceGraphic" in2="g" operator="atop"></feComposite></filter><linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C6F432"></stop><stop offset="1" stop-color="#8B6CFF"></stop></linearGradient></defs></svg>
+{{ fx }}
+<div style="min-height:100vh;overflow-x:clip">
+
+<header style="position:sticky;top:0;z-index:50;padding:16px clamp(16px,4vw,48px);display:flex;justify-content:center">
+  <nav style="width:100%;max-width:1320px;display:flex;align-items:center;justify-content:space-between;gap:{{ navGap }};padding:8px 8px 8px 18px;border-radius:999px;background:rgba(23,24,28,0.94);border:1px solid rgba(255,255,255,0.08)">
+    <a href="#top" style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:0.02em">
+      {{ logoNav }}
+      <span style="font-family:'Unbounded',sans-serif;font-size:21px;font-weight:800;letter-spacing:-0.04em">webu</span>
+    </a>
+    <div style="display:flex;gap:clamp(14px,1.8vw,28px);font-size:clamp(12px,1.1vw,14px);white-space:nowrap;justify-content:center;overflow:hidden;min-width:0;flex:0 1 auto;visibility:{{ navVis }};width:{{ navW }}">
+      <a href="#services">სერვისები</a>
+      <a href="#work">ნამუშევრები</a>
+      <a href="#process">პროცესი</a>
+      <a href="#audit">SEO აუდიტი</a>
+      <a href="#price">ფასი</a>
+      <a href="#faq">კითხვები</a>
+    </div>
+    <a href="#contact" style="display:{{ ctaDisp }};padding:12px 22px;border-radius:999px;background:#C6F432;color:#0E0F12;font-weight:600;font-size:14px;white-space:nowrap" style-hover="background:#F2F1EC;color:#0E0F12">დაგვიკავშირდი</a>
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ openMenu }}" aria-label="მენიუ" style="cursor:pointer;width:46px;height:46px;flex:none;border-radius:50%;border:1px solid rgba(255,255,255,0.2);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px">
+        <span style="width:18px;height:2px;border-radius:2px;background:#F2F1EC;display:block"></span>
+        <span style="width:12px;height:2px;border-radius:2px;background:#C6F432;display:block;margin-left:6px"></span>
+      </button>
+    </sc-if>
+  </nav>
+</header>
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:140;background:#C6F432;color:#0E0F12;padding:22px 24px 32px;display:flex;flex-direction:column;gap:32px;overflow-y:auto">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-family:'Unbounded',sans-serif;font-size:24px;font-weight:800;letter-spacing:-0.04em">webu</span>
+      <button onClick="{{ closeMenu }}" aria-label="დახურვა" style="cursor:pointer;width:48px;height:48px;border-radius:50%;border:0;background:#0E0F12;color:#C6F432;font-size:22px;font-family:inherit">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;flex:1;justify-content:center">
+      <a href="#services" style="color:#0E0F12;font-size:clamp(30px,9vw,44px);font-weight:800;padding:12px 0;border-bottom:1px solid rgba(14,15,18,0.18)">სერვისები</a>
+      <a href="#work" style="color:#0E0F12;font-size:clamp(30px,9vw,44px);font-weight:800;padding:12px 0;border-bottom:1px solid rgba(14,15,18,0.18)">ნამუშევრები</a>
+      <a href="#process" style="color:#0E0F12;font-size:clamp(30px,9vw,44px);font-weight:800;padding:12px 0;border-bottom:1px solid rgba(14,15,18,0.18)">პროცესი</a>
+      <a href="#audit" style="color:#0E0F12;font-size:clamp(30px,9vw,44px);font-weight:800;padding:12px 0;border-bottom:1px solid rgba(14,15,18,0.18)">SEO აუდიტი</a>
+      <a href="#price" style="color:#0E0F12;font-size:clamp(30px,9vw,44px);font-weight:800;padding:12px 0;border-bottom:1px solid rgba(14,15,18,0.18)">ფასი</a>
+      <a href="#faq" style="color:#0E0F12;font-size:clamp(30px,9vw,44px);font-weight:800;padding:12px 0;border-bottom:1px solid rgba(14,15,18,0.18)">კითხვები</a>
+    </div>
+    <a href="#contact" style="display:flex;justify-content:center;padding:18px;border-radius:14px;background:#0E0F12;color:#F2F1EC;font-weight:700;font-size:17px">დაჯავშნე კონსულტაცია</a>
+  </div>
+</sc-if>
+
+<section id="top" style="padding:clamp(40px,7vw,96px) clamp(16px,4vw,48px) 0;display:flex;justify-content:center">
+  <div style="width:100%;max-width:1320px">
+    <h1 style="margin:0;font-weight:800;font-size:clamp(48px,10vw,160px);line-height:1.02;letter-spacing:-0.02em;display:flex;flex-direction:column;gap:0.06em">
+      <span data-depth="14" style="display:flex;align-items:center;gap:0.2em;flex-wrap:wrap">ვებსაიტი<button onClick="{{ tgToggle }}" aria-label="ჩართვა" style="all:unset;cursor:pointer;position:relative;display:inline-block;width:1.7em;height:0.7em;border-radius:999px;background:{{ tgBg }};flex:none;transition:background .45s cubic-bezier(.7,0,.3,1);box-shadow:{{ tgGlow }}">
+          <span style="position:absolute;left:0.1em;top:0.1em;width:0.5em;height:0.5em;border-radius:50%;background:{{ tgKnob }};transform:translateX({{ tgX }});transition:transform .5s cubic-bezier(.5,1.6,.4,1),background .45s,width .2s;display:block"></span>
+        </button></span>
+      <span data-depth="-10" style="display:flex;align-items:center;gap:0.2em;flex-wrap:wrap;padding-left:clamp(0px,8vw,140px)"><button onClick="{{ ringTap }}" aria-label="დაჭერა" style="all:unset;cursor:pointer;position:relative;display:inline-block;width:0.7em;height:0.7em;border-radius:50%;border:2px solid #C6F432;box-sizing:border-box;flex:none;background:{{ ringBg }};transform:scale({{ ringS }});transition:transform .45s cubic-bezier(.5,1.8,.4,1),background .35s">
+          <span style="position:absolute;inset:-2px;border-radius:50%;border:2px solid #C6F432;opacity:{{ ripO }};transform:scale({{ ripS }});transition:{{ ripT }};display:block;pointer-events:none"></span>
+          <span style="position:absolute;right:-0.08em;top:-0.08em;min-width:0.26em;height:0.26em;padding:0 0.06em;border-radius:999px;background:#8B6CFF;color:#F2F1EC;font-size:0.16em;line-height:1;display:flex;align-items:center;justify-content:center;font-weight:700;transform:scale({{ badgeS }});transition:transform .4s cubic-bezier(.5,1.8,.4,1)"><span style="font-size:1.6em">{{ ringN }}</span></span>
+        </button>აპლიკაცია</span>
+      <span data-depth="20" style="display:flex;align-items:center;gap:0.2em;flex-wrap:wrap">და <span style="color:#C6F432">SEO</span><button onClick="{{ barsTap }}" aria-label="რეიტინგი" style="all:unset;cursor:pointer;position:relative;display:inline-block;width:2.2em;height:0.7em;border-radius:999px;overflow:hidden;background:#17181C;border:1px solid rgba(255,255,255,0.1);box-sizing:border-box;flex:none" style-hover="border-color:#C6F432">
+          <span style="position:absolute;left:0.26em;right:0.26em;top:0.12em;bottom:0.12em;display:flex;align-items:flex-end;gap:0.09em">
+            <sc-for list="{{ bars }}" as="b" hint-placeholder-count="6">
+              <span style="flex:1;height:{{ b.h }};border-radius:0.05em;background:{{ b.c }};transition:height .7s cubic-bezier(.4,1.5,.4,1),background .4s;transition-delay:{{ b.d }};display:block"></span>
+            </sc-for>
+          </span>
+        </button></span>
+    </h1>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;margin-top:48px">
+      <p style="margin:0;max-width:520px;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:#B9B9BE;text-wrap:pretty">სრული ვებ სერვისი ერთ გუნდში. ვაპროექტებთ, ვაწყობთ და ვზრდით შენს ციფრულ პროდუქტს დიზაინის პირველი ესკიზიდან Google ის პირველ გვერდამდე.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding-bottom:8px">
+        <div data-goo="1" style="position:relative;display:inline-flex">
+          <div data-goo-layer="1" style="position:absolute;left:-170px;top:-170px;right:-170px;bottom:-170px;filter:url(#goo);pointer-events:none">
+            <div style="position:absolute;left:170px;top:170px;right:170px;bottom:170px;background:#C6F432;border-radius:14px"></div>
+            <span data-dot="1" style="position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:#C6F432;will-change:transform;transform:translate(-999px,0)"></span>
+            <span data-dot="1" style="position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#C6F432;will-change:transform;transform:translate(-999px,0)"></span>
+            <span data-dot="1" style="position:absolute;left:0;top:0;width:14px;height:14px;border-radius:50%;background:#C6F432;will-change:transform;transform:translate(-999px,0)"></span>
+            <span data-dot="1" style="position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:#C6F432;will-change:transform;transform:translate(-999px,0)"></span>
+          </div>
+          <a href="#contact" style="position:relative;padding:19px 30px;color:#0E0F12;font-weight:700;font-size:16px;border-radius:14px" style-hover="color:#0E0F12">დაიწყე პროექტი</a>
+        </div>
+        <a href="#price" style="display:inline-flex;align-items:center;padding:18px 30px;border-radius:14px;border:1px solid rgba(255,255,255,0.28);font-weight:500;font-size:16px" style-hover="border-color:#C6F432">დაითვალე ფასი</a>
+      </div>
+    </div>
+    <div data-hero-frame="1" style="position:relative;margin-top:64px;border-radius:32px;overflow:hidden;aspect-ratio:{{ heroRatio }};width:100%;background:#15161a;will-change:transform">
+      <video src="assets/hero-laptop.mp4" poster="assets/s-hero.jpg" muted="" loop="" playsinline="" preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px) 0;display:flex;justify-content:center">
+  <div style="width:100%;max-width:1320px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:48px">
+      <div style="flex:1 1 560px">
+        <h2 style="margin:0;font-size:clamp(36px,5.2vw,76px);font-weight:800;line-height:1.08;letter-spacing:-0.02em;max-width:900px">ყველაფერი, რაც შენს ბიზნესს ინტერნეტში სჭირდება</h2>
+      </div>
+      <p style="margin:0;flex:0 1 min(340px,100%);min-width:0;color:#9A9AA0;line-height:1.6">ერთი კონტაქტი, ერთი გუნდი, ერთი პასუხისმგებლობა. აღარ გჭირდება ხუთ სხვადასხვა კომპანიასთან ურთიერთობა.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+      <div style="flex:1 1 min(620px,100%);min-width:0;border-radius:32px;overflow:hidden;background:#17181C;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column">
+        <div style="aspect-ratio:16/9;overflow:hidden;background:#131418;border-bottom:1px solid rgba(255,255,255,0.06);position:relative">{{ webVis }}</div>
+        <div style="padding:28px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+          <div style="flex:1 1 280px">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#C6F432;margin-bottom:10px">01</div>
+            <h3 style="margin:0 0 10px;font-size:32px;font-weight:800">ვებსაიტები</h3>
+            <p style="margin:0;color:#B9B9BE;line-height:1.6">ლენდინგები, კორპორატიული საიტები და ონლაინ მაღაზიები, რომლებიც სწრაფად იტვირთება და ყიდის.</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span style="padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.16);font-size:13px">Next.js</span>
+            <span style="padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.16);font-size:13px">Webflow</span>
+            <span style="padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.16);font-size:13px">Shopify</span>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1 1 min(400px,100%);min-width:0;min-height:480px;border-radius:32px;background:#C6F432;color:#0E0F12;padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:32px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px">02</div>
+          <div style="display:flex">
+            <span style="width:56px;height:56px;border-radius:50%;background:#0E0F12;display:block"></span>
+            <span style="width:56px;height:56px;border-radius:50%;border:2px solid #0E0F12;display:block;margin-left:-16px"></span>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin:0 0 10px;font-size:32px;font-weight:800">მობილური აპლიკაციები</h3>
+          <p style="margin:0 0 24px;line-height:1.6;max-width:380px">iOS და Android აპები ერთი კოდით ან ნატიურად. დიზაინიდან App Store ში განთავსებამდე.</p>
+          <div style="display:flex;flex-direction:column;border-top:1px solid rgba(14,15,18,0.2)">
+            <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(14,15,18,0.2);font-weight:500"><span>React Native</span><span style="width:34px;height:34px;border-radius:50%;background:#0E0F12;color:#C6F432;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(-45deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></div>
+            <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(14,15,18,0.2);font-weight:500"><span>Flutter</span><span style="width:34px;height:34px;border-radius:50%;background:#0E0F12;color:#C6F432;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(-45deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></div>
+            <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(14,15,18,0.2);font-weight:500"><span>Swift და Kotlin</span><span style="width:34px;height:34px;border-radius:50%;background:#0E0F12;color:#C6F432;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(-45deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></div>
+          </div>
+        </div>
+      </div>
+      <div data-serp="1" style="flex:1 1 min(440px,100%);min-width:0;border-radius:32px;background:#F2F1EC;color:#0E0F12;padding:28px;display:flex;flex-direction:column;gap:28px">
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:#fff;border:1px solid rgba(14,15,18,0.1);font-size:15px">
+          <span style="width:14px;height:14px;border-radius:50%;border:2px solid #0E0F12;flex:none"></span>
+          <span>ვებსაიტის დამზადება თბილისში</span>
+        </div>
+        <div style="position:relative;height:292px">
+          <sc-for list="{{ serp }}" as="r" hint-placeholder-count="4">
+            <div style="position:absolute;left:0;right:0;top:0;height:64px;display:flex;align-items:center;gap:14px;padding:0 16px;border-radius:18px;background:{{ r.bg }};color:{{ r.fg }};transform:translateY({{ r.y }});transition:transform 1.1s cubic-bezier(.6,0,.2,1),background .5s;transition-delay:{{ r.d }}">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:14px;width:26px">{{ r.pos }}</span>
+              <span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                <span style="font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.title }}</span>
+                <span style="font-size:12px;opacity:.7;font-family:'JetBrains Mono',monospace">{{ r.url }}</span>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;margin-bottom:8px">03</div>
+          <h3 style="margin:0 0 8px;font-size:30px;font-weight:800">SEO ოპტიმიზაცია</h3>
+          <p style="margin:0;line-height:1.6;color:#44454b">ტექნიკური აუდიტი, კონტენტის სტრატეგია და ბმულები. ამოდი ხმაურიდან და იყავი პირველი.</p>
+        </div>
+      </div>
+      <div style="flex:1 1 min(580px,100%);min-width:0;border-radius:32px;overflow:hidden;background:#17181C;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column">
+        <div style="flex:1;min-height:320px;overflow:hidden;background:#131418;border-bottom:1px solid rgba(255,255,255,0.06);position:relative">{{ uiVis }}</div>
+        <div style="padding:28px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#C6F432;margin-bottom:10px">04</div>
+          <h3 style="margin:0 0 8px;font-size:32px;font-weight:800">UI და UX დიზაინი</h3>
+          <p style="margin:0;max-width:460px;color:#B9B9BE;line-height:1.6">ინტერფეისები, რომლებსაც ხალხი ეხება, არა უბრალოდ უყურებს. მიკროანიმაციები, დიზაინ სისტემები, პროტოტიპები.</p>
+        </div>
+      </div>
+      <div style="flex:1 1 min(300px,100%);min-width:0;border-radius:32px;background:#17181C;border:1px solid rgba(255,255,255,0.06);padding:28px;display:flex;flex-direction:column;gap:40px;justify-content:space-between" style-hover="border-color:rgba(198,244,50,0.5)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#C6F432">05</div>
+        <div><h3 style="margin:0 0 8px;font-size:24px;font-weight:700">ონლაინ მაღაზია</h3><p style="margin:0;color:#9A9AA0;line-height:1.6">გადახდები ქართულ ბანკებთან, მარაგის მართვა, მიწოდება.</p></div>
+      </div>
+      <div style="flex:1 1 min(300px,100%);min-width:0;border-radius:32px;background:#17181C;border:1px solid rgba(255,255,255,0.06);padding:28px;display:flex;flex-direction:column;gap:40px;justify-content:space-between" style-hover="border-color:rgba(198,244,50,0.5)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#C6F432">06</div>
+        <div><h3 style="margin:0 0 8px;font-size:24px;font-weight:700">ბრენდინგი</h3><p style="margin:0;color:#9A9AA0;line-height:1.6">ლოგო, ფერები, შრიფტები და ვიზუალური ენა, რომელიც გამოგარჩევს.</p></div>
+      </div>
+      <div style="flex:1 1 min(300px,100%);min-width:0;border-radius:32px;background:#17181C;border:1px solid rgba(255,255,255,0.06);padding:28px;display:flex;flex-direction:column;gap:40px;justify-content:space-between" style-hover="border-color:rgba(198,244,50,0.5)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#C6F432">07</div>
+        <div><h3 style="margin:0 0 8px;font-size:24px;font-weight:700">ჰოსტინგი და მხარდაჭერა</h3><p style="margin:0;color:#9A9AA0;line-height:1.6">სერვერები, უსაფრთხოება, განახლებები. შენ ბიზნესს მართავ, ჩვენ საიტს.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" style="padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px) 0;display:flex;justify-content:center">
+  <div style="width:100%;max-width:1320px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:48px">
+      <div style="flex:1 1 520px">
+        <h2 style="margin:0;font-size:clamp(36px,5.2vw,76px);font-weight:800;line-height:1.08;letter-spacing:-0.02em">პროექტები, რომლებითაც ვამაყობთ</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#9A9AA0;margin-right:8px">{{ workCount }}</span>
+        <button onClick="{{ workPrev }}" style="cursor:pointer;width:52px;height:52px;border-radius:50%;background:transparent;border:1px solid rgba(255,255,255,0.22);color:#F2F1EC;display:flex;align-items:center;justify-content:center" style-hover="background:#F2F1EC;color:#0E0F12"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(180deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></button>
+        <button onClick="{{ workNext }}" style="cursor:pointer;width:52px;height:52px;border-radius:50%;background:transparent;border:1px solid rgba(255,255,255,0.22);color:#F2F1EC;display:flex;align-items:center;justify-content:center" style-hover="background:#F2F1EC;color:#0E0F12"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(0deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></button>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+      <div data-stage="1" onClick="{{ workNext }}" style="flex:2 1 min(640px,100%);min-width:0;position:relative;border-radius:32px;overflow:hidden;aspect-ratio:16/10;background:#17181C;cursor:pointer">
+        <div style="position:absolute;inset:0;opacity:{{ op0 }}"><video src="assets/laptop-color.mp4" poster="assets/c-laptop.jpg" muted="" loop="" playsinline="" preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
+        <div style="position:absolute;inset:0;opacity:{{ op1 }}"><img src="assets/c-hero.jpg" alt="" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 9s ease-in-out infinite alternate"></img></div>
+        <div style="position:absolute;inset:0;opacity:{{ op2 }}"><img src="assets/c-city.jpg" alt="" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 9s ease-in-out infinite alternate"></img></div>
+        <div style="position:absolute;inset:0;opacity:{{ op3 }}"><img src="assets/c-sculpture.jpg" alt="" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 9s ease-in-out infinite alternate"></img></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;pointer-events:none">
+          <sc-for list="{{ stripes }}" as="b" hint-placeholder-count="0">
+            <div style="flex:1;background:#C6F432;margin-bottom:-1px;transform-origin:{{ b.o }};transform:{{ b.t }};transition:transform .42s cubic-bezier(.7,0,.25,1);transition-delay:{{ b.d }}"></div>
+          </sc-for>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,0.12)"><div style="height:100%;background:#C6F432;width:{{ workProg }};transition:width {{ workProgT }} linear"></div></div>
+      </div>
+      <div style="flex:1 1 min(320px,100%);min-width:0;display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,0.1)">
+        <sc-for list="{{ works }}" as="w" hint-placeholder-count="4">
+          <button onClick="{{ w.pick }}" style="all:unset;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 4px;border-bottom:1px solid rgba(255,255,255,0.1);color:{{ w.fg }};transition:color .3s,padding .3s;padding-left:{{ w.pad }}">
+            <span style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-size:clamp(20px,1.8vw,26px);font-weight:700">{{ w.name }}</span>
+              <span style="font-size:13px;color:#9A9AA0">{{ w.cat }}</span>
+            </span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:13px">{{ w.year }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" style="padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px) 0;display:flex;justify-content:center">
+  <div style="width:100%;max-width:1320px">
+    <h2 style="margin:0 0 48px;font-size:clamp(36px,5.2vw,76px);font-weight:800;line-height:1.08;letter-spacing:-0.02em">ოთხი ნაბიჯი იდეიდან შედეგამდე</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+      <div style="flex:1 1 min(420px,100%);min-width:0;display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,0.1)">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+          <button onClick="{{ s.pick }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:24px;padding:26px 8px;border-bottom:1px solid rgba(255,255,255,0.1);color:{{ s.fg }}">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:14px;width:32px">{{ s.n }}</span>
+            <span style="flex:1;font-size:clamp(22px,2.4vw,34px);font-weight:700">{{ s.title }}</span>
+            <span style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:{{ s.dot }};color:#0E0F12;font-size:18px;transition:background .3s;flex:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(0deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="flex:1 1 min(420px,100%);min-width:0;border-radius:32px;background:#17181C;border:1px solid rgba(255,255,255,0.06);padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-height:420px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+          <span style="font-size:clamp(80px,10vw,140px);font-weight:900;line-height:0.9;color:#C6F432">{{ step.n }}</span>
+          <span style="padding:10px 16px;border-radius:999px;background:rgba(255,255,255,0.06);font-size:13px;font-family:'JetBrains Mono','Noto Sans Georgian',monospace">{{ step.time }}</span>
+        </div>
+        <div>
+          <p style="margin:0 0 24px;font-size:19px;line-height:1.6;color:#D6D6DA;text-wrap:pretty">{{ step.text }}</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <sc-for list="{{ step.out }}" as="o" hint-placeholder-count="3">
+              <span style="padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,0.16);font-size:14px">{{ o }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="audit" style="padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px) 0;display:flex;justify-content:center">
+  <div style="width:100%;max-width:1320px;border-radius:40px;background:#F2F1EC;color:#0E0F12;padding:clamp(24px,4vw,56px);display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,56px);align-items:center">
+    <div style="flex:1 1 440px">
+      <h2 style="margin:0 0 20px;font-size:clamp(34px,4.6vw,64px);font-weight:800;line-height:1.08;letter-spacing:-0.02em">რამდენად გხედავს Google?</h2>
+      <p style="margin:0 0 32px;color:#44454b;line-height:1.6;max-width:480px">ჩაწერე შენი საიტის მისამართი და მიიღე სწრაფი შეფასება. სრულ ანგარიშს 24 საათში გამოგიგზავნით.</p>
+      <div style="display:flex;gap:8px;padding:8px;border-radius:999px;background:#fff;border:1px solid rgba(14,15,18,0.1);max-width:520px">
+        <input value="{{ url }}" onChange="{{ onUrl }}" onKeyDown="{{ onUrlKey }}" placeholder="shenisaiti.ge" style="flex:1;min-width:0;border:0;outline:0;background:transparent;padding:0 16px;font-size:16px;font-family:inherit;color:#0E0F12"></input>
+        <button onClick="{{ runAudit }}" style="border:0;cursor:pointer;padding:14px 24px;border-radius:999px;background:#0E0F12;color:#F2F1EC;font-family:inherit;font-weight:600;font-size:15px;white-space:nowrap">{{ auditBtn }}</button>
+      </div>
+    </div>
+    <div style="flex:1 1 min(440px,100%);min-width:0;display:flex;flex-wrap:wrap;gap:16px">
+      <div style="flex:1 1 min(220px,100%);min-width:0;border-radius:28px;background:#fff;padding:24px;display:flex;align-items:center;justify-content:center;position:relative;min-height:260px">
+        <svg viewBox="0 0 180 180" style="width:200px;height:200px;transform:rotate(-90deg)">
+          <circle cx="90" cy="90" r="74" fill="none" stroke="#ECEBE6" stroke-width="14"></circle>
+          <circle cx="90" cy="90" r="74" fill="none" stroke="url(#ring)" stroke-width="14" stroke-linecap="round" stroke-dasharray="465" stroke-dashoffset="{{ ringOffset }}" style="transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)"></circle>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <span style="font-size:56px;font-weight:800;line-height:1">{{ scoreLabel }}</span>
+          <span style="font-size:13px;color:#5b5c62;margin-top:6px">{{ scoreNote }}</span>
+        </div>
+      </div>
+      <div style="flex:1 1 min(220px,100%);min-width:0;border-radius:28px;background:#fff;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:18px">
+        <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px"><span>{{ m.name }}</span><span style="font-family:'JetBrains Mono',monospace">{{ m.val }}</span></div>
+            <div style="height:8px;border-radius:999px;background:#ECEBE6;overflow:hidden"><div style="height:100%;border-radius:999px;background:#0E0F12;width:{{ m.w }};transition:width 1.1s cubic-bezier(.2,.8,.2,1)"></div></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="price" style="padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px) 0;display:flex;justify-content:center">
+  <div style="width:100%;max-width:1320px">
+    <h2 style="margin:0 0 48px;font-size:clamp(36px,5.2vw,76px);font-weight:800;line-height:1.08;letter-spacing:-0.02em">ააწყე პროექტი, ნახე ფასი</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+      <div style="flex:2 1 min(560px,100%);min-width:0;border-radius:32px;background:#17181C;border:1px solid rgba(255,255,255,0.06);padding:clamp(24px,3vw,40px)">
+        <div style="font-size:15px;color:#9A9AA0;margin-bottom:16px">რა გჭირდება?</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px">
+          <sc-for list="{{ types }}" as="t" hint-placeholder-count="4">
+            <button onClick="{{ t.pick }}" style="cursor:pointer;padding:16px 22px;border-radius:14px;font-family:inherit;font-size:16px;font-weight:600;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }};transition:background .25s,color .25s,border-color .25s">{{ t.label }}</button>
+          </sc-for>
+        </div>
+        <div style="font-size:15px;color:#9A9AA0;margin-bottom:16px">დამატებით</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ addons }}" as="a" hint-placeholder-count="4">
+            <button onClick="{{ a.pick }}" style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:14px;font-family:inherit;font-size:15px;background:transparent;color:#F2F1EC;border:1px solid {{ a.bd }};transition:border-color .25s">
+              <span style="width:18px;height:18px;border-radius:50%;background:{{ a.dot }};border:1px solid rgba(255,255,255,0.3);transition:background .25s"></span>
+              <span>{{ a.label }}</span>
+              <span style="color:#9A9AA0;font-family:'JetBrains Mono',monospace;font-size:13px">{{ a.price }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:1 1 min(320px,100%);min-width:0;border-radius:32px;background:#C6F432;color:#0E0F12;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:32px">
+        <div style="font-family:'JetBrains Mono','Noto Sans Georgian',monospace;font-size:13px">სავარაუდო ბიუჯეტი</div>
+        <div>
+          <div data-total="1" style="font-size:clamp(48px,5vw,72px);font-weight:900;line-height:1;font-variant-numeric:tabular-nums">{{ total }}</div>
+          <div style="margin-top:12px;font-size:16px">ვადა: {{ weeks }}</div>
+        </div>
+        <a href="#contact" style="display:flex;justify-content:space-between;align-items:center;padding:12px 12px 12px 24px;border-radius:14px;background:#0E0F12;color:#F2F1EC;font-weight:600" style-hover="background:#24252b;color:#F2F1EC"><span>დაჯავშნე ზარი</span><span style="width:36px;height:36px;border-radius:50%;background:#C6F432;color:#0E0F12;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(0deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px) 0;display:flex;justify-content:center">
+  <div style="width:100%;max-width:1320px;display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,56px)">
+    <div style="flex:1 1 min(420px,100%);min-width:0;display:flex;flex-direction:column;gap:32px">
+      <div>
+        <h2 style="margin:0;font-size:clamp(36px,5.2vw,76px);font-weight:800;line-height:1.08;letter-spacing:-0.02em">ხშირად გვეკითხებიან</h2>
+      </div>
+      <div style="border-radius:32px;background:#C6F432;color:#0E0F12;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-height:340px">
+        <div style="display:flex;align-items:center">
+          <span style="width:84px;height:84px;border-radius:50%;border:2px solid #0E0F12;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800">?</span>
+          <span style="width:84px;height:84px;border-radius:50%;background:#0E0F12;margin-left:-22px;display:block"></span>
+        </div>
+        <div>
+          <h3 style="margin:0 0 10px;font-size:clamp(26px,2.4vw,34px);font-weight:800;line-height:1.2">პასუხი ვერ იპოვე?</h3>
+          <p style="margin:0 0 24px;line-height:1.6;max-width:380px">მოგვწერე და სამუშაო საათებში ერთ საათში გიპასუხებთ.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="mailto:hello@webu.ge" style="display:inline-flex;align-items:center;gap:14px;padding:10px 10px 10px 20px;border-radius:14px;background:#0E0F12;color:#F2F1EC;font-weight:600" style-hover="background:#24252b;color:#F2F1EC"><span>hello@webu.ge</span><span style="width:34px;height:34px;border-radius:50%;background:#C6F432;color:#0E0F12;display:flex;align-items:center;justify-content:center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(-45deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></a>
+            <a href="tel:+995555123456" style="display:inline-flex;align-items:center;padding:10px 20px;border-radius:14px;border:1px solid rgba(14,15,18,0.35);color:#0E0F12;font-weight:600" style-hover="border-color:#0E0F12;color:#0E0F12">+995 555 12 34 56</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1 1 min(520px,100%);min-width:0;display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,0.1);align-self:flex-start">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+        <div style="border-bottom:1px solid rgba(255,255,255,0.1)">
+          <button onClick="{{ f.toggle }}" style="all:unset;cursor:pointer;width:100%;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:28px 0;font-size:clamp(18px,1.8vw,24px);font-weight:600;line-height:1.35">
+            <span>{{ f.q }}</span>
+            <span style="flex:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;transform:{{ f.rot }};transition:transform .3s;background:{{ f.bg }};color:{{ f.fg }}">+</span>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0 0 28px;max-width:560px;color:#B9B9BE;line-height:1.65;font-size:16px">{{ f.a }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px) 0;display:flex;justify-content:center">
+  <div style="width:100%;max-width:1320px">
+    <h2 style="margin:0 0 48px;font-size:clamp(36px,5.2vw,76px);font-weight:800;line-height:1.08;letter-spacing:-0.02em;max-width:980px">დაჯავშნე 30 წუთიანი უფასო კონსულტაცია</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+      <div style="flex:1 1 min(460px,100%);min-width:0;border-radius:32px;background:#17181C;border:1px solid rgba(255,255,255,0.06);padding:clamp(20px,3vw,32px)">
+        <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:24px">
+          <button onClick="{{ prevMonth }}" style="cursor:pointer;width:42px;height:42px;border-radius:50%;background:transparent;border:1px solid rgba(255,255,255,0.22);color:#F2F1EC;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(180deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></button>
+          <span style="padding:10px 20px;border-radius:999px;background:rgba(198,244,50,0.14);color:#C6F432;font-weight:600;min-width:170px;text-align:center">{{ monthLabel }}</span>
+          <button onClick="{{ nextMonth }}" style="cursor:pointer;width:42px;height:42px;border-radius:50%;background:transparent;border:1px solid rgba(255,255,255,0.22);color:#F2F1EC;display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;flex:none;transform:rotate(0deg)"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;text-align:center">
+          <sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="7">
+            <span style="font-size:12px;color:#9A9AA0;padding:6px 0;font-family:'JetBrains Mono','Noto Sans Georgian',monospace">{{ w }}</span>
+          </sc-for>
+          <sc-for list="{{ cells }}" as="c" hint-placeholder-count="35">
+            <button onClick="{{ c.pick }}" style="all:unset;cursor:{{ c.cursor }};aspect-ratio:1;max-height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;justify-self:center;width:100%;max-width:52px;font-size:16px;background:{{ c.bg }};color:{{ c.fg }};box-shadow:{{ c.ring }};transition:background .2s">{{ c.d }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:1 1 min(380px,100%);min-width:0;display:flex;flex-direction:column;gap:16px">
+        <div style="border-radius:32px;background:#17181C;border:1px solid rgba(255,255,255,0.06);padding:clamp(20px,3vw,32px)">
+          <div style="font-size:15px;color:#9A9AA0;margin-bottom:16px">თავისუფალი დრო</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ times }}" as="t" hint-placeholder-count="5">
+              <button onClick="{{ t.pick }}" style="cursor:pointer;padding:12px 18px;border-radius:14px;font-family:'JetBrains Mono',monospace;font-size:14px;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }}">{{ t.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="flex:1;border-radius:32px;background:#C6F432;color:#0E0F12;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;justify-content:space-between;gap:28px">
+          <div>
+            <div style="font-family:'JetBrains Mono','Noto Sans Georgian',monospace;font-size:13px;margin-bottom:10px">შენი შეხვედრა</div>
+            <div style="font-size:clamp(24px,2.4vw,32px);font-weight:800;line-height:1.25">{{ booking }}</div>
+          </div>
+          <div data-goo="1" style="position:relative;display:inline-flex;align-self:flex-start">
+            <div data-goo-layer="1" style="position:absolute;left:-170px;top:-170px;right:-170px;bottom:-170px;filter:url(#goo);pointer-events:none">
+              <div style="position:absolute;left:170px;top:170px;right:170px;bottom:170px;background:#0E0F12;border-radius:14px"></div>
+              <span data-dot="1" style="position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:#0E0F12;will-change:transform;transform:translate(-999px,0)"></span>
+              <span data-dot="1" style="position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#0E0F12;will-change:transform;transform:translate(-999px,0)"></span>
+              <span data-dot="1" style="position:absolute;left:0;top:0;width:14px;height:14px;border-radius:50%;background:#0E0F12;will-change:transform;transform:translate(-999px,0)"></span>
+              <span data-dot="1" style="position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:#0E0F12;will-change:transform;transform:translate(-999px,0)"></span>
+            </div>
+            <button onClick="{{ confirm }}" style="all:unset;cursor:pointer;position:relative;padding:19px 30px;color:#F2F1EC;font-weight:700;font-size:16px">{{ confirmLabel }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="margin-top:clamp(72px,10vw,140px);position:relative;overflow:hidden;background:#0a0a0c">
+  {{ neon }}
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,#0E0F12 0%,rgba(14,15,18,0) 30%,rgba(14,15,18,0) 60%,rgba(14,15,18,0.85) 100%);pointer-events:none"></div>
+  <div style="position:relative;padding:clamp(72px,10vw,140px) clamp(16px,4vw,48px) 32px;display:flex;justify-content:center">
+    <div style="width:100%;max-width:1320px">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px;margin-bottom:clamp(48px,8vw,120px)">
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:17px">
+          <a href="tel:+995555123456">+995 555 12 34 56</a>
+          <a href="mailto:hello@webu.ge">hello@webu.ge</a>
+          <span style="color:#9A9AA0">თბილისი, ვაჟა ფშაველას 71</span>
+        </div>
+        <div style="display:flex;gap:40px;flex-wrap:wrap;font-size:15px">
+          <div style="display:flex;flex-direction:column;gap:10px"><a href="#services">სერვისები</a><a href="#work">ნამუშევრები</a><a href="#audit">SEO აუდიტი</a></div>
+          <div style="display:flex;flex-direction:column;gap:10px"><a href="https://instagram.com">Instagram</a><a href="https://linkedin.com">LinkedIn</a><a href="https://behance.net">Behance</a></div>
+        </div>
+      </div>
+      <div style="font-family:'Unbounded',sans-serif;font-size:clamp(64px,19vw,300px);font-weight:800;line-height:0.9;letter-spacing:-0.06em;display:flex;align-items:center;gap:0.12em;flex-wrap:wrap"><span style="display:flex"><span data-letter="1" style="display:inline-block">w</span><span data-letter="1" style="display:inline-block">e</span><span data-letter="1" style="display:inline-block">b</span><span data-letter="1" style="display:inline-block">u</span></span>{{ logoFoot }}</div>
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:32px;font-size:13px;color:#9A9AA0;font-family:'JetBrains Mono','Noto Sans Georgian',monospace"><span>© 2026 Webu</span><span>კონფიდენციალურობა</span></div>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;animations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const MONTHS=['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'];
+const MONTHS_GEN=['იანვარს','თებერვალს','მარტს','აპრილს','მაისს','ივნისს','ივლისს','აგვისტოს','სექტემბერს','ოქტომბერს','ნოემბერს','დეკემბერს'];
+const STEPS=[
+ {n:'01',title:'აუდიტი და სტრატეგია',time:'1 კვირა',text:'ვსწავლობთ შენს ბიზნესს, კონკურენტებს და მომხმარებელს. ვადგენთ რა უნდა გააკეთოს საიტმა და როგორ გავზომოთ წარმატება.',out:['ბაზრის ანალიზი','საიტის სტრუქტურა','საკვანძო სიტყვები']},
+ {n:'02',title:'დიზაინი',time:'2 კვირა',text:'ვქმნით ვიზუალურ ენას და ინტერაქტიულ პროტოტიპს. ყველა ეკრანს ნახავ და შეეხები კოდის დაწერამდე.',out:['დიზაინ სისტემა','პროტოტიპი','მობილური ვერსია']},
+ {n:'03',title:'დეველოპმენტი',time:'3 დან 8 კვირამდე',text:'ვწერთ სუფთა და სწრაფ კოდს. ყოველ კვირას იღებ სამუშაო ვერსიას, რომ პროცესს რეალურ დროში ადევნო თვალი.',out:['ფრონტენდი','ადმინ პანელი','ინტეგრაციები']},
+ {n:'04',title:'გაშვება და ზრდა',time:'მუდმივად',text:'ვუშვებთ, ვზომავთ და ვაუმჯობესებთ. SEO, ანალიტიკა და ტექნიკური მხარდაჭერა გაშვების შემდეგაც გრძელდება.',out:['SEO ოპტიმიზაცია','ანალიტიკა','მხარდაჭერა']}
+];
+const TYPES=[{id:'land',label:'ლენდინგი',p:1200,w:2},{id:'corp',label:'კორპორატიული საიტი',p:2800,w:4},{id:'shop',label:'ონლაინ მაღაზია',p:5200,w:7},{id:'app',label:'მობილური აპი',p:8500,w:10}];
+const ADDONS=[{id:'seo',label:'SEO პაკეტი',p:900,w:1},{id:'lang',label:'მრავალენოვანი',p:600,w:1},{id:'admin',label:'ადმინ პანელი',p:1400,w:2},{id:'brand',label:'ბრენდინგი',p:1100,w:2}];
+const FAQS=[
+ {q:'რამდენი ხანი სჭირდება საიტის აწყობას?',a:'ლენდინგი მზად არის 2 კვირაში, კორპორატიული საიტი 4 დან 6 კვირამდე, ონლაინ მაღაზია და აპლიკაცია 2 დან 3 თვემდე. ზუსტ გრაფიკს პირველი შეხვედრის შემდეგ მიიღებ.'},
+ {q:'შემიძლია საიტი თავად ვმართო?',a:'კი. ყველა პროექტს მოყვება მარტივი ადმინ პანელი და ვიდეო ინსტრუქცია, ასე რომ ტექსტს, ფოტოებს და პროდუქტებს თავად შეცვლი.'},
+ {q:'როდის გამოჩნდება შედეგი SEO ში?',a:'პირველ ცვლილებებს 4 დან 8 კვირაში შენიშნავ. სტაბილური ზრდა ჩვეულებრივ 3 დან 6 თვემდე პერიოდში ყალიბდება. ყოველთვიურად ვაგზავნით ანგარიშს.'},
+ {q:'როგორ ხდება გადახდა?',a:'ეტაპობრივად: 40 პროცენტი დაწყებისას, 30 დიზაინის დამტკიცებისას და დანარჩენი გაშვებისას. SEO და მხარდაჭერა ყოველთვიური გადასახადია.'},
+ {q:'უკვე მაქვს საიტი. შეგიძლიათ გააუმჯობესოთ?',a:'რა თქმა უნდა. ვიწყებთ აუდიტით, შემდეგ ვწყვეტთ ღირს თუ არა არსებულის განახლება, თუ ჯობია თავიდან აწყობა.'}
+];
+const NEON=(()=>{const cols=['#C6F432','#8B6CFF','#34E0FF','#FF4FD8','#FFB23F','#4F7BFF'];let s=7;const r=()=>(s=(s*9301+49297)%233280)/233280;
+  return Array.from({length:18},(_,i)=>{const y=30+i*38+r()*14,x0=-60+r()*1100,a=120+r()*260,b=140+r()*320,dy=(r()<.5?-1:1)*(24+r()*50);
+    return{d:`M${x0.toFixed(0)} ${y.toFixed(0)}H${(x0+a).toFixed(0)}V${(y+dy).toFixed(0)}H${(x0+a+b).toFixed(0)}`,c:cols[i%cols.length],dur:(4+r()*4).toFixed(2),del:(-r()*8).toFixed(2)};});})();
+const WORKS=[
+ {name:'ტექსტილ მარკეტი',cat:'ონლაინ მაღაზია',year:'2026',src:'assets/laptop-color.mp4',poster:'assets/c-laptop.jpg',vid:true},
+ {name:'ჰორიზონტი',cat:'SaaS პლატფორმა, ვებსაიტი',year:'2025',src:'assets/c-hero.jpg',pos:'50% 50%'},
+ {name:'ქალაქი 3D',cat:'არქიტექტურა, ინტერაქტიული საიტი',year:'2025',src:'assets/c-city.jpg',pos:'50% 50%'},
+ {name:'ოქროს ხაზი',cat:'ინვესტიციები, კორპორატიული საიტი',year:'2024',src:'assets/c-sculpture.jpg',pos:'50% 50%'}
+];
+const SERP=[
+ {id:'a',title:'ვებ სტუდია პლიუსი',url:'webplus.ge'},
+ {id:'b',title:'საიტები ყველასთვის',url:'saitebi.ge'},
+ {id:'c',title:'დიჯიტალ ჰაბი',url:'dhub.ge'},
+ {id:'me',title:'შენი ბიზნესი, პირველ ადგილზე',url:'shenisaiti.ge'}
+];
+const NS=8,SLIDE=5200,P=170;
+const fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₾';
+class Component extends DCLogic {
+  state={step:0,url:'',scan:false,res:null,type:'corp',add:{seo:true},faq:0,cal:null,selD:null,selT:null,done:false,
+    liq:{open:false,x:0,y:0},wi:0,wphase:'idle',wprog:0,serp:0,narrow:false};
+  barEl=React.createRef();ringEl=React.createRef();ringLab=React.createRef();
+  componentDidMount(){
+    this.t=[];
+    const addFont=()=>{if(document.getElementById('unb'))return;const l=document.createElement('link');l.id='unb';l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Unbounded:wght@800&text=webu&display=swap';document.head.appendChild(l);};
+    if(document.readyState==='complete')addFont();else addEventListener('load',addFont,{once:true});
+    const n=new Date();this.setState({cal:{y:n.getFullYear(),m:n.getMonth()}});
+    this.fx=this.props.animations??true;
+    this.onResize=()=>{const nw=innerWidth<880;if(nw!==this.state.narrow)this.setState({narrow:nw});};
+    addEventListener('resize',this.onResize);this.onResize();
+    this.vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.muted=true;v.play().catch(()=>{});}else v.pause();}),{threshold:0.05});
+    document.querySelectorAll('video').forEach(v=>this.vio.observe(v));
+    const serpEl=document.querySelector('[data-serp]');
+    if(serpEl){this.sio=new IntersectionObserver(es=>{if(es[0].isIntersecting){this.sio.disconnect();this.t.push(setTimeout(()=>this.setState({serp:1}),500));}},{threshold:0.4});this.sio.observe(serpEl);}
+    this.setupReveal();
+    this.hf=document.querySelector('[data-hero-frame]');
+    let ticking=false;
+    this.onScroll=()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{ticking=false;this.scrollFrame();});};
+    addEventListener('scroll',this.onScroll,{passive:true});this.scrollFrame();
+    this.onClick=e=>{
+      const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+      const id=a.getAttribute('href').slice(1);const el=id&&document.getElementById(id);if(!el)return;
+      e.preventDefault();
+      if(this.state.menu)this.setState({menu:false});
+      const top=id==='top'?0:el.getBoundingClientRect().top+scrollY-90;
+      scrollTo({top,behavior:'smooth'});
+    };
+    document.addEventListener('click',this.onClick);
+    if(this.fx&&matchMedia('(hover:hover) and (pointer:fine)').matches){this.setupGoo();this.setupPlay();}
+    this.startWork();
+    this.t.push(setTimeout(()=>this.setState({barsOn:true}),500));
+    this.t.push(setTimeout(()=>this.setState({tg:true}),1400));
+  }
+  componentWillUnmount(){
+    this.t.forEach(clearTimeout);clearTimeout(this.wt);cancelAnimationFrame(this.graf);
+    removeEventListener('mousemove',this.onPlayMove);removeEventListener('pointerdown',this.onBurst);cancelAnimationFrame(this.traf);
+    document.documentElement.removeEventListener('mouseleave',this.onPlayLeave);
+    removeEventListener('scroll',this.onScroll);removeEventListener('resize',this.onResize);removeEventListener('mousemove',this.onMove);
+    document.removeEventListener('click',this.onClick);
+    [this.io,this.vio,this.sio].forEach(o=>o&&o.disconnect());
+  }
+  scrollFrame(){
+    const d=document.documentElement,p=scrollY/Math.max(1,d.scrollHeight-innerHeight);
+    if(this.barEl.current)this.barEl.current.style.transform=`scaleX(${p})`;
+    if(this.h2s&&this.h2s.length)this.h2s=this.h2s.filter(h=>{if(h.getBoundingClientRect().top<innerHeight*0.9){h.style.clipPath='inset(0 0 -20% 0)';h.style.transform='none';return false;}return true;});
+    const hf=this.hf;
+    if(hf&&this.fx){const r=hf.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){const k=Math.min(1,Math.max(0,(innerHeight-r.top)/(innerHeight*0.9)));hf.style.transform=`scale(${(0.88+0.12*k).toFixed(4)})`;}}
+  }
+  setupReveal(){
+    if(!this.fx||!('IntersectionObserver' in window))return;
+    const els=[...document.querySelectorAll('section h2, [style*="border-radius: 32px"], [style*="border-radius: 40px"], #process button, #faq button, #work button')]
+      .filter(el=>!el.closest('#top'));
+    this.h2s=[];
+    this.io=new IntersectionObserver(es=>es.forEach(en=>{
+      if(!en.isIntersecting)return;const el=en.target;this.io.unobserve(el);
+      el.style.opacity='1';el.style.transform='none';
+    }),{threshold:0.1,rootMargin:'0px 0px -5% 0px'});
+    els.forEach(el=>{
+      const d=Math.min([...el.parentElement.children].indexOf(el),5)*0.07;
+      el.style.transition=`opacity .8s cubic-bezier(.2,.7,.2,1) ${d}s, transform .9s cubic-bezier(.2,.7,.2,1) ${d}s, clip-path 1s cubic-bezier(.7,0,.2,1) ${d}s, border-color .3s, background .25s, color .3s, padding .3s`;
+      if(el.tagName==='H2'){el.style.clipPath='inset(0 0 100% 0)';el.style.transform='translateY(40px)';this.h2s.push(el);return;}
+      el.style.opacity='0';el.style.transform='translateY(48px)';
+      this.io.observe(el);
+    });
+  }
+  setupGoo(){
+    const goos=[...document.querySelectorAll('[data-goo]')].map(w=>({w,dots:[...w.querySelectorAll('[data-dot]')].map(d=>({el:d,r:d.offsetWidth/2})),tx:0,ty:0,x:0,y:0,vx:0,vy:0,init:false}));
+    const T=[0.28,0.55,0.8,1];
+    let mx=-9999,my=-9999,running=false,idle=0;
+    const step=()=>{
+      let moving=false;
+      for(const g of goos){
+        const r=g.w.getBoundingClientRect();
+        if(r.bottom<-200||r.top>innerHeight+200)continue;
+        const ax=Math.min(Math.max(mx,r.left+22),r.right-22),ay=r.bottom-6;
+        const inside=mx>=r.left&&mx<=r.right&&my>=r.top&&my<=r.bottom;
+        const dist=Math.hypot(mx-ax,my-ay);
+        const att=!inside&&dist<150&&my>r.top+r.height*0.4;
+        const tx=att?mx:ax,ty=att?my:ay-10;
+        if(!g.init){g.x=tx;g.y=ty;g.init=true;}
+        g.vx=(g.vx+(tx-g.x)*0.2)*0.7;g.vy=(g.vy+(ty-g.y)*0.2)*0.7;g.x+=g.vx;g.y+=g.vy;
+        if(Math.abs(g.vx)+Math.abs(g.vy)>0.08||att)moving=true;
+        const ox=r.left-P,oy=r.top-P;
+        g.dots.forEach((d,i)=>{const t=T[i];const px=ax+(g.x-ax)*t-ox-d.r,py=ay+(g.y-ay)*t-oy-d.r;
+          d.el.style.transform=`translate(${px.toFixed(1)}px,${py.toFixed(1)}px)`;});
+      }
+      idle=moving?0:idle+1;
+      if(idle<20)this.graf=requestAnimationFrame(step);else running=false;
+    };
+    this.onMove=e=>{mx=e.clientX;my=e.clientY;idle=0;if(!running){running=true;this.graf=requestAnimationFrame(step);}};
+    addEventListener('mousemove',this.onMove,{passive:true});
+    running=true;this.graf=requestAnimationFrame(step);
+  }
+  setupPlay(){
+    const ring=this.ringEl.current,lab=this.ringLab.current;
+    let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my,raf=0,mag=null,card=null,mode='';
+    const lines=[...document.querySelectorAll('[data-depth]')],letters=[...document.querySelectorAll('[data-letter]')];
+    const setMode=m=>{if(m===mode||!ring)return;mode=m;
+      const big=m==='stage',link=m==='link',hide=m==='hide';
+      ring.style.width=ring.style.height=big?'96px':link?'54px':'32px';
+      ring.style.background=big?'#C6F432':link?'rgba(198,244,50,0.14)':'transparent';
+      ring.style.borderColor=big?'#C6F432':hide?'transparent':'rgba(198,244,50,0.8)';
+      lab.style.opacity=big?1:0;};
+    const lightBg=el=>{if(el.__lt==null){const c=getComputedStyle(el).backgroundColor.match(/\d+/g)||[0,0,0];el.__lt=(+c[0]+ +c[1]+ +c[2])>450;}return el.__lt;};
+    const releaseCard=()=>{if(!card)return;card.style.transition='transform .7s cubic-bezier(.2,.7,.2,1), opacity .8s';card.style.transform='none';card.style.backgroundImage='';card=null;};
+    const releaseMag=()=>{if(!mag)return;mag.style.transition='translate .5s cubic-bezier(.5,1.6,.4,1)';mag.style.translate='0 0';mag=null;};
+    const tick=()=>{
+      rx+=(mx-rx)*0.22;ry+=(my-ry)*0.22;
+      if(ring)ring.style.transform=`translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px) translate(-50%,-50%)`;
+      if(scrollY<innerHeight*1.2){const nx=mx/innerWidth-0.5,ny=my/innerHeight-0.5;
+        lines.forEach(l=>{const d=+l.dataset.depth;l.style.translate=`${(nx*d).toFixed(1)}px ${(ny*d*0.5).toFixed(1)}px`;});}
+      if(letters.length){const r0=letters[0].getBoundingClientRect();
+        if(r0.top<innerHeight&&r0.bottom>0)letters.forEach(L=>{const r=L.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=cx-mx,dy=cy-my,d=Math.hypot(dx,dy),R=260;
+          if(d<R){const f=(1-d/R);L.style.translate=`${(dx/d*f*28||0).toFixed(1)}px ${(dy/d*f*38||0).toFixed(1)}px`;L.style.color=f>0.35?'#C6F432':'';}
+          else if(L.style.translate){L.style.translate='';L.style.color='';}});}
+      if(Math.abs(mx-rx)+Math.abs(my-ry)>0.3)raf=requestAnimationFrame(tick);else raf=0;
+    };
+    this.onPlayMove=e=>{
+      mx=e.clientX;my=e.clientY;if(!raf)raf=requestAnimationFrame(tick);
+      const t=e.target;
+      if(ring&&ring.style.opacity!=='1')ring.style.opacity='1';
+      const stage=t.closest&&t.closest('[data-stage]');
+      const link=t.closest&&t.closest('a,button');
+      setMode(t.closest&&t.closest('input')?'hide':stage?'stage':link?'link':'');
+      const m=link&&!link.closest('[data-goo]')&&!link.closest('nav > div')&&!stage?link:null;
+      if(m!==mag){releaseMag();mag=m;if(mag)mag.style.transition='translate .15s ease-out';}
+      if(mag){const r=mag.getBoundingClientRect();const cl=(v,m)=>Math.max(-m,Math.min(m,v));mag.style.translate=`${cl((mx-r.left-r.width/2)*0.28,12).toFixed(1)}px ${cl((my-r.top-r.height/2)*0.38,9).toFixed(1)}px`;}
+      const c=t.closest&&t.closest('[style*="border-radius: 32px"]');
+      if(c!==card){releaseCard();card=c&&c.style.opacity!=='0'?c:null;if(card)card.style.transition='transform .18s ease-out, opacity .8s';}
+      if(card){const r=card.getBoundingClientRect(),x=mx-r.left,y=my-r.top,nx=x/r.width-0.5,ny=y/r.height-0.5;
+        card.style.transform=`perspective(1100px) rotateX(${(-ny*4).toFixed(2)}deg) rotateY(${(nx*5).toFixed(2)}deg)`;
+        card.style.backgroundImage=`radial-gradient(420px circle at ${x.toFixed(0)}px ${y.toFixed(0)}px, ${lightBg(card)?'rgba(255,255,255,0.45)':'rgba(198,244,50,0.09)'}, transparent 65%)`;}
+    };
+    this.onPlayLeave=()=>{if(ring)ring.style.opacity='0';releaseMag();releaseCard();};
+    addEventListener('mousemove',this.onPlayMove,{passive:true});
+    document.documentElement.addEventListener('mouseleave',this.onPlayLeave);
+  }
+  setupBurst(){
+    const cols=['#C6F432','#8B6CFF','#F2F1EC'];
+    this.onBurst=e=>{
+      if(e.target.closest&&e.target.closest('input'))return;
+      const n=9;
+      for(let i=0;i<n;i++){const d=document.createElement('span');const a=(i/n)*Math.PI*2+Math.random()*0.5,dist=28+Math.random()*34,sz=4+Math.random()*5;
+        d.style.cssText=`position:fixed;left:${e.clientX-sz/2}px;top:${e.clientY-sz/2}px;width:${sz}px;height:${sz}px;border-radius:50%;background:${cols[i%3]};pointer-events:none;z-index:210;transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .6s ease-in`;
+        document.body.appendChild(d);
+        requestAnimationFrame(()=>requestAnimationFrame(()=>{d.style.transform=`translate(${Math.cos(a)*dist}px,${Math.sin(a)*dist}px) scale(.3)`;d.style.opacity='0';}));
+        setTimeout(()=>d.remove(),700);}
+    };
+    addEventListener('pointerdown',this.onBurst,{passive:true});
+  }
+  componentDidUpdate(){
+    const target=this.calcTotal().total;
+    if(this.shown==null){this.shown=target;return;}
+    if(this.tgt===target)return;this.tgt=target;
+    const from=this.shownNow??this.shown,t0=performance.now();cancelAnimationFrame(this.traf);
+    const step=now=>{const k=Math.min(1,(now-t0)/700),ez=1-Math.pow(1-k,3);this.shownNow=Math.round(from+(target-from)*ez);
+      if(this.totEl)this.totEl.nodeValue=fmt(this.shownNow);if(k<1)this.traf=requestAnimationFrame(step);};
+    const host=document.querySelector('[data-total]');this.totEl=null;
+    if(host){const w=document.createTreeWalker(host,NodeFilter.SHOW_TEXT);let n;while((n=w.nextNode()))if(/₾/.test(n.nodeValue)){this.totEl=n;break;}}
+    this.traf=requestAnimationFrame(step);
+  }
+  calcTotal(){const s=this.state,type=TYPES.find(t=>t.id===s.type);let total=type.p,wk=type.w;ADDONS.forEach(a=>{if(s.add[a.id]){total+=a.p;wk+=a.w;}});return{total,wk};}
+  startWork(){
+    clearTimeout(this.wt);
+    this.setState({wprog:0});
+    requestAnimationFrame(()=>requestAnimationFrame(()=>this.setState({wprog:1})));
+    this.wt=setTimeout(()=>this.goWork(1),SLIDE);
+  }
+  goWork(dir,abs){
+    if(this.state.wphase!=='idle')return;
+    clearTimeout(this.wt);
+    const next=abs!=null?abs:(this.state.wi+dir+WORKS.length)%WORKS.length;
+    if(next===this.state.wi){this.startWork();return;}
+    this.setState({wphase:'cover',wprog:0});
+    this.t.push(setTimeout(()=>{this.setState({wi:next,wphase:'reveal'});
+      this.t.push(setTimeout(()=>{this.setState({wphase:'idle'});this.startWork();},750));},750));
+  }
+  runAudit=()=>{
+    const u=this.state.url.trim();if(!u||this.state.scan)return;
+    this.setState({scan:true,res:null});
+    let h=0;for(const c of u)h=(h*31+c.charCodeAt(0))>>>0;
+    const r=i=>52+((h>>(i*5))%44);
+    this.t.push(setTimeout(()=>this.setState({scan:false,res:[r(0),r(1),r(2),r(3)]}),1500));
+  };
+  renderVals(){
+    const s=this.state,now=new Date();
+    const cal=s.cal||{y:now.getFullYear(),m:now.getMonth()};
+    const first=(new Date(cal.y,cal.m,1).getDay()+6)%7,dim=new Date(cal.y,cal.m+1,0).getDate();
+    const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    const cells=[];
+    for(let i=0;i<first;i++)cells.push({d:'',bg:'transparent',fg:'#F2F1EC',ring:'none',cursor:'default',pick:()=>{}});
+    for(let d=1;d<=dim;d++){
+      const dt=new Date(cal.y,cal.m,d),wd=dt.getDay(),off=dt<today||wd===0||wd===6;
+      const sel=s.selD&&s.selD.y===cal.y&&s.selD.m===cal.m&&s.selD.d===d;
+      const isT=+dt===+today;
+      cells.push({d,bg:sel?'#C6F432':'transparent',fg:sel?'#0E0F12':off?'#4A4B52':'#F2F1EC',ring:isT&&!sel?'inset 0 0 0 1px #C6F432':'none',cursor:off?'default':'pointer',pick:()=>{if(!off)this.setState({selD:{y:cal.y,m:cal.m,d},done:false});}});
+    }
+    const res=s.res,avg=res?Math.round(res.reduce((a,b)=>a+b,0)/4):0;
+    const type=TYPES.find(t=>t.id===s.type);
+    let total=type.p,wk=type.w;ADDONS.forEach(a=>{if(s.add[a.id]){total+=a.p;wk+=a.w;}});
+    const booking=s.done?'დაჯავშნილია! დაგიკავშირდებით მალე':s.selD&&s.selT?`${s.selD.d} ${MONTHS_GEN[s.selD.m]}, ${s.selT}`:s.selD?`${s.selD.d} ${MONTHS_GEN[s.selD.m]}, აირჩიე დრო`:'აირჩიე დღე და დრო';
+    const fxOn=this.props.animations??true;
+    const L=s.liq,clip=`circle(${L.open?'150vmax':'0px'} at ${L.x}px ${L.y}px)`;
+    const fx=React.createElement(React.Fragment,null,
+      React.createElement('div',{ref:this.ringEl,style:{position:'fixed',left:0,top:0,width:32,height:32,borderRadius:'50%',border:'1.5px solid rgba(198,244,50,0.8)',zIndex:190,pointerEvents:'none',opacity:0,transform:'translate(-100px,-100px)',transition:'width .35s cubic-bezier(.5,1.6,.4,1),height .35s cubic-bezier(.5,1.6,.4,1),background .3s,border-color .3s,opacity .3s',display:fxOn?'flex':'none',alignItems:'center',justifyContent:'center'}},
+        React.createElement('span',{ref:this.ringLab,style:{fontSize:12,fontWeight:700,color:'#0E0F12',opacity:0,transition:'opacity .2s',whiteSpace:'nowrap'}},'შემდეგი')),
+      React.createElement('div',{ref:this.barEl,style:{position:'fixed',left:0,top:0,right:0,height:3,background:'#C6F432',transformOrigin:'0 50%',transform:'scaleX(0)',zIndex:120,pointerEvents:'none'}}),
+      false&&React.createElement('div',{style:{position:'fixed',inset:0,background:'#C6F432',zIndex:150,pointerEvents:L.open?'auto':'none',clipPath:clip,WebkitClipPath:clip,transition:'clip-path .65s cubic-bezier(.7,0,.2,1),-webkit-clip-path .65s cubic-bezier(.7,0,.2,1)',display:'flex',alignItems:'center',justifyContent:'center',color:'#0E0F12'}},
+        React.createElement('span',{style:{fontSize:'clamp(48px,9vw,140px)',fontWeight:800,fontFamily:"'Unbounded',sans-serif",letterSpacing:'-0.06em',opacity:L.open?1:0,transition:'opacity .35s'}},'webu')));
+    const e=React.createElement,D=6,U=8;
+    const logo=(s,u,filt,dur)=>{const v=n=>(n*s).toFixed(3)+u;
+      return e('span',{style:{position:'relative',display:'inline-block',width:v(1.95),height:v(1.2),filter:`url(#${filt})`,flex:'none'}},
+        e('span',{style:{position:'absolute',left:0,top:0,width:v(1),height:v(1),borderRadius:'50%',background:'#C6F432',animation:`lgA ${dur}s ease-in-out infinite`}}),
+        e('span',{style:{position:'absolute',left:v(0.33),top:v(0.62),width:v(0.34),height:v(0.34),borderRadius:'50%',background:'#C6F432','--f':v(0.32),animation:`lgC ${dur}s cubic-bezier(.5,0,.5,1) infinite`}}),
+        e('span',{style:{position:'absolute',left:v(1.3),top:v(0.19),width:v(0.62),height:v(0.62),borderRadius:'50%',background:'#8B6CFF','--d':v(-0.58),animation:`lgB ${dur}s cubic-bezier(.65,0,.35,1) infinite`}}));};
+    const logoNav=logo(20,'px','goo-s',4.5),logoFoot=logo(0.6,'em','goo-l',6);
+    const b=(delay,st,kids)=>e('div',{style:{animation:`wbuild ${D}s cubic-bezier(.2,.7,.2,1) ${delay}s infinite both`,...st}},kids);
+    const bar=(w,hh,c,delay,extra)=>b(delay,{width:w,height:hh,borderRadius:hh/2,background:c,...extra});
+    const webVis=e('div',{style:{position:'absolute',inset:'clamp(16px,4%,32px)',bottom:0,borderRadius:'18px 18px 0 0',background:'#0E0F12',border:'1px solid rgba(255,255,255,0.08)',borderBottom:0,display:'flex',flexDirection:'column',overflow:'hidden'}},
+      e('div',{style:{display:'flex',alignItems:'center',gap:6,padding:'12px 14px',borderBottom:'1px solid rgba(255,255,255,0.06)'}},
+        ...[0,1,2].map(i=>e('span',{key:i,style:{width:9,height:9,borderRadius:'50%',background:'#2a2b31'}})),
+        e('span',{style:{marginLeft:12,padding:'4px 14px',borderRadius:999,background:'#1b1c21',fontSize:11,color:'#9A9AA0',fontFamily:"'JetBrains Mono',monospace"}},'webu.ge')),
+      e('div',{style:{flex:1,padding:'5% 6%',display:'flex',flexDirection:'column',gap:'4.5%',position:'relative'}},
+        b(0.1,{display:'flex',alignItems:'center',justifyContent:'space-between'},[
+          e('span',{key:'l',style:{width:18,height:18,borderRadius:'50%',background:'#C6F432'}}),
+          e('span',{key:'n',style:{display:'flex',gap:8}},[0,1,2].map(i=>e('span',{key:i,style:{width:34,height:6,borderRadius:3,background:'#2a2b31'}})))]),
+        e('div',{style:{display:'flex',flexDirection:'column',gap:10,marginTop:'3%'}},
+          bar('68%',16,'#F2F1EC',0.35),bar('44%',16,'#F2F1EC',0.5),bar('56%',6,'#3a3b42',0.7,{marginTop:6}),bar('38%',6,'#3a3b42',0.8)),
+        b(1.0,{alignSelf:'flex-start',position:'relative'},
+          e('div',{style:{position:'relative',padding:'9px 18px',borderRadius:10,background:'#C6F432',color:'#0E0F12',fontSize:12,fontWeight:700,animation:`wpress ${D}s ease ${1.0}s infinite both`}},
+            'დაიწყე',
+            e('span',{style:{position:'absolute',left:28,top:14,width:22,height:22,margin:'-11px 0 0 -11px',borderRadius:'50%',border:'2px solid #C6F432',animation:`wring ${D}s ease-out ${1.0}s infinite both`}}),
+            e('span',{style:{position:'absolute',left:0,top:0,width:14,height:14,borderRadius:'50%',background:'#F2F1EC',border:'3px solid #0E0F12',boxShadow:'0 0 0 1px #F2F1EC',animation:`wcur ${D}s cubic-bezier(.5,0,.2,1) ${1.0}s infinite both`}}))),
+        e('div',{style:{display:'flex',gap:'3%',flex:1,minHeight:0}},[0,1,2].map(i=>b(1.3+i*0.15,{flex:1,borderRadius:12,background:'#1b1c21',border:'1px solid rgba(255,255,255,0.05)'},null))),
+        e('div',{style:{position:'absolute',right:'6%',top:'8%',width:64,height:64,borderRadius:'50%',background:'#C6F432',color:'#0E0F12',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',animation:`wpop ${D}s cubic-bezier(.3,1.6,.5,1) 1.0s infinite both`}},
+          e('span',{style:{fontSize:20,fontWeight:900,lineHeight:1}},'100'),
+          e('span',{style:{fontSize:9,fontFamily:"'JetBrains Mono',monospace",marginTop:2}},'სიჩქარე'))));
+    const cr=pos=>e('span',{key:pos,style:{position:'absolute',width:7,height:7,background:'#F2F1EC',border:'1.5px solid #C6F432',...pos}});
+    const uiVis=e('div',{style:{position:'absolute',inset:0,backgroundImage:'radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)',backgroundSize:'18px 18px'}},
+      e('div',{style:{position:'absolute',left:'20%',top:'12%',width:'44%',height:'76%',borderRadius:14,background:'#1b1c21',border:'1px solid rgba(255,255,255,0.06)'}},
+        e('div',{style:{position:'absolute',left:'6%',top:'5%',width:'88%',height:'45%',borderRadius:10,animation:`uimg ${U}s ease infinite`}}),
+        e('div',{style:{position:'absolute',left:'6%',top:'56%',width:'70%',height:10,borderRadius:5,background:'#F2F1EC'}}),
+        e('div',{style:{position:'absolute',left:'6%',top:'64%',width:'48%',height:6,borderRadius:3,background:'#3a3b42'}}),
+        e('div',{style:{position:'absolute',left:'6%',bottom:'7%',width:'50%',height:'14%',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:700,animation:`ubtn ${U}s ease infinite`}},'ღილაკი')),
+      e('div',{style:{position:'absolute',border:'1.5px solid #C6F432',animation:`usel ${U}s cubic-bezier(.7,0,.2,1) infinite`,pointerEvents:'none'}},
+        cr({left:-4,top:-4}),cr({right:-4,top:-4}),cr({left:-4,bottom:-4}),cr({right:-4,bottom:-4})),
+      e('div',{style:{position:'absolute',left:'70%',top:'18%',width:'22%',minWidth:96,padding:10,borderRadius:12,background:'#0E0F12',border:'1px solid rgba(255,255,255,0.08)'}},
+        e('div',{style:{fontSize:10,color:'#9A9AA0',marginBottom:8,fontFamily:"'JetBrains Mono',monospace"}},'ფერი'),
+        e('div',{style:{position:'relative',display:'flex',flexDirection:'column',gap:8}},
+          e('span',{style:{position:'absolute',left:-4,top:-4,right:-4,height:44,borderRadius:8,border:'1.5px solid #C6F432',animation:`uswatch ${U}s cubic-bezier(.7,0,.2,1) infinite`}}),
+          ...[['#C6F432','ლაიმი'],['#8B6CFF','იისფერი'],['#0E0F12','მუქი']].map(([c,n])=>e('div',{key:c,style:{display:'flex',alignItems:'center',gap:8,height:36}},
+            e('span',{style:{width:24,height:24,borderRadius:6,background:c,border:'1px solid rgba(255,255,255,0.15)',flex:'none'}}),
+            e('span',{style:{fontSize:11,color:'#D6D6DA'}},n))))));
+    const order=s.serp?['me','a','b','c']:['a','b','c','me'];
+    const W=WORKS[s.wi];
+    return {
+      fx,webVis,uiVis,logoNav,logoFoot,navVis:s.narrow?'hidden':'visible',navW:s.narrow?'0px':'auto',
+      serp:SERP.map(r=>{const k=order.indexOf(r.id),me=r.id==='me';return{...r,pos:'#'+(k+1),y:(k*76)+'px',d:me?'0s':'.15s',bg:me?(s.serp?'#C6F432':'#fff'):'#fff',fg:'#0E0F12'};}),
+      stripes:Array.from({length:NS},(_,i)=>({o:s.wphase==='reveal'?'100% 50%':'0% 50%',t:s.wphase==='cover'?'scaleX(1)':'scaleX(0)',d:(s.wphase==='idle'?0:i*0.045)+'s'})),
+      work:W,
+      workCount:`${String(s.wi+1).padStart(2,'0')} / ${String(WORKS.length).padStart(2,'0')}`,
+      workProg:s.wprog?'100%':'0%',workProgT:s.wprog?SLIDE+'ms':'0ms',
+      workPrev:()=>this.goWork(-1),workNext:()=>this.goWork(1),
+      navGap:s.narrow?'8px':'24px',ctaDisp:s.narrow?'none':'inline-flex',heroRatio:s.narrow?'4 / 3':'16 / 8',
+      tgToggle:()=>this.setState(p=>({tg:!p.tg})),
+      tgBg:s.tg?'#C6F432':'#23242a',tgKnob:s.tg?'#0E0F12':'#F2F1EC',tgX:s.tg?'1em':'0em',tgGlow:s.tg?'0 0 0.3em rgba(198,244,50,0.45)':'none',
+      ringTap:()=>{clearTimeout(this.rt);this.setState(p=>({ringN:(p.ringN||0)+1,ringP:true,rip:false}));
+        requestAnimationFrame(()=>this.setState({rip:true}));this.rt=setTimeout(()=>this.setState({ringP:false}),160);},
+      ringBg:s.ringN?'#C6F432':'transparent',ringS:s.ringP?0.78:1,
+      ripO:s.rip?0:0.9,ripS:s.rip?2.4:1,ripT:s.rip?'transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s':'none',
+      ringN:s.ringN?String(Math.min(s.ringN,99)):'',badgeS:s.ringN?1:0,
+      barsTap:()=>this.setState(p=>({barsK:(p.barsK||0)+1})),
+      bars:(()=>{const k=s.barsK||0;let seed=k*7+3;const r=()=>(seed=(seed*9301+49297)%233280)/233280;
+        const hs=k===0?[0.22,0.36,0.5,0.68,0.86,1]:Array.from({length:6},(_,i)=>i===5?1:0.15+r()*0.7);
+        return hs.map((v,i)=>({h:(s.barsOn?v*100:8)+'%',c:i===5?'#C6F432':'#3a3b42',d:(i*0.06)+'s'}));})(),
+      op0:s.wi===0?1:0,op1:s.wi===1?1:0,op2:s.wi===2?1:0,op3:s.wi===3?1:0,
+      narrow:s.narrow,menuOpen:!!s.menu,openMenu:()=>this.setState({menu:true}),closeMenu:()=>this.setState({menu:false}),
+      pillA:e(React.Fragment,null,
+        e('span',{style:{position:'absolute',inset:0,background:'#C6F432',animation:'tgB 3.6s cubic-bezier(.7,0,.3,1) infinite'}}),
+        e('span',{style:{position:'absolute',left:'0.1em',top:'0.1em',width:'0.5em',height:'0.5em',borderRadius:'50%',background:'#F2F1EC',animation:'tgK 3.6s cubic-bezier(.7,0,.3,1) infinite'}})),
+      pillB:e('span',{style:{position:'absolute',left:'0.26em',right:'0.26em',top:'0.12em',bottom:'0.12em',display:'flex',alignItems:'flex-end',gap:'0.09em'}},
+        [0.22,0.36,0.5,0.68,0.86,1].map((k,i)=>e('span',{key:i,style:{flex:1,height:(k*100)+'%',borderRadius:'0.05em',background:i===5?'#C6F432':'#3a3b42',transformOrigin:'50% 100%',animation:`grow 3.6s cubic-bezier(.2,.8,.2,1) ${i*0.12}s infinite both`}}))),
+      neon:e('svg',{viewBox:'0 0 1440 720',preserveAspectRatio:'xMidYMid slice',style:{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none'}},
+        NEON.map((n,i)=>e('g',{key:i},
+          e('path',{d:n.d,fill:'none',stroke:'#1f2027',strokeWidth:1.5}),
+          e('path',{d:n.d,fill:'none',stroke:n.c,strokeWidth:2.5,strokeLinecap:'round',pathLength:1000,strokeDasharray:'80 1000',style:{animation:`trace ${n.dur}s linear ${n.del}s infinite`}})))),
+      works:WORKS.map((w,i)=>({...w,op:i===s.wi?1:0,img:!w.vid,vid:!!w.vid,fg:i===s.wi?'#C6F432':'#F2F1EC',pad:i===s.wi?'16px':'4px',pick:()=>this.goWork(0,i)})),
+      steps:STEPS.map((st,i)=>({...st,fg:i===s.step?'#F2F1EC':'#6E6F76',dot:i===s.step?'#C6F432':'rgba(255,255,255,0.08)',pick:()=>this.setState({step:i})})),
+      step:STEPS[s.step],
+      url:s.url,onUrl:e=>this.setState({url:e.target.value}),onUrlKey:e=>{if(e.key==='Enter')this.runAudit();},runAudit:this.runAudit,
+      auditBtn:s.scan?'სკანირება...':'შემოწმება',
+      ringOffset:465*(1-avg/100),scoreLabel:s.scan?'...':res?String(avg):'0',
+      scoreNote:s.scan?'ვამოწმებთ':res?(avg>80?'კარგი შედეგია':avg>65?'არის რეზერვი':'საჭიროებს ყურადღებას'):'საერთო ქულა',
+      metrics:['სიჩქარე','ტექნიკური SEO','მობილური','კონტენტი'].map((n,i)=>({name:n,val:res?res[i]:0,w:(res?res[i]:0)+'%'})),
+      types:TYPES.map(t=>{const on=t.id===s.type;return{label:t.label,bg:on?'#F2F1EC':'transparent',fg:on?'#0E0F12':'#F2F1EC',bd:on?'#F2F1EC':'rgba(255,255,255,0.18)',pick:()=>this.setState({type:t.id})};}),
+      addons:ADDONS.map(a=>{const on=!!s.add[a.id];return{label:a.label,price:'+'+fmt(a.p),dot:on?'#C6F432':'transparent',bd:on?'#C6F432':'rgba(255,255,255,0.18)',pick:()=>this.setState(p=>({add:{...p.add,[a.id]:!p.add[a.id]}}))};}),
+      total:fmt(total),weeks:`დაახლოებით ${wk} კვირა`,
+      faqs:FAQS.map((f,i)=>{const o=s.faq===i;return{...f,open:o,rot:o?'rotate(45deg)':'none',bg:o?'#C6F432':'transparent',fg:o?'#0E0F12':'#F2F1EC',toggle:()=>this.setState({faq:o?-1:i})};}),
+      monthLabel:`${MONTHS[cal.m]} ${cal.y}`,
+      prevMonth:()=>this.setState({cal:cal.m===0?{y:cal.y-1,m:11}:{y:cal.y,m:cal.m-1}}),
+      nextMonth:()=>this.setState({cal:cal.m===11?{y:cal.y+1,m:0}:{y:cal.y,m:cal.m+1}}),
+      weekdays:['ორშ','სამ','ოთხ','ხუთ','პარ','შაბ','კვი'],cells,
+      times:['10:00','11:30','13:00','15:00','16:30'].map(t=>{const on=s.selT===t;return{label:t,bg:on?'#C6F432':'transparent',fg:on?'#0E0F12':'#F2F1EC',bd:on?'#C6F432':'rgba(255,255,255,0.18)',pick:()=>this.setState({selT:t,done:false})};}),
+      booking,confirmLabel:s.done?'მადლობა':'დადასტურება',
+      confirm:()=>{if(s.selD&&s.selT)this.setState({done:true});}
+    };
+  }
+}
+</script>
+</body>
+</html>

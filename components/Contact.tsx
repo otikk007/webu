@@ -1,0 +1,94 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { MONTHS, MONTHS_GEN } from '@/lib/site';
+import { Arrow, Goo } from './ui';
+
+const WEEKDAYS = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვი'];
+const TIMES = ['10:00', '11:30', '13:00', '15:00', '16:30'];
+type YMD = { y: number; m: number; d: number };
+
+export default function Contact() {
+  const [cal, setCal] = useState<{ y: number; m: number } | null>(null);
+  const [selD, setSelD] = useState<YMD | null>(null);
+  const [selT, setSelT] = useState<string | null>(null);
+  const [done, setDone] = useState(false);
+
+  // month depends on the visitor's clock, so it is set after hydration
+  useEffect(() => { const n = new Date(); setCal({ y: n.getFullYear(), m: n.getMonth() }); }, []);
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  const cells: React.ReactNode[] = [];
+  if (cal) {
+    const first = (new Date(cal.y, cal.m, 1).getDay() + 6) % 7, dim = new Date(cal.y, cal.m + 1, 0).getDate();
+    for (let i = 0; i < first; i++) cells.push(<span key={'e' + i} />);
+    for (let d = 1; d <= dim; d++) {
+      const dt = new Date(cal.y, cal.m, d), wd = dt.getDay(), off = dt < today || wd === 0 || wd === 6;
+      const sel = !!selD && selD.y === cal.y && selD.m === cal.m && selD.d === d;
+      const isT = +dt === +today;
+      cells.push(
+        <button key={d} className="unstyled" disabled={off} aria-pressed={sel} aria-label={`${d} ${MONTHS_GEN[cal.m]}`}
+          onClick={() => { if (!off) { setSelD({ y: cal.y, m: cal.m, d }); setDone(false); } }}
+          style={{ cursor: off ? 'default' : 'pointer', aspectRatio: '1', maxHeight: 52, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', justifySelf: 'center', width: '100%', maxWidth: 52, fontSize: 16, background: sel ? '#C6F432' : 'transparent', color: sel ? '#0E0F12' : off ? '#4A4B52' : '#F2F1EC', boxShadow: isT && !sel ? 'inset 0 0 0 1px #C6F432' : 'none', transition: 'background .2s' }}>
+          {d}
+        </button>,
+      );
+    }
+  }
+
+  const booking = done ? 'დაჯავშნილია! დაგიკავშირდებით მალე'
+    : selD && selT ? `${selD.d} ${MONTHS_GEN[selD.m]}, ${selT}`
+    : selD ? `${selD.d} ${MONTHS_GEN[selD.m]}, აირჩიე დრო`
+    : 'აირჩიე დღე და დრო';
+
+  const shift = (k: number) => setCal(c => {
+    if (!c) return c;
+    const m = c.m + k;
+    return { y: c.y + Math.floor(m / 12), m: (m + 12) % 12 };
+  });
+
+  const navBtn = { cursor: 'pointer', width: 42, height: 42 } as const;
+
+  return (
+    <section id="contact" className="sec">
+      <div className="inner">
+        <h2 className="h2" style={{ marginBottom: 48, maxWidth: 980 }}>დაჯავშნე 30 წუთიანი უფასო კონსულტაცია</h2>
+        <div className="grid">
+          <div className="card r32" style={{ flex: '1 1 min(460px,100%)', padding: 'clamp(20px,3vw,32px)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 24 }}>
+              <button className="circle-btn" style={navBtn} onClick={() => shift(-1)} aria-label="წინა თვე"><Arrow rot={180} /></button>
+              <span aria-live="polite" style={{ padding: '10px 20px', borderRadius: 999, background: 'rgba(198,244,50,0.14)', color: '#C6F432', fontWeight: 600, minWidth: 170, textAlign: 'center' }}>{cal ? `${MONTHS[cal.m]} ${cal.y}` : ' '}</span>
+              <button className="circle-btn" style={navBtn} onClick={() => shift(1)} aria-label="შემდეგი თვე"><Arrow /></button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,minmax(0,1fr))', gap: 6, textAlign: 'center' }}>
+              {WEEKDAYS.map(w => <span key={w} style={{ fontSize: 12, color: '#9A9AA0', padding: '6px 0', fontFamily: 'var(--mono), var(--geo)' }}>{w}</span>)}
+              {cells}
+            </div>
+          </div>
+          <div style={{ flex: '1 1 min(380px,100%)', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div className="card r32" style={{ padding: 'clamp(20px,3vw,32px)' }}>
+              <div style={{ fontSize: 15, color: '#9A9AA0', marginBottom: 16 }}>თავისუფალი დრო</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                {TIMES.map(t => {
+                  const on = selT === t;
+                  return <button key={t} className="mono" aria-pressed={on} onClick={() => { setSelT(t); setDone(false); }} style={{ cursor: 'pointer', padding: '12px 18px', borderRadius: 14, fontSize: 14, background: on ? '#C6F432' : 'transparent', color: on ? '#0E0F12' : '#F2F1EC', border: `1px solid ${on ? '#C6F432' : 'rgba(255,255,255,0.18)'}` }}>{t}</button>;
+                })}
+              </div>
+            </div>
+            <div className="r32" style={{ flex: 1, background: '#C6F432', color: '#0E0F12', padding: 'clamp(20px,3vw,32px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 28 }}>
+              <div>
+                <div style={{ fontFamily: 'var(--mono), var(--geo)', fontSize: 13, marginBottom: 10 }}>შენი შეხვედრა</div>
+                <div aria-live="polite" style={{ fontSize: 'clamp(24px,2.4vw,32px)', fontWeight: 800, lineHeight: 1.25 }}>{booking}</div>
+              </div>
+              <Goo color="#0E0F12" style={{ alignSelf: 'flex-start' }}>
+                <button className="unstyled" onClick={() => { if (selD && selT) setDone(true); }} style={{ position: 'relative', padding: '19px 30px', color: '#F2F1EC', fontWeight: 700, fontSize: 16 }}>{done ? 'მადლობა' : 'დადასტურება'}</button>
+              </Goo>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

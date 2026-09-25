@@ -161,6 +161,7 @@ button { font-family: inherit; }
 .lang-btn { display: flex; align-items: center; gap: 7px; height: 42px; padding: 0 12px 0 13px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.14); background: transparent; color: var(--ink-2); font: 600 13px/1 var(--mono); cursor: pointer; transition: border-color .2s, color .2s, background .2s; }
 .lang-btn:hover, .lang-btn[aria-expanded="true"] { border-color: rgba(198, 244, 50, 0.6); color: var(--ink); background: rgba(255, 255, 255, 0.03); }
 .lang-btn svg { flex: none; }
+.flag { flex: none; display: block; border-radius: 3px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08); }
 .lang-caret { opacity: .6; transition: transform .2s; }
 .lang-btn[aria-expanded="true"] .lang-caret { transform: rotate(180deg); }
 .lang-pop { position: absolute; right: 0; top: calc(100% + 10px); z-index: 60; min-width: 196px; margin: 0; padding: 6px; list-style: none; border-radius: 18px; background: rgba(23, 24, 28, 0.98); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45); animation: langIn .18s cubic-bezier(.2,.8,.2,1); }
@@ -168,11 +169,11 @@ button { font-family: inherit; }
 .lang-pop a { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 12px; color: var(--ink-2); font-size: 15px; }
 .lang-pop a:hover { background: rgba(255, 255, 255, 0.06); color: var(--ink); }
 .lang-pop a[aria-current] { color: var(--ink); }
-.lang-pop a[aria-current] svg { color: var(--lime); margin-left: auto; }
+.lang-pop .lang-check { color: var(--lime); margin-left: auto; }
 .lang-code { width: 30px; flex: none; padding: 4px 0; border-radius: 7px; background: rgba(255, 255, 255, 0.07); text-align: center; font: 600 11px/1 var(--mono); color: var(--muted); }
 .lang-pop a[aria-current] .lang-code { background: var(--lime); color: var(--bg); }
 .lang-pills { display: flex; gap: 8px; margin: 8px 0 20px; }
-.lang-pills a { flex: 1; text-align: center; padding: 13px 8px; border-radius: 14px; border: 1px solid rgba(14, 15, 18, 0.25); color: var(--bg); font-weight: 600; font-size: 15px; }
+.lang-pills a { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; padding: 13px 8px; border-radius: 14px; border: 1px solid rgba(14, 15, 18, 0.25); color: var(--bg); font-weight: 600; font-size: 15px; }
 .lang-pills a[aria-current] { background: var(--bg); color: var(--lime); border-color: var(--bg); }
 @media (max-width: 879.98px) { .nav-end > .lang-menu { display: none; } }
 

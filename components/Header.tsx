@@ -3,17 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Dict } from '@/lib/dict';
 import { LANG_META, LOCALES, lp, type Lang } from '@/lib/i18n';
+import Flag from './Flag';
 import { Logo } from './ui';
 
 type Props = { lang: Lang; t: Dict['nav']; alt: Partial<Record<Lang, string>> };
 
-const Globe = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
-    <circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" />
-  </svg>
-);
 const Check = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+  <svg className="lang-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
 );
 
 /** Desktop: a compact globe button that opens a menu of languages, each linking to the same page. */
@@ -31,7 +27,7 @@ function LangMenu({ lang, alt, label }: { lang: Lang; alt: Props['alt']; label: 
   return (
     <div className="lang-menu" ref={ref}>
       <button type="button" className="lang-btn" aria-haspopup="true" aria-expanded={open} aria-label={`${label}: ${LANG_META[lang].label}`} onClick={() => setOpen(o => !o)}>
-        <Globe />
+        <Flag lang={lang} />
         <span>{LANG_META[lang].short}</span>
         <svg className="lang-caret" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
@@ -40,7 +36,7 @@ function LangMenu({ lang, alt, label }: { lang: Lang; alt: Props['alt']; label: 
           {LOCALES.map(l => (
             <li key={l}>
               <a href={alt[l] ?? lp(l, '/')} hrefLang={LANG_META[l].hreflang} lang={l} aria-current={l === lang ? 'true' : undefined}>
-                <span className="lang-code">{LANG_META[l].short}</span>
+                <Flag lang={l} size={24} />
                 <span className="lang-name">{LANG_META[l].label}</span>
                 {l === lang && <Check />}
               </a>
@@ -58,6 +54,7 @@ function LangPills({ lang, alt, label }: { lang: Lang; alt: Props['alt']; label:
     <div className="lang-pills" role="group" aria-label={label}>
       {LOCALES.map(l => (
         <a key={l} href={alt[l] ?? lp(l, '/')} hrefLang={LANG_META[l].hreflang} lang={l} aria-current={l === lang ? 'true' : undefined}>
+          <Flag lang={l} size={22} />
           {LANG_META[l].label}
         </a>
       ))}

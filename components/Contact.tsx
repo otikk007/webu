@@ -13,12 +13,22 @@ export default function Contact() {
   const [selD, setSelD] = useState<YMD | null>(null);
   const [selT, setSelT] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [hp, setHp] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState('');
 
   // month depends on the visitor's clock, so it is set after hydration
   useEffect(() => { const n = new Date(); setCal({ y: n.getFullYear(), m: n.getMonth() }); }, []);
 
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  // A slot is gone once it starts less than an hour from now.
+  const slotGone = (d: YMD, t: string) => {
+    const [h, m] = t.split(':').map(Number);
+    return +new Date(d.y, d.m, d.d, h, m) < Date.now() + 60 * 60 * 1000;
+  };
 
   const cells: React.ReactNode[] = [];
   if (cal) {
@@ -30,7 +40,7 @@ export default function Contact() {
       const isT = +dt === +today;
       cells.push(
         <button key={d} className="unstyled" disabled={off} aria-pressed={sel} aria-label={`${d} ${MONTHS_GEN[cal.m]}`}
-          onClick={() => { if (!off) { setSelD({ y: cal.y, m: cal.m, d }); setDone(false); } }}
+          onClick={() => { if (!off) { const nd = { y: cal.y, m: cal.m, d }; setSelD(nd); setDone(false); if (selT && slotGone(nd, selT)) setSelT(null); } }}
           style={{ cursor: off ? 'default' : 'pointer', aspectRatio: '1', maxHeight: 52, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', justifySelf: 'center', width: '100%', maxWidth: 52, fontSize: 16, background: sel ? '#C6F432' : 'transparent', color: sel ? '#0E0F12' : off ? '#4A4B52' : '#F2F1EC', boxShadow: isT && !sel ? 'inset 0 0 0 1px #C6F432' : 'none', transition: 'background .2s' }}>
           {d}
         </button>,
@@ -38,10 +48,30 @@ export default function Contact() {
     }
   }
 
-  const booking = done ? 'დაჯავშნილია! დაგიკავშირდებით მალე'
+  const booking = done ? 'დაჯავშნილია! მალე დაგიკავშირდებით'
     : selD && selT ? `${selD.d} ${MONTHS_GEN[selD.m]}, ${selT}`
-    : selD ? `${selD.d} ${MONTHS_GEN[selD.m]}, აირჩიე დრო`
-    : 'აირჩიე დღე და დრო';
+    : selD ? `${selD.d} ${MONTHS_GEN[selD.m]}, აირჩიეთ დრო`
+    : 'აირჩიეთ დღე და დრო';
+
+  const confirm = async () => {
+    if (done || busy) return;
+    if (!selD || !selT) { setErr('აირჩიეთ დღე და დრო'); return; }
+    if (!name.trim() || !contact.trim()) { setErr('ჩაწერეთ სახელი და ტელეფონი ან ელფოსტა'); return; }
+    setBusy(true); setErr('');
+    const date = `${selD.y}-${String(selD.m + 1).padStart(2, '0')}-${String(selD.d).padStart(2, '0')}`;
+    try {
+      const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'booking', name, contact, date, time: selT, website: hp }) });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'ვერ გაიგზავნა');
+      setDone(true);
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : 'ვერ გაიგზავნა');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const field = { width: '100%', border: 0, outline: 0, borderRadius: 14, background: 'rgba(14,15,18,0.08)', padding: '14px 16px', fontSize: 16, fontFamily: 'inherit', color: '#0E0F12' } as const;
 
   const shift = (k: number) => setCal(c => {
     if (!c) return c;
@@ -54,7 +84,7 @@ export default function Contact() {
   return (
     <section id="contact" className="sec">
       <div className="inner">
-        <h2 className="h2" style={{ marginBottom: 48, maxWidth: 980 }}>დაჯავშნე 30 წუთიანი უფასო კონსულტაცია</h2>
+        <h2 className="h2" style={{ marginBottom: 48, maxWidth: 980 }}>დაჯავშნეთ 30-წუთიანი უფასო კონსულტაცია</h2>
         <div className="grid">
           <div className="card r32" style={{ flex: '1 1 min(460px,100%)', padding: 'clamp(20px,3vw,32px)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, marginBottom: 24 }}>
@@ -72,18 +102,26 @@ export default function Contact() {
               <div style={{ fontSize: 15, color: '#9A9AA0', marginBottom: 16 }}>თავისუფალი დრო</div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                 {TIMES.map(t => {
-                  const on = selT === t;
-                  return <button key={t} className="mono" aria-pressed={on} onClick={() => { setSelT(t); setDone(false); }} style={{ cursor: 'pointer', padding: '12px 18px', borderRadius: 14, fontSize: 14, background: on ? '#C6F432' : 'transparent', color: on ? '#0E0F12' : '#F2F1EC', border: `1px solid ${on ? '#C6F432' : 'rgba(255,255,255,0.18)'}` }}>{t}</button>;
+                  const on = selT === t, gone = !!selD && slotGone(selD, t);
+                  return <button key={t} className="mono" aria-pressed={on} disabled={gone} onClick={() => { setSelT(t); setDone(false); }} style={{ cursor: gone ? 'default' : 'pointer', padding: '12px 18px', borderRadius: 14, fontSize: 14, background: on ? '#C6F432' : 'transparent', color: on ? '#0E0F12' : gone ? '#4A4B52' : '#F2F1EC', border: `1px solid ${on ? '#C6F432' : gone ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.18)'}` }}>{t}</button>;
                 })}
               </div>
             </div>
             <div className="r32" style={{ flex: 1, background: '#C6F432', color: '#0E0F12', padding: 'clamp(20px,3vw,32px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 28 }}>
               <div>
-                <div style={{ fontFamily: 'var(--mono), var(--geo)', fontSize: 13, marginBottom: 10 }}>შენი შეხვედრა</div>
+                <div style={{ fontFamily: 'var(--mono), var(--geo)', fontSize: 13, marginBottom: 10 }}>თქვენი შეხვედრა</div>
                 <div aria-live="polite" style={{ fontSize: 'clamp(24px,2.4vw,32px)', fontWeight: 800, lineHeight: 1.25 }}>{booking}</div>
               </div>
+              {!done && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <input value={name} onChange={e => { setName(e.target.value); setErr(''); }} placeholder="სახელი" aria-label="სახელი" autoComplete="name" style={field} />
+                  <input value={contact} onChange={e => { setContact(e.target.value); setErr(''); }} placeholder="ტელეფონი ან ელფოსტა" aria-label="ტელეფონი ან ელფოსტა" autoComplete="tel" style={field} />
+                  <input tabIndex={-1} autoComplete="off" aria-hidden="true" value={hp} onChange={e => setHp(e.target.value)} name="website" style={{ position: 'absolute', left: -9999, width: 1, height: 1, opacity: 0 }} />
+                  {err && <div role="alert" style={{ fontSize: 14, fontWeight: 600 }}>{err}</div>}
+                </div>
+              )}
               <Goo color="#0E0F12" style={{ alignSelf: 'flex-start' }}>
-                <button className="unstyled" onClick={() => { if (selD && selT) setDone(true); }} style={{ position: 'relative', padding: '19px 30px', color: '#F2F1EC', fontWeight: 700, fontSize: 16 }}>{done ? 'მადლობა' : 'დადასტურება'}</button>
+                <button className="unstyled" onClick={confirm} disabled={busy} style={{ position: 'relative', padding: '19px 30px', color: '#F2F1EC', fontWeight: 700, fontSize: 16 }}>{done ? 'მადლობა' : busy ? 'იგზავნება...' : 'დადასტურება'}</button>
               </Goo>
             </div>
           </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { ADDONS, TYPES, fmt } from '@/lib/site';
+import { track } from '@/lib/track';
 import { Arrow } from './ui';
 
 export default function Price() {
@@ -39,7 +40,7 @@ export default function Price() {
               {TYPES.map(x => {
                 const on = x.id === type;
                 return (
-                  <button key={x.id} role="radio" aria-checked={on} onClick={() => setType(x.id)} style={{ cursor: 'pointer', padding: '16px 22px', borderRadius: 14, fontSize: 16, fontWeight: 600, background: on ? '#F2F1EC' : 'transparent', color: on ? '#0E0F12' : '#F2F1EC', border: `1px solid ${on ? '#F2F1EC' : 'rgba(255,255,255,0.18)'}`, transition: 'background .25s,color .25s,border-color .25s' }}>{x.label}</button>
+                  <button key={x.id} role="radio" aria-checked={on} onClick={() => { setType(x.id); track('price', x.label); }} style={{ cursor: 'pointer', padding: '16px 22px', borderRadius: 14, fontSize: 16, fontWeight: 600, background: on ? '#F2F1EC' : 'transparent', color: on ? '#0E0F12' : '#F2F1EC', border: `1px solid ${on ? '#F2F1EC' : 'rgba(255,255,255,0.18)'}`, transition: 'background .25s,color .25s,border-color .25s' }}>{x.label}</button>
                 );
               })}
             </div>
@@ -48,7 +49,7 @@ export default function Price() {
               {ADDONS.map(a => {
                 const on = !!add[a.id];
                 return (
-                  <button key={a.id} aria-pressed={on} onClick={() => setAdd(p => ({ ...p, [a.id]: !p[a.id] }))} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px', borderRadius: 14, fontSize: 15, background: 'transparent', color: '#F2F1EC', border: `1px solid ${on ? '#C6F432' : 'rgba(255,255,255,0.18)'}`, transition: 'border-color .25s' }}>
+                  <button key={a.id} aria-pressed={on} onClick={() => { setAdd(p => ({ ...p, [a.id]: !p[a.id] })); if (!add[a.id]) track('price', '+ ' + a.label); }} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px', borderRadius: 14, fontSize: 15, background: 'transparent', color: '#F2F1EC', border: `1px solid ${on ? '#C6F432' : 'rgba(255,255,255,0.18)'}`, transition: 'border-color .25s' }}>
                     <span style={{ width: 18, height: 18, borderRadius: '50%', background: on ? '#C6F432' : 'transparent', border: `1px solid ${on ? '#C6F432' : 'rgba(255,255,255,0.3)'}`, transition: 'background .25s' }} />
                     <span>{a.label}</span>
                     <span className="mono" style={{ color: '#9A9AA0', fontSize: 13 }}>+{fmt(a.p)}</span>

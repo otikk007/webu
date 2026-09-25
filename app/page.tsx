@@ -10,6 +10,7 @@ import Faq from '@/components/Faq';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import { SvgDefs } from '@/components/ui';
+import Tracker from '@/components/Tracker';
 import { jsonLd } from '@/lib/seo';
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd()) }} />
       <SvgDefs />
       <Effects />
+      <Tracker />
       <div className="page">
         <Header />
         <main>

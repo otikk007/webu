@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { allow, clientIp, sameOrigin } from '@/lib/guard';
 import { saveLead } from '@/lib/leads';
+import { notify } from '@/lib/notify';
 
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -25,6 +26,12 @@ export async function POST(req: Request) {
       const scores = Array.isArray(b.scores) ? b.scores.slice(0, 4).map(Number).filter(Number.isFinite) : [];
       const issues = Array.isArray(b.issues) ? b.issues.slice(0, 40).map((i: unknown) => str(i, 300)).filter(Boolean) : [];
       await saveLead({ type: 'audit', email, url, scores, issues });
+      await notify(`🔍 აუდიტის ანგარიშის მოთხოვნა
+
+საიტი: ${url}
+ელფოსტა: ${email}
+ქულები: ${scores.join(' / ')}
+საკითხები: ${issues.length}`);
       return NextResponse.json({ ok: true });
     }
     if (b.type === 'booking') {
@@ -33,6 +40,11 @@ export async function POST(req: Request) {
       if (!EMAIL.test(contact) && contact.replace(/\D/g, '').length < 9) return bad('ჩაწერეთ ტელეფონი ან ელფოსტა');
       if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) return bad('აირჩიეთ დღე და დრო');
       await saveLead({ type: 'booking', name, contact, date, time });
+      await notify(`📅 ახალი კონსულტაცია
+
+სახელი: ${name}
+კონტაქტი: ${contact}
+დრო: ${date}, ${time}`);
       return NextResponse.json({ ok: true });
     }
   } catch (e) {

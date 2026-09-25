@@ -1,12 +1,9 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ADMIN_PATH, isAdmin } from '@/lib/admin-auth';
 import { listLeads, type Lead } from '@/lib/leads';
-import { logout, removeLead, toggleStatus } from './actions';
+import { removeLead, toggleStatus } from './actions';
+import AdminNav from './AdminNav';
 import LoginForm from './LoginForm';
-import './admin.css';
-
-export const metadata: Metadata = { title: 'Webu ადმინი', robots: { index: false, follow: false } };
 export const dynamic = 'force-dynamic';
 
 const METRICS = ['სიჩქარე', 'ტექნიკური SEO', 'უსაფრთხოება', 'კონტენტი'];
@@ -83,10 +80,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
 
   return (
     <main className="adm">
-      <div className="adm-top">
-        <h1>მოთხოვნები</h1>
-        <form action={logout}><button type="submit" className="ghost">გასვლა</button></form>
-      </div>
+      <AdminNav active="leads" />
       <nav className="adm-tabs" aria-label="ფილტრი">
         {TABS.map(t => (
           <Link key={t.id} href={`${ADMIN_PATH}?tab=${t.id}`} aria-current={tab === t.id ? 'page' : undefined}>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { track } from '@/lib/track';
 
 const METRICS = ['სიჩქარე', 'ტექნიკური SEO', 'უსაფრთხოება', 'კონტენტი'];
 
@@ -27,6 +28,7 @@ export default function Audit() {
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || 'შემოწმება ვერ მოხერხდა');
       setRes(d);
+      track('audit_run', new URL(d.url).hostname, { v: Math.round(d.scores.reduce((a: number, b: number) => a + b, 0) / 4) });
     } catch (e) {
       setErr(e instanceof Error ? e.message : 'შემოწმება ვერ მოხერხდა');
     } finally {
@@ -42,6 +44,7 @@ export default function Audit() {
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || 'ვერ გაიგზავნა');
       setSend('done');
+      track('audit_request', new URL(res.url).hostname);
     } catch (e) {
       setSend('idle'); setSendErr(e instanceof Error ? e.message : 'ვერ გაიგზავნა');
     }

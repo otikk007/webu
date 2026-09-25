@@ -135,8 +135,8 @@ export default function Services() {
             <Serp />
             <div>
               <Num n="03" lime={false} mb={8} />
-              <h3 style={{ margin: '0 0 8px', fontSize: 30, fontWeight: 800 }}>SEO ოპტიმიზაცია</h3>
-              <p style={{ margin: 0, lineHeight: 1.6, color: '#44454b' }}>ტექნიკური SEO, სტრუქტურა და კონტენტი, რომ Google-მა თქვენი საიტი სწორად წაიკითხოს და მომხმარებელმა იპოვოს.</p>
+              <h3 style={{ margin: '0 0 8px', fontSize: 30, fontWeight: 800 }}>SEO, AEO და GEO</h3>
+              <p style={{ margin: 0, lineHeight: 1.6, color: '#44454b' }}>მაღალი პოზიციები Google-ში (SEO), პირდაპირი პასუხები ძიებაში (AEO) და ხილვადობა ChatGPT-სა და AI ძიებაში (GEO). ხელმისაწვდომია ცალკე სერვისადაც.</p>
             </div>
           </article>
 

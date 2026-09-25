@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { MONTHS, MONTHS_GEN } from '@/lib/site';
+import { track } from '@/lib/track';
 import { Arrow, Goo } from './ui';
 
 const WEEKDAYS = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვი'];
@@ -66,6 +67,7 @@ export default function Contact() {
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || 'ვერ გაიგზავნა');
       setDone(true);
+      track('booking', `${date} ${selT}`);
     } catch (e) {
       setErr(e instanceof Error ? e.message : 'ვერ გაიგზავნა');
     } finally {

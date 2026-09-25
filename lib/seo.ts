@@ -16,7 +16,7 @@ export const SERVICES = [
   { name: 'ონლაინ მაღაზიები', en: 'Online stores', text: 'ონლაინ მაღაზიის შექმნა: გადახდა ქართული ბანკებით, მარაგისა და მიწოდების მართვა.' },
   { name: 'მობილური აპლიკაციები', en: 'Mobile apps', text: 'iOS და Android აპლიკაციები, დიზაინიდან App Store-სა და Google Play-ზე განთავსებამდე.' },
   { name: 'UI და UX დიზაინი', en: 'UI/UX design', text: 'ინტერფეისები, რომლებიც მომხმარებლისთვის გასაგები და მოსახერხებელია: სტრუქტურა, პროტოტიპი და დიზაინ სისტემა.' },
-  { name: 'SEO ოპტიმიზაცია', en: 'SEO', text: 'ტექნიკური SEO, სტრუქტურა და კონტენტი, რომ Google-მა საიტი სწორად წაიკითხოს და მომხმარებელმა იპოვოს.' },
+  { name: 'SEO, AEO და GEO', en: 'SEO, answer engine and generative engine optimization', text: 'მაღალი პოზიციები Google-ში (SEO), პირდაპირი პასუხები ძიებაში (AEO) და ხილვადობა ChatGPT-სა, Gemini-სა და Perplexity-ში (GEO). ხელმისაწვდომია ახალი საიტის ნაწილად და ცალკე სერვისად არსებული საიტისთვის.' },
   { name: 'ბრენდინგი', en: 'Branding', text: 'ლოგო, ფერები, შრიფტები და ვიზუალური ენა.' },
   { name: 'Webu Care', en: 'Website support and maintenance', text: 'გაშვების შემდეგ მონიტორინგი, backup-ები, განახლებები და შეცდომების გასწორება.' },
 ];
@@ -38,7 +38,7 @@ export function jsonLd() {
         description: BRAND.description,
         areaServed: { '@type': 'Country', name: 'Georgia' },
         knowsLanguage: ['ka', 'en'],
-        knowsAbout: ['საიტის დამზადება', 'ვებგვერდის დამზადება', 'ონლაინ მაღაზიის შექმნა', 'ვებაპლიკაციის შექმნა', 'მობილური აპლიკაციის შექმნა', 'ვებ დიზაინი', 'UI/UX', 'SEO', 'Web development', 'Mobile app development'],
+        knowsAbout: ['საიტის დამზადება', 'ვებგვერდის დამზადება', 'ონლაინ მაღაზიის შექმნა', 'ვებაპლიკაციის შექმნა', 'მობილური აპლიკაციის შექმნა', 'ვებ დიზაინი', 'UI/UX', 'SEO', 'AEO', 'GEO', 'AI search optimization', 'Web development', 'Mobile app development'],
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
           name: 'Webu სერვისები',

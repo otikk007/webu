@@ -6,6 +6,15 @@ import { Goo } from './ui';
 
 const line = { display: 'flex', alignItems: 'center', gap: '0.2em', flexWrap: 'wrap' } as const;
 
+/** A word split into letters that react to the cursor (see Effects: [data-letter]). */
+function Letters({ text, hover }: { text: string; hover?: string }) {
+  return (
+    <span style={{ display: 'inline-flex', whiteSpace: 'nowrap' }}>
+      {[...text].map((c, i) => <span key={i} data-letter="" data-hover={hover} style={{ display: 'inline-block', transition: 'color .3s' }}>{c}</span>)}
+    </span>
+  );
+}
+
 function heights(k: number) {
   if (k === 0) return [0.22, 0.36, 0.5, 0.68, 0.86, 1];
   let seed = k * 7 + 3;
@@ -38,9 +47,9 @@ export default function Hero({ t }: { t: Dict['hero'] }) {
   return (
     <section id="top" style={{ padding: 'clamp(40px,7vw,96px) var(--pad-x) 0', display: 'flex', justifyContent: 'center' }}>
       <div className="inner">
-        <h1 style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(38px,10vw,160px)', lineHeight: 1.02, letterSpacing: '-0.02em', display: 'flex', flexDirection: 'column', gap: '0.06em' }}>
+        <h1 aria-label={`${t.l1}, ${t.l2} ${t.l3a} ${t.l3b}`} style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(38px,10vw,160px)', lineHeight: 1.02, letterSpacing: '-0.02em', display: 'flex', flexDirection: 'column', gap: '0.06em' }}>
           <span data-depth="14" style={line}>
-            {t.l1}
+            <Letters text={t.l1} />
             <button onClick={() => setTg(v => !v)} aria-hidden="true" tabIndex={-1} className="unstyled" style={{ position: 'relative', display: 'inline-block', width: '1.7em', height: '0.7em', borderRadius: 999, background: tg ? '#C6F432' : '#23242a', flex: 'none', transition: 'background .45s cubic-bezier(.7,0,.3,1), box-shadow .45s', boxShadow: tg ? '0 0 0.3em rgba(198,244,50,0.45)' : 'none' }}>
               <span style={{ position: 'absolute', left: '0.1em', top: '0.1em', width: '0.5em', height: '0.5em', borderRadius: '50%', background: tg ? '#0E0F12' : '#F2F1EC', transform: `translateX(${tg ? '1em' : '0em'})`, transition: 'transform .5s cubic-bezier(.5,1.6,.4,1),background .45s', display: 'block' }} />
             </button>
@@ -52,10 +61,10 @@ export default function Hero({ t }: { t: Dict['hero'] }) {
                 <span style={{ fontSize: '1.6em' }}>{ringN ? Math.min(ringN, 99) : ''}</span>
               </span>
             </button>
-            {t.l2}
+            <Letters text={t.l2} />
           </span>
           <span data-depth="20" style={line}>
-            {t.l3a} <span style={{ color: '#C6F432' }}>{t.l3b}</span>
+            <Letters text={t.l3a} /> <span style={{ color: '#C6F432' }}><Letters text={t.l3b} hover="#F2F1EC" /></span>
             <button onClick={() => setBarsK(k => k + 1)} aria-hidden="true" tabIndex={-1} className="unstyled bars-pill" style={{ position: 'relative', display: 'inline-block', width: '2.2em', height: '0.7em', borderRadius: 999, overflow: 'hidden', background: '#17181C', border: '1px solid rgba(255,255,255,0.1)', boxSizing: 'border-box', flex: 'none', transition: 'border-color .25s' }}>
               <span style={{ position: 'absolute', left: '0.26em', right: '0.26em', top: '0.12em', bottom: '0.12em', display: 'flex', alignItems: 'flex-end', gap: '0.09em' }}>
                 {heights(barsK).map((v, i) => (

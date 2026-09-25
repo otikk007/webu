@@ -154,14 +154,15 @@ export default function Effects() {
           const nx = mx / innerWidth - 0.5, ny = my / innerHeight - 0.5;
           lines.forEach(l => { const d = +l.dataset.depth!; l.style.translate = `${(nx * d).toFixed(1)}px ${(ny * d * 0.5).toFixed(1)}px`; });
         }
-        if (letters.length) {
-          const r0 = letters[0].getBoundingClientRect();
-          if (r0.top < innerHeight && r0.bottom > 0) letters.forEach(L => {
-            const r = L.getBoundingClientRect(), dx = r.left + r.width / 2 - mx, dy = r.top + r.height / 2 - my, d = Math.hypot(dx, dy), R = 260;
-            if (d < R) { const f = 1 - d / R; L.style.translate = `${(dx / d * f * 28 || 0).toFixed(1)}px ${(dy / d * f * 38 || 0).toFixed(1)}px`; L.style.color = f > 0.35 ? '#C6F432' : ''; }
-            else if (L.style.translate) { L.style.translate = ''; L.style.color = ''; }
-          });
-        }
+        // Letters (hero headline, footer wordmark) are pushed away from the cursor and light up near it.
+        // Each group is checked for visibility separately so off-screen letters cost nothing.
+        letters.forEach(L => {
+          const r = L.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > innerHeight) { if (L.style.translate) { L.style.translate = ''; L.style.color = ''; } return; }
+          const dx = r.left + r.width / 2 - mx, dy = r.top + r.height / 2 - my, d = Math.hypot(dx, dy), R = 260;
+          if (d < R) { const f = 1 - d / R; L.style.translate = `${(dx / d * f * 28 || 0).toFixed(1)}px ${(dy / d * f * 38 || 0).toFixed(1)}px`; L.style.color = f > 0.35 ? (L.dataset.hover || '#C6F432') : ''; }
+          else if (L.style.translate) { L.style.translate = ''; L.style.color = ''; }
+        });
         raf = Math.abs(mx - rx) + Math.abs(my - ry) > 0.3 ? requestAnimationFrame(tick) : 0;
       };
       on('mousemove', e => {

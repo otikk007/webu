@@ -98,6 +98,7 @@ export default function Services() {
                 <Num n="01" />
                 <h3 style={{ margin: '0 0 10px', fontSize: 32, fontWeight: 800 }}>ვებსაიტები</h3>
                 <p style={{ margin: 0, color: '#B9B9BE', lineHeight: 1.6 }}>ლენდინგები და კორპორატიული საიტები, რომლებიც თქვენს ბიზნესს გასაგებად წარმოაჩენს და მომხმარებელს შემდეგ ნაბიჯამდე მიიყვანს.</p>
+                <a href="/saitis-damzadeba" className="svc-more" style={{ color: '#C6F432' }}>დეტალურად <Arrow size={14} rot={-45} /></a>
               </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {['ლენდინგი', 'კორპორატიული', 'მრავალენოვანი'].map(t => <span key={t} className="chip">{t}</span>)}
@@ -116,6 +117,7 @@ export default function Services() {
             <div>
               <h3 style={{ margin: '0 0 10px', fontSize: 32, fontWeight: 800 }}>მობილური აპლიკაციები</h3>
               <p style={{ margin: '0 0 24px', lineHeight: 1.6, maxWidth: 380 }}>iOS და Android აპლიკაციები, დიზაინიდან App Store-სა და Google Play-ზე განთავსებამდე.</p>
+              <div style={{ marginBottom: 20 }}><a href="/mobiluri-aplikaciis-shekmna" className="svc-more" style={{ color: '#0E0F12' }}>დეტალურად <Arrow size={14} rot={-45} /></a></div>
               <div style={{ display: 'flex', flexDirection: 'column', borderTop: '1px solid rgba(14,15,18,0.2)' }}>
                 {['iOS და Android', 'განთავსება მაღაზიებში', 'მხარდაჭერა გაშვების შემდეგ'].map(t => (
                   <div key={t} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 0', borderBottom: '1px solid rgba(14,15,18,0.2)', fontWeight: 500 }}>
@@ -137,6 +139,7 @@ export default function Services() {
               <Num n="03" lime={false} mb={8} />
               <h3 style={{ margin: '0 0 8px', fontSize: 30, fontWeight: 800 }}>SEO, AEO და GEO</h3>
               <p style={{ margin: 0, lineHeight: 1.6, color: '#44454b' }}>მაღალი პოზიციები Google-ში (SEO), პირდაპირი პასუხები ძიებაში (AEO) და ხილვადობა ChatGPT-სა და AI ძიებაში (GEO). ხელმისაწვდომია ცალკე სერვისადაც.</p>
+              <a href="/seo-aeo-geo" className="svc-more" style={{ color: '#0E0F12' }}>დეტალურად <Arrow size={14} rot={-45} /></a>
             </div>
           </article>
 
@@ -150,15 +153,16 @@ export default function Services() {
           </article>
 
           {[
-            ['05', 'ონლაინ მაღაზიები', 'გადახდა ქართული ბანკებით, მარაგისა და მიწოდების მართვა.'],
-            ['06', 'ბრენდინგი', 'ლოგო, ფერები, შრიფტები და ვიზუალური ენა, რომელიც გამოგარჩევთ.'],
-            ['07', 'Webu Care', 'გაშვება ურთიერთობის დასასრული არ არის. მონიტორინგი, backup-ები, განახლებები და შეცდომების გასწორება.'],
-          ].map(([n, t, d]) => (
+            ['05', 'ონლაინ მაღაზიები', 'გადახდა ქართული ბანკებით, მარაგისა და მიწოდების მართვა.', 'onlain-maghaziis-shekmna'],
+            ['06', 'ბრენდინგი', 'ლოგო, ფერები, შრიფტები და ვიზუალური ენა, რომელიც გამოგარჩევთ.', ''],
+            ['07', 'Webu Care', 'გაშვება ურთიერთობის დასასრული არ არის. მონიტორინგი, backup-ები, განახლებები და შეცდომების გასწორება.', 'webu-care'],
+          ].map(([n, t, d, slug]) => (
             <article key={n} className="card r32 svc-small">
               <Num n={n} mb={0} />
               <div>
                 <h3 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>{t}</h3>
                 <p style={{ margin: 0, color: '#9A9AA0', lineHeight: 1.6 }}>{d}</p>
+                {slug && <a href={`/${slug}`} className="svc-more" style={{ color: '#C6F432', marginTop: 12 }}>დეტალურად <Arrow size={14} rot={-45} /></a>}
               </div>
             </article>
           ))}

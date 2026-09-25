@@ -2,12 +2,12 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
   ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000');
 
 export const NAV = [
-  { href: '#services', label: 'სერვისები' },
-  { href: '#work', label: 'ნამუშევრები' },
-  { href: '#process', label: 'როგორ ვმუშაობთ' },
-  { href: '#audit', label: 'SEO აუდიტი' },
-  { href: '#price', label: 'ფასი' },
-  { href: '#faq', label: 'კითხვები' },
+  { href: '/#services', label: 'სერვისები' },
+  { href: '/#work', label: 'ნამუშევრები' },
+  { href: '/#process', label: 'როგორ ვმუშაობთ' },
+  { href: '/#audit', label: 'SEO აუდიტი' },
+  { href: '/#price', label: 'ფასი' },
+  { href: '/#faq', label: 'კითხვები' },
 ];
 
 export const MONTHS = ['იანვარი', 'თებერვალი', 'მარტი', 'აპრილი', 'მაისი', 'ივნისი', 'ივლისი', 'აგვისტო', 'სექტემბერი', 'ოქტომბერი', 'ნოემბერი', 'დეკემბერი'];

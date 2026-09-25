@@ -21,7 +21,7 @@ export default function Serp() {
   const order = up ? ['me', 'a', 'b', 'c'] : ['a', 'b', 'c', 'me'];
 
   return (
-    <div ref={ref} style={{ position: 'relative', height: 292 }} aria-label="Google ის ძიების შედეგები">
+    <div ref={ref} style={{ position: 'relative', height: 292 }} aria-label="Google-ის ძიების შედეგები">
       {SERP.map(r => {
         const k = order.indexOf(r.id), me = r.id === 'me';
         return (

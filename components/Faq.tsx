@@ -17,8 +17,8 @@ export default function Faq() {
               <span style={{ width: 84, height: 84, borderRadius: '50%', background: '#0E0F12', marginLeft: -22, display: 'block' }} />
             </div>
             <div>
-              <h3 style={{ margin: '0 0 10px', fontSize: 'clamp(26px,2.4vw,34px)', fontWeight: 800, lineHeight: 1.2 }}>პასუხი ვერ იპოვე?</h3>
-              <p style={{ margin: '0 0 24px', lineHeight: 1.6, maxWidth: 380 }}>მოგვწერე და სამუშაო საათებში ერთ საათში გიპასუხებთ.</p>
+              <h3 style={{ margin: '0 0 10px', fontSize: 'clamp(26px,2.4vw,34px)', fontWeight: 800, lineHeight: 1.2 }}>პასუხი ვერ იპოვეთ?</h3>
+              <p style={{ margin: '0 0 24px', lineHeight: 1.6, maxWidth: 380 }}>მოგვწერეთ და მალე გიპასუხებთ.</p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <a href="mailto:hello@webu.ge" className="btn-dark" style={{ display: 'inline-flex', alignItems: 'center', gap: 14, padding: '10px 10px 10px 20px', borderRadius: 14, fontWeight: 600 }}>
                   <span>hello@webu.ge</span>

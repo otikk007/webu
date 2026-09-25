@@ -39,7 +39,7 @@ export default function Hero() {
       <div className="inner">
         <h1 style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(48px,10vw,160px)', lineHeight: 1.02, letterSpacing: '-0.02em', display: 'flex', flexDirection: 'column', gap: '0.06em' }}>
           <span data-depth="14" style={line}>
-            ვებსაიტი
+            თქვენი იდეა.
             <button onClick={() => setTg(v => !v)} aria-label="ჩართვა" aria-pressed={tg} className="unstyled" style={{ position: 'relative', display: 'inline-block', width: '1.7em', height: '0.7em', borderRadius: 999, background: tg ? '#C6F432' : '#23242a', flex: 'none', transition: 'background .45s cubic-bezier(.7,0,.3,1), box-shadow .45s', boxShadow: tg ? '0 0 0.3em rgba(198,244,50,0.45)' : 'none' }}>
               <span style={{ position: 'absolute', left: '0.1em', top: '0.1em', width: '0.5em', height: '0.5em', borderRadius: '50%', background: tg ? '#0E0F12' : '#F2F1EC', transform: `translateX(${tg ? '1em' : '0em'})`, transition: 'transform .5s cubic-bezier(.5,1.6,.4,1),background .45s', display: 'block' }} />
             </button>
@@ -51,10 +51,10 @@ export default function Hero() {
                 <span style={{ fontSize: '1.6em' }}>{ringN ? Math.min(ringN, 99) : ''}</span>
               </span>
             </button>
-            აპლიკაცია
+            ჩვენი
           </span>
           <span data-depth="20" style={line}>
-            და <span style={{ color: '#C6F432' }}>SEO</span>
+            <span style={{ color: '#C6F432' }}>გამოცდილება.</span>
             <button onClick={() => setBarsK(k => k + 1)} aria-label="რეიტინგი" className="unstyled bars-pill" style={{ position: 'relative', display: 'inline-block', width: '2.2em', height: '0.7em', borderRadius: 999, overflow: 'hidden', background: '#17181C', border: '1px solid rgba(255,255,255,0.1)', boxSizing: 'border-box', flex: 'none', transition: 'border-color .25s' }}>
               <span style={{ position: 'absolute', left: '0.26em', right: '0.26em', top: '0.12em', bottom: '0.12em', display: 'flex', alignItems: 'flex-end', gap: '0.09em' }}>
                 {heights(barsK).map((v, i) => (
@@ -66,13 +66,13 @@ export default function Hero() {
         </h1>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 40, flexWrap: 'wrap', marginTop: 48 }}>
           <p style={{ margin: 0, maxWidth: 520, fontSize: 'clamp(16px,1.4vw,19px)', lineHeight: 1.65, color: '#B9B9BE' }}>
-            სრული ვებ სერვისი ერთ გუნდში. ვაპროექტებთ, ვაწყობთ და ვზრდით შენს ციფრულ პროდუქტს დიზაინის პირველი ესკიზიდან Google ის პირველ გვერდამდე.
+            ვქმნით პროფესიონალურ ვებსაიტებს, ვებაპლიკაციებსა და ციფრულ პროდუქტებს, რომლებიც თქვენი ბიზნესის მიზნებსა და საჭიროებებზეა მორგებული.
           </p>
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center', paddingBottom: 8 }}>
             <Goo color="#C6F432">
-              <a href="#contact" className="goo-link" style={{ position: 'relative', padding: '19px 30px', color: '#0E0F12', fontWeight: 700, fontSize: 16, borderRadius: 14 }}>დაიწყე პროექტი</a>
+              <a href="#contact" className="goo-link" style={{ position: 'relative', padding: '19px 30px', color: '#0E0F12', fontWeight: 700, fontSize: 16, borderRadius: 14 }}>დაიწყეთ პროექტი</a>
             </Goo>
-            <a href="#price" className="btn-outline">დაითვალე ფასი</a>
+            <a href="#work" className="btn-outline">ნახეთ ჩვენი ნამუშევრები</a>
           </div>
         </div>
         <div data-hero-frame="" className="hero-frame">

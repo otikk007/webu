@@ -31,10 +31,10 @@ export default function Price() {
   return (
     <section id="price" className="sec">
       <div className="inner">
-        <h2 className="h2" style={{ marginBottom: 48 }}>ააწყე პროექტი, ნახე ფასი</h2>
+        <h2 className="h2" style={{ marginBottom: 48 }}>გაიგეთ სავარაუდო ბიუჯეტი</h2>
         <div className="grid">
           <div className="card r32" style={{ flex: '2 1 min(560px,100%)', padding: 'clamp(24px,3vw,40px)' }}>
-            <div style={{ fontSize: 15, color: '#9A9AA0', marginBottom: 16 }}>რა გჭირდება?</div>
+            <div style={{ fontSize: 15, color: '#9A9AA0', marginBottom: 16 }}>რა გჭირდებათ?</div>
             <div role="radiogroup" aria-label="პროექტის ტიპი" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 40 }}>
               {TYPES.map(x => {
                 const on = x.id === type;
@@ -62,9 +62,10 @@ export default function Price() {
             <div aria-live="polite">
               <div style={{ fontSize: 'clamp(48px,5vw,72px)', fontWeight: 900, lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{fmt(shown)}</div>
               <div style={{ marginTop: 12, fontSize: 16 }}>ვადა: დაახლოებით {wk} კვირა</div>
+              <div style={{ marginTop: 8, fontSize: 14, opacity: 0.75 }}>საბოლოო ღირებულება Scope-ის შეთანხმების შემდეგ დგინდება.</div>
             </div>
             <a href="#contact" className="btn-dark" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 12px 12px 24px', borderRadius: 14, fontWeight: 600 }}>
-              <span>დაჯავშნე ზარი</span>
+              <span>განიხილეთ პროექტი ჩვენთან</span>
               <span style={{ width: 36, height: 36, borderRadius: '50%', background: '#C6F432', color: '#0E0F12', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Arrow /></span>
             </a>
           </div>

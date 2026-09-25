@@ -31,7 +31,7 @@ function WebVis() {
         </div>
         <B delay={1.0} style={{ alignSelf: 'flex-start', position: 'relative' }}>
           <div style={{ position: 'relative', padding: '9px 18px', borderRadius: 10, background: '#C6F432', color: '#0E0F12', fontSize: 12, fontWeight: 700, animation: `wpress ${D}s ease 1s infinite both` }}>
-            დაიწყე
+            დაიწყეთ
             <span style={{ position: 'absolute', left: 28, top: 14, width: 22, height: 22, margin: '-11px 0 0 -11px', borderRadius: '50%', border: '2px solid #C6F432', animation: `wring ${D}s ease-out 1s infinite both` }} />
             <span style={{ position: 'absolute', left: 0, top: 0, width: 14, height: 14, borderRadius: '50%', background: '#F2F1EC', border: '3px solid #0E0F12', boxShadow: '0 0 0 1px #F2F1EC', animation: `wcur ${D}s cubic-bezier(.5,0,.2,1) 1s infinite both` }} />
           </div>
@@ -40,8 +40,8 @@ function WebVis() {
           {[0, 1, 2].map(i => <B key={i} delay={1.3 + i * 0.15} style={{ flex: 1, borderRadius: 12, background: '#1b1c21', border: '1px solid rgba(255,255,255,0.05)' }} />)}
         </div>
         <div style={{ position: 'absolute', right: '6%', top: '8%', width: 64, height: 64, borderRadius: '50%', background: '#C6F432', color: '#0E0F12', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', animation: `wpop ${D}s cubic-bezier(.3,1.6,.5,1) 1s infinite both` }}>
-          <span style={{ fontSize: 20, fontWeight: 900, lineHeight: 1 }}>100</span>
-          <span style={{ ...mono, fontSize: 9, marginTop: 2 }}>სიჩქარე</span>
+          <span style={{ fontSize: 20, fontWeight: 900, lineHeight: 1 }}>QA</span>
+          <span style={{ ...mono, fontSize: 9, marginTop: 2 }}>შემოწმებული</span>
         </div>
       </div>
     </div>
@@ -86,9 +86,9 @@ export default function Services() {
       <div className="inner">
         <div className="head-row">
           <div style={{ flex: '1 1 560px' }}>
-            <h2 className="h2" style={{ maxWidth: 900 }}>ყველაფერი, რაც შენს ბიზნესს ინტერნეტში სჭირდება</h2>
+            <h2 className="h2" style={{ maxWidth: 900 }}>ვქმნით ციფრულ პროდუქტებს, რომლებიც თქვენს ბიზნესს რეალურად სჭირდება</h2>
           </div>
-          <p style={{ margin: 0, flex: '0 1 min(340px,100%)', minWidth: 0, color: '#9A9AA0', lineHeight: 1.6 }}>ერთი კონტაქტი, ერთი გუნდი, ერთი პასუხისმგებლობა. აღარ გჭირდება ხუთ სხვადასხვა კომპანიასთან ურთიერთობა.</p>
+          <p style={{ margin: 0, flex: '0 1 min(340px,100%)', minWidth: 0, color: '#9A9AA0', lineHeight: 1.6 }}>ერთი გუნდი, ერთი კონტაქტი და ერთი პასუხისმგებლობა. იდეიდან გაშვებამდე და მის შემდეგაც.</p>
         </div>
         <div className="grid">
           <article className="card r32" style={{ flex: '1 1 min(620px,100%)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
@@ -97,10 +97,10 @@ export default function Services() {
               <div style={{ flex: '1 1 280px' }}>
                 <Num n="01" />
                 <h3 style={{ margin: '0 0 10px', fontSize: 32, fontWeight: 800 }}>ვებსაიტები</h3>
-                <p style={{ margin: 0, color: '#B9B9BE', lineHeight: 1.6 }}>ლენდინგები, კორპორატიული საიტები და ონლაინ მაღაზიები, რომლებიც სწრაფად იტვირთება და ყიდის.</p>
+                <p style={{ margin: 0, color: '#B9B9BE', lineHeight: 1.6 }}>ლენდინგები და კორპორატიული საიტები, რომლებიც თქვენს ბიზნესს გასაგებად წარმოაჩენს და მომხმარებელს შემდეგ ნაბიჯამდე მიიყვანს.</p>
               </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {['Next.js', 'Webflow', 'Shopify'].map(t => <span key={t} className="chip">{t}</span>)}
+                {['ლენდინგი', 'კორპორატიული', 'მრავალენოვანი'].map(t => <span key={t} className="chip">{t}</span>)}
               </div>
             </div>
           </article>
@@ -115,9 +115,9 @@ export default function Services() {
             </div>
             <div>
               <h3 style={{ margin: '0 0 10px', fontSize: 32, fontWeight: 800 }}>მობილური აპლიკაციები</h3>
-              <p style={{ margin: '0 0 24px', lineHeight: 1.6, maxWidth: 380 }}>iOS და Android აპები ერთი კოდით ან ნატიურად. დიზაინიდან App Store ში განთავსებამდე.</p>
+              <p style={{ margin: '0 0 24px', lineHeight: 1.6, maxWidth: 380 }}>iOS და Android აპლიკაციები, დიზაინიდან App Store-სა და Google Play-ზე განთავსებამდე.</p>
               <div style={{ display: 'flex', flexDirection: 'column', borderTop: '1px solid rgba(14,15,18,0.2)' }}>
-                {['React Native', 'Flutter', 'Swift და Kotlin'].map(t => (
+                {['iOS და Android', 'განთავსება მაღაზიებში', 'მხარდაჭერა გაშვების შემდეგ'].map(t => (
                   <div key={t} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 0', borderBottom: '1px solid rgba(14,15,18,0.2)', fontWeight: 500 }}>
                     <span>{t}</span>
                     <span style={{ width: 34, height: 34, borderRadius: '50%', background: '#0E0F12', color: '#C6F432', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Arrow rot={-45} /></span>
@@ -136,7 +136,7 @@ export default function Services() {
             <div>
               <Num n="03" lime={false} mb={8} />
               <h3 style={{ margin: '0 0 8px', fontSize: 30, fontWeight: 800 }}>SEO ოპტიმიზაცია</h3>
-              <p style={{ margin: 0, lineHeight: 1.6, color: '#44454b' }}>ტექნიკური აუდიტი, კონტენტის სტრატეგია და ბმულები. ამოდი ხმაურიდან და იყავი პირველი.</p>
+              <p style={{ margin: 0, lineHeight: 1.6, color: '#44454b' }}>ტექნიკური SEO, სტრუქტურა და კონტენტი, რომ Google-მა თქვენი საიტი სწორად წაიკითხოს და მომხმარებელმა იპოვოს.</p>
             </div>
           </article>
 
@@ -145,14 +145,14 @@ export default function Services() {
             <div style={{ padding: 28 }}>
               <Num n="04" />
               <h3 style={{ margin: '0 0 8px', fontSize: 32, fontWeight: 800 }}>UI და UX დიზაინი</h3>
-              <p style={{ margin: 0, maxWidth: 460, color: '#B9B9BE', lineHeight: 1.6 }}>ინტერფეისები, რომლებსაც ხალხი ეხება, არა უბრალოდ უყურებს. მიკროანიმაციები, დიზაინ სისტემები, პროტოტიპები.</p>
+              <p style={{ margin: 0, maxWidth: 460, color: '#B9B9BE', lineHeight: 1.6 }}>ინტერფეისები, რომლებიც მომხმარებლისთვის გასაგები და მოსახერხებელია. სტრუქტურა, პროტოტიპი და დიზაინ სისტემა კოდის დაწერამდე.</p>
             </div>
           </article>
 
           {[
-            ['05', 'ონლაინ მაღაზია', 'გადახდები ქართულ ბანკებთან, მარაგის მართვა, მიწოდება.'],
-            ['06', 'ბრენდინგი', 'ლოგო, ფერები, შრიფტები და ვიზუალური ენა, რომელიც გამოგარჩევს.'],
-            ['07', 'ჰოსტინგი და მხარდაჭერა', 'სერვერები, უსაფრთხოება, განახლებები. შენ ბიზნესს მართავ, ჩვენ საიტს.'],
+            ['05', 'ონლაინ მაღაზიები', 'გადახდა ქართული ბანკებით, მარაგისა და მიწოდების მართვა.'],
+            ['06', 'ბრენდინგი', 'ლოგო, ფერები, შრიფტები და ვიზუალური ენა, რომელიც გამოგარჩევთ.'],
+            ['07', 'Webu Care', 'გაშვება ურთიერთობის დასასრული არ არის. მონიტორინგი, backup-ები, განახლებები და შეცდომების გასწორება.'],
           ].map(([n, t, d]) => (
             <article key={n} className="card r32 svc-small">
               <Num n={n} mb={0} />

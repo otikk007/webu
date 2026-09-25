@@ -7,8 +7,8 @@ const geo = Noto_Sans_Georgian({ subsets: ['georgian', 'latin'], weight: ['400',
 const mono = JetBrains_Mono({ subsets: ['latin'], weight: ['400', '500'], display: 'swap', variable: '--font-mono' });
 const unb = Unbounded({ subsets: ['latin'], weight: '800', display: 'swap', preload: false, variable: '--font-unb' });
 
-const title = 'Webu | ვებსაიტები, აპლიკაციები და SEO თბილისში';
-const description = 'სრული ვებ სერვისი ერთ გუნდში. ვებსაიტები, მობილური აპლიკაციები, SEO ოპტიმიზაცია, UI და UX დიზაინი, ონლაინ მაღაზიები, ბრენდინგი და ჰოსტინგი.';
+const title = 'Webu | საიტის დამზადება, ვებაპლიკაციები და მობილური აპლიკაციები';
+const description = 'Webu ქმნის ვებსაიტებს, ონლაინ მაღაზიებს, ვებაპლიკაციებსა და მობილურ აპლიკაციებს, რომლებიც თქვენი ბიზნესის მიზნებზეა მორგებული. იდეიდან გაშვებამდე და მის შემდეგაც.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

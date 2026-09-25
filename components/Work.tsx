@@ -50,7 +50,7 @@ export default function Work() {
       <div className="inner">
         <div className="head-row">
           <div style={{ flex: '1 1 520px' }}>
-            <h2 className="h2">პროექტები, რომლებითაც ვამაყობთ</h2>
+            <h2 className="h2">შერჩეული ნამუშევრები</h2>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span className="mono" style={{ fontSize: 14, color: '#9A9AA0', marginRight: 8 }} aria-live="polite">{pad(wi + 1)} / {pad(WORKS.length)}</span>

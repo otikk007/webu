@@ -10,7 +10,7 @@ export default function Process() {
   return (
     <section id="process" className="sec">
       <div className="inner">
-        <h2 className="h2" style={{ marginBottom: 48 }}>ოთხი ნაბიჯი იდეიდან შედეგამდე</h2>
+        <h2 className="h2" style={{ marginBottom: 48 }}>იდეიდან გაშვებამდე</h2>
         <div className="grid">
           <div style={{ flex: '1 1 min(420px,100%)', minWidth: 0, display: 'flex', flexDirection: 'column', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
             {STEPS.map((st, i) => (

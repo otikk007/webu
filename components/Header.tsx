@@ -29,7 +29,7 @@ export default function Header() {
           <div className="nav-links">
             {NAV.map(l => <a key={l.href} href={l.href}>{l.label}</a>)}
           </div>
-          <a href="#contact" className="nav-cta">დაგვიკავშირდი</a>
+          <a href="#contact" className="nav-cta">დაიწყეთ პროექტი</a>
           <button className="menu-btn" onClick={() => setMenu(true)} aria-label="მენიუ" aria-expanded={menu}>
             <span /><span />
           </button>
@@ -44,7 +44,7 @@ export default function Header() {
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center' }}>
             {NAV.map(l => <a key={l.href} href={l.href} className="mmenu-link" onClick={close}>{l.label}</a>)}
           </div>
-          <a href="#contact" onClick={close} className="btn-dark" style={{ display: 'flex', justifyContent: 'center', padding: 18, borderRadius: 14, fontWeight: 700, fontSize: 17 }}>დაჯავშნე კონსულტაცია</a>
+          <a href="#contact" onClick={close} className="btn-dark" style={{ display: 'flex', justifyContent: 'center', padding: 18, borderRadius: 14, fontWeight: 700, fontSize: 17 }}>დაიწყეთ პროექტი</a>
         </div>
       )}
     </>

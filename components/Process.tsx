@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { STEPS } from '@/lib/site';
+import type { Dict } from '@/lib/dict';
 import { Arrow } from './ui';
 
-export default function Process() {
+export default function Process({ t }: { t: Dict['process'] }) {
+  const STEPS = t.steps;
   const [step, setStep] = useState(0);
   const s = STEPS[step];
   return (
     <section id="process" className="sec">
       <div className="inner">
-        <h2 className="h2" style={{ marginBottom: 48 }}>იდეიდან გაშვებამდე</h2>
+        <h2 className="h2" style={{ marginBottom: 48 }}>{t.h2}</h2>
         <div className="grid">
           <div style={{ flex: '1 1 min(420px,100%)', minWidth: 0, display: 'flex', flexDirection: 'column', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
             {STEPS.map((st, i) => (

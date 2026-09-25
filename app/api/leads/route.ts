@@ -1,32 +1,36 @@
 import { NextResponse } from 'next/server';
 import { allow, clientIp, sameOrigin } from '@/lib/guard';
 import { saveLead } from '@/lib/leads';
+import { LANG_META } from '@/lib/i18n';
+import { langOf, msg, type MessageKey } from '@/lib/messages';
 import { notify } from '@/lib/notify';
 
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const bad = (error: string) => NextResponse.json({ error }, { status: 400 });
 
 export async function POST(req: Request) {
-  if (!sameOrigin(req.headers)) return NextResponse.json({ error: 'არასწორი მოთხოვნა' }, { status: 403 });
   const b = await req.json().catch(() => null);
-  if (!b || typeof b !== 'object') return bad('არასწორი მოთხოვნა');
+  const lang = langOf(b?.lang);
+  const bad = (key: MessageKey) => NextResponse.json({ error: msg(key, lang) }, { status: 400 });
+  if (!sameOrigin(req.headers)) return NextResponse.json({ error: msg('invalid', lang) }, { status: 403 });
+  if (!b || typeof b !== 'object') return bad('invalid');
+  const flag = `${LANG_META[lang].short} · `;
   // Bot traps, answered with a fake success so bots don't adapt:
   // a honeypot field real visitors never see, and a form filled in under 3 seconds.
   if (str(b.website, 200) || !(Number(b.t) >= 3000)) return NextResponse.json({ ok: true });
   if (!allow(`lead:${clientIp(req.headers)}`, 5, 60 * 60_000) || !allow('lead:all', 100, 60 * 60_000)) {
-    return NextResponse.json({ error: 'ძალიან ბევრი მოთხოვნაა, სცადეთ მოგვიანებით' }, { status: 429 });
+    return NextResponse.json({ error: msg('tooManyLeads', lang) }, { status: 429 });
   }
 
   try {
     if (b.type === 'audit') {
       const email = str(b.email, 200), url = str(b.url, 300);
-      if (!EMAIL.test(email)) return bad('ელფოსტა არასწორია');
-      if (!url) return bad('საიტის მისამართი აკლია');
+      if (!EMAIL.test(email)) return bad('email');
+      if (!url) return bad('url');
       const scores = Array.isArray(b.scores) ? b.scores.slice(0, 4).map(Number).filter(Number.isFinite) : [];
       const issues = Array.isArray(b.issues) ? b.issues.slice(0, 40).map((i: unknown) => str(i, 300)).filter(Boolean) : [];
-      await saveLead({ type: 'audit', email, url, scores, issues });
-      await notify(`🔍 აუდიტის ანგარიშის მოთხოვნა
+      await saveLead({ type: 'audit', email, url, scores, issues, lang });
+      await notify(`🔍 ${flag}აუდიტის ანგარიშის მოთხოვნა
 
 საიტი: ${url}
 ელფოსტა: ${email}
@@ -36,11 +40,11 @@ export async function POST(req: Request) {
     }
     if (b.type === 'booking') {
       const name = str(b.name, 120), contact = str(b.contact, 200), date = str(b.date, 10), time = str(b.time, 5);
-      if (!name) return bad('ჩაწერეთ სახელი');
-      if (!EMAIL.test(contact) && contact.replace(/\D/g, '').length < 9) return bad('ჩაწერეთ ტელეფონი ან ელფოსტა');
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) return bad('აირჩიეთ დღე და დრო');
-      await saveLead({ type: 'booking', name, contact, date, time });
-      await notify(`📅 ახალი კონსულტაცია
+      if (!name) return bad('name');
+      if (!EMAIL.test(contact) && contact.replace(/\D/g, '').length < 9) return bad('contact');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) return bad('when');
+      await saveLead({ type: 'booking', name, contact, date, time, lang });
+      await notify(`📅 ${flag}ახალი კონსულტაცია
 
 სახელი: ${name}
 კონტაქტი: ${contact}
@@ -49,7 +53,7 @@ export async function POST(req: Request) {
     }
   } catch (e) {
     console.error('lead save failed', e);
-    return NextResponse.json({ error: 'ვერ გაიგზავნა, სცადეთ თავიდან' }, { status: 500 });
+    return NextResponse.json({ error: msg('sendFailed', lang) }, { status: 500 });
   }
-  return bad('არასწორი მოთხოვნა');
+  return bad('invalid');
 }

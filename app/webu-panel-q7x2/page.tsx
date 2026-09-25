@@ -23,6 +23,7 @@ function Card({ l }: { l: Lead }) {
       <header>
         <span className={`adm-badge ${l.type}`}>{l.type === 'booking' ? 'კონსულტაცია' : 'აუდიტი'}</span>
         {l.status === 'new' && <span className="adm-new">ახალი</span>}
+        {l.lang && l.lang !== 'ka' && <span className="adm-lang">{l.lang.toUpperCase()}</span>}
         <time dateTime={l.createdAt}>{when(l.createdAt)}</time>
       </header>
       {l.type === 'booking' ? (

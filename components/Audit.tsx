@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import type { Dict } from '@/lib/dict';
+import { fill, type Lang } from '@/lib/i18n';
 import { track } from '@/lib/track';
-
-const METRICS = ['სიჩქარე', 'ტექნიკური SEO', 'უსაფრთხოება', 'კონტენტი'];
 
 type Result = { url: string; scores: number[]; issues: string[] };
 
-export default function Audit() {
+export default function Audit({ lang, t }: { lang: Lang; t: Dict['audit'] }) {
+  const METRICS = t.metrics;
   const [url, setUrl] = useState('');
   const [scan, setScan] = useState(false);
   const [res, setRes] = useState<Result | null>(null);
@@ -24,13 +25,13 @@ export default function Audit() {
     if (!u || scan) return;
     setScan(true); setRes(null); setErr(''); setSend('idle'); setSendErr('');
     try {
-      const r = await fetch('/api/audit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url: u }) });
+      const r = await fetch('/api/audit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url: u, lang }) });
       const d = await r.json();
-      if (!r.ok) throw new Error(d.error || 'შემოწმება ვერ მოხერხდა');
+      if (!r.ok) throw new Error(d.error || t.failed);
       setRes(d);
       track('audit_run', new URL(d.url).hostname, { v: Math.round(d.scores.reduce((a: number, b: number) => a + b, 0) / 4) });
     } catch (e) {
-      setErr(e instanceof Error ? e.message : 'შემოწმება ვერ მოხერხდა');
+      setErr(e instanceof Error ? e.message : t.failed);
     } finally {
       setScan(false);
     }
@@ -40,18 +41,18 @@ export default function Audit() {
     if (!res || send !== 'idle') return;
     setSend('busy'); setSendErr('');
     try {
-      const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'audit', url: res.url, email, scores: res.scores, issues: res.issues, website: hp, t: Date.now() - born.current }) });
+      const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'audit', url: res.url, email, scores: res.scores, issues: res.issues, website: hp, t: Date.now() - born.current, lang }) });
       const d = await r.json();
-      if (!r.ok) throw new Error(d.error || 'ვერ გაიგზავნა');
+      if (!r.ok) throw new Error(d.error || t.sendFailed);
       setSend('done');
       track('audit_request', new URL(res.url).hostname);
     } catch (e) {
-      setSend('idle'); setSendErr(e instanceof Error ? e.message : 'ვერ გაიგზავნა');
+      setSend('idle'); setSendErr(e instanceof Error ? e.message : t.sendFailed);
     }
   };
 
   const avg = res ? Math.round(res.scores.reduce((a, b) => a + b, 0) / 4) : 0;
-  const note = scan ? 'ვამოწმებთ' : err ? 'ვერ შევამოწმეთ' : res ? (avg > 80 ? 'კარგი შედეგია' : avg > 65 ? 'არის რეზერვი' : 'საჭიროებს ყურადღებას') : 'საერთო ქულა';
+  const note = scan ? t.notes.checking : err ? t.notes.failed : res ? (avg > 80 ? t.notes.good : avg > 65 ? t.notes.ok : t.notes.bad) : t.notes.total;
   const pill = { display: 'flex', gap: 8, padding: 8, borderRadius: 999, background: '#fff', border: '1px solid rgba(14,15,18,0.1)', maxWidth: 520 } as const;
   const field = { flex: 1, minWidth: 0, border: 0, outline: 0, background: 'transparent', padding: '0 16px', fontSize: 16, fontFamily: 'inherit', color: '#0E0F12' } as const;
   const btn = { border: 0, cursor: 'pointer', padding: '14px 24px', borderRadius: 999, background: '#0E0F12', color: '#F2F1EC', fontWeight: 600, fontSize: 15, whiteSpace: 'nowrap' } as const;
@@ -60,28 +61,28 @@ export default function Audit() {
     <section id="audit" className="sec">
       <div className="inner r40" style={{ borderRadius: 40, background: '#F2F1EC', color: '#0E0F12', padding: 'clamp(24px,4vw,56px)', display: 'flex', flexWrap: 'wrap', gap: 'clamp(24px,4vw,56px)', alignItems: 'center' }}>
         <div style={{ flex: '1 1 min(440px,100%)', minWidth: 0 }}>
-          <h2 className="h2" style={{ margin: '0 0 20px', fontSize: 'clamp(34px,4.6vw,64px)' }}>რამდენად გხედავთ Google?</h2>
-          <p style={{ margin: '0 0 32px', color: '#44454b', lineHeight: 1.6, maxWidth: 480 }}>ჩაწერეთ თქვენი საიტის მისამართი და მიიღეთ სწრაფი შეფასება. სრულ ანგარიშს 24 საათში გამოგიგზავნით.</p>
+          <h2 className="h2" style={{ margin: '0 0 20px', fontSize: 'clamp(34px,4.6vw,64px)' }}>{t.h2}</h2>
+          <p style={{ margin: '0 0 32px', color: '#44454b', lineHeight: 1.6, maxWidth: 480 }}>{t.text}</p>
           <form onSubmit={e => { e.preventDefault(); run(); }} style={pill}>
-            <input value={url} onChange={e => setUrl(e.target.value)} placeholder="tqvenisaiti.ge" aria-label="საიტის მისამართი" inputMode="url" autoCapitalize="off" spellCheck={false} style={field} />
-            <button type="submit" className="audit-btn" disabled={scan} style={btn}>{scan ? 'სკანირება...' : 'შემოწმება'}</button>
+            <input value={url} onChange={e => setUrl(e.target.value)} placeholder={t.placeholder} aria-label={t.urlLabel} inputMode="url" autoCapitalize="off" spellCheck={false} style={field} />
+            <button type="submit" className="audit-btn" disabled={scan} style={btn}>{scan ? t.scanning : t.check}</button>
           </form>
           <div aria-live="polite">
             {err && <p style={{ margin: '14px 0 0 16px', color: '#b3261e', fontSize: 14 }}>{err}</p>}
             {res && send !== 'done' && (
               <form onSubmit={e => { e.preventDefault(); request(); }} style={{ marginTop: 24 }}>
                 <p style={{ margin: '0 0 12px', fontSize: 15, lineHeight: 1.5 }}>
-                  {res.issues.length ? `ნაპოვნია ${res.issues.length} საკითხი. ` : ''}მიიღეთ სრული ანგარიში და რეკომენდაციები ელფოსტაზე 24 საათში.
+                  {res.issues.length ? fill(t.found, { n: res.issues.length }) : ''}{t.offer}
                 </p>
                 <div style={pill}>
-                  <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="თქვენი ელფოსტა" aria-label="ელფოსტა" autoComplete="email" style={field} />
+                  <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder={t.email} aria-label={t.emailLabel} autoComplete="email" style={field} />
                   <input tabIndex={-1} autoComplete="off" aria-hidden="true" value={hp} onChange={e => setHp(e.target.value)} name="website" style={{ position: 'absolute', left: -9999, width: 1, height: 1, opacity: 0 }} />
-                  <button type="submit" className="audit-btn" disabled={send === 'busy'} style={btn}>{send === 'busy' ? 'იგზავნება...' : 'მიიღეთ ანგარიში'}</button>
+                  <button type="submit" className="audit-btn" disabled={send === 'busy'} style={btn}>{send === 'busy' ? t.sending : t.request}</button>
                 </div>
                 {sendErr && <p style={{ margin: '10px 0 0 16px', color: '#b3261e', fontSize: 14 }}>{sendErr}</p>}
               </form>
             )}
-            {send === 'done' && <p style={{ margin: '24px 0 0', fontSize: 16, fontWeight: 600 }}>მადლობა! სრულ ანგარიშს 24 საათში გამოგიგზავნით.</p>}
+            {send === 'done' && <p style={{ margin: '24px 0 0', fontSize: 16, fontWeight: 600 }}>{t.thanks}</p>}
           </div>
         </div>
         <div style={{ flex: '1 1 min(440px,100%)', minWidth: 0, display: 'flex', flexWrap: 'wrap', gap: 16 }} aria-live="polite">

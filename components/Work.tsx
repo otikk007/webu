@@ -2,13 +2,15 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { WORKS } from '@/lib/site';
+import type { Dict } from '@/lib/dict';
+import { WORKS as MEDIA } from '@/lib/site';
 import { Arrow } from './ui';
 
 const NS = 8, SLIDE = 5200, PHASE = 750;
 type Phase = 'idle' | 'cover' | 'reveal';
 
-export default function Work() {
+export default function Work({ t }: { t: Dict['work'] }) {
+  const WORKS = MEDIA.map((m, i) => ({ ...m, ...t.items[i] }));
   const [wi, setWi] = useState(0);
   const [phase, setPhase] = useState<Phase>('idle');
   const [prog, setProg] = useState(false);
@@ -50,12 +52,12 @@ export default function Work() {
       <div className="inner">
         <div className="head-row">
           <div style={{ flex: '1 1 520px' }}>
-            <h2 className="h2">შერჩეული ნამუშევრები</h2>
+            <h2 className="h2">{t.h2}</h2>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span className="mono" style={{ fontSize: 14, color: '#9A9AA0', marginRight: 8 }} aria-live="polite">{pad(wi + 1)} / {pad(WORKS.length)}</span>
-            <button className="circle-btn" onClick={() => go(-1)} aria-label="წინა პროექტი"><Arrow size={20} rot={180} /></button>
-            <button className="circle-btn" onClick={() => go(1)} aria-label="შემდეგი პროექტი"><Arrow size={20} /></button>
+            <button className="circle-btn" onClick={() => go(-1)} aria-label={t.prev}><Arrow size={20} rot={180} /></button>
+            <button className="circle-btn" onClick={() => go(1)} aria-label={t.next}><Arrow size={20} /></button>
           </div>
         </div>
         <div className="grid">

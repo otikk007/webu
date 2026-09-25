@@ -1,9 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { SERP } from '@/lib/site';
+import type { Dict } from '@/lib/dict';
 
-export default function Serp() {
+export default function Serp({ t }: { t: Dict['serp'] }) {
+  const rows = [
+    { id: 'a', title: t.rival, url: '•••' },
+    { id: 'b', title: t.rival, url: '•••' },
+    { id: 'c', title: t.rival, url: '•••' },
+    { id: 'me', title: t.you, url: t.yourUrl },
+  ];
   const ref = useRef<HTMLDivElement>(null);
   const [up, setUp] = useState(false);
 
@@ -21,8 +27,8 @@ export default function Serp() {
   const order = up ? ['me', 'a', 'b', 'c'] : ['a', 'b', 'c', 'me'];
 
   return (
-    <div ref={ref} style={{ position: 'relative', height: 292 }} aria-label="Google-ის ძიების შედეგები">
-      {SERP.map(r => {
+    <div ref={ref} style={{ position: 'relative', height: 292 }} role="img" aria-label={t.label}>
+      {rows.map(r => {
         const k = order.indexOf(r.id), me = r.id === 'me';
         return (
           <div key={r.id} style={{ position: 'absolute', left: 0, right: 0, top: 0, height: 64, display: 'flex', alignItems: 'center', gap: 14, padding: '0 16px', borderRadius: 18, background: me && up ? '#C6F432' : '#fff', color: '#0E0F12', transform: `translateY(${k * 76}px)`, transition: 'transform 1.1s cubic-bezier(.6,0,.2,1),background .5s', transitionDelay: me ? '0s' : '.15s' }}>

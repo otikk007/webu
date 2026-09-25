@@ -12,6 +12,7 @@ export type AuditLead = {
   email: string;
   scores: number[];
   issues: string[];
+  lang?: string;
 };
 
 export type BookingLead = {
@@ -20,6 +21,7 @@ export type BookingLead = {
   contact: string;
   date: string;
   time: string;
+  lang?: string;
 };
 
 export type Lead = (AuditLead | BookingLead) & { id: string; createdAt: string; status: LeadStatus };

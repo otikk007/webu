@@ -1,8 +1,11 @@
-import { SERVICE_PAGES } from '@/lib/pages';
+import type { Dict } from '@/lib/dict';
+import { lp, type Lang } from '@/lib/i18n';
+import { guides, infoPages, pageHref, servicePages } from '@/lib/pages';
 import { NEON } from '@/lib/site';
 import { Logo } from './ui';
 
-export default function Footer() {
+export default function Footer({ lang, t }: { lang: Lang; t: Dict['footer'] }) {
+  const home = lang === 'ka' ? '' : `/${lang}`;
   return (
     <footer style={{ marginTop: 'clamp(72px,10vw,140px)', position: 'relative', overflow: 'hidden', background: '#0a0a0c' }}>
       <svg viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
@@ -20,13 +23,20 @@ export default function Footer() {
             <address style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 17, fontStyle: 'normal' }}>
               <a href="tel:+995555123456">+995 555 12 34 56</a>
               <a href="mailto:hello@webu.ge">hello@webu.ge</a>
-              <span style={{ color: '#9A9AA0' }}>თბილისი, ვაჟა ფშაველას 71</span>
+              <span style={{ color: '#9A9AA0' }}>{t.address}</span>
             </address>
-            <nav aria-label="ფუტერის ნავიგაცია" style={{ display: 'flex', gap: 40, flexWrap: 'wrap', fontSize: 15 }}>
+            <nav aria-label={t.nav} style={{ display: 'flex', gap: 40, flexWrap: 'wrap', fontSize: 15 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {SERVICE_PAGES.map(p => <a key={p.slug} href={`/${p.slug}`}>{p.nav}</a>)}
+                {servicePages(lang).map(p => <a key={p.id} href={pageHref(p)}>{p.nav}</a>)}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}><a href="/#work">ნამუშევრები</a><a href="/#process">როგორ ვმუშაობთ</a><a href="/#audit">SEO აუდიტი</a><a href="/chven-shesakheb">ჩვენ შესახებ</a><a href="/blog">ბლოგი</a><a href="/blog/saitis-damzadebis-fasi">საიტის დამზადების ფასი</a></div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <a href={`${home}/#work`}>{t.work}</a>
+                <a href={`${home}/#process`}>{t.process}</a>
+                <a href={`${home}/#audit`}>{t.audit}</a>
+                {infoPages(lang).map(p => <a key={p.id} href={pageHref(p)}>{p.nav}</a>)}
+                <a href={lp(lang, '/blog')}>{t.blog}</a>
+                {guides(lang).filter(g => g.id === 'cost').map(g => <a key={g.id} href={pageHref(g)}>{g.nav}</a>)}
+              </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -41,7 +51,7 @@ export default function Footer() {
             <Logo s={0.6} u="em" filter="goo-l" dur={6} />
           </div>
           <div className="mono" style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginTop: 32, fontSize: 13, color: '#9A9AA0', fontFamily: 'var(--mono), var(--geo)' }}>
-            <span>© 2026 Webu</span><span>კონფიდენციალურობა</span>
+            <span>© 2026 Webu</span><span>{t.privacy}</span>
           </div>
         </div>
       </div>

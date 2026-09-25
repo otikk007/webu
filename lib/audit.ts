@@ -8,7 +8,12 @@ import { isIP } from 'node:net';
 
 export type AuditResult = { url: string; scores: [number, number, number, number]; issues: string[] };
 
-export class AuditError extends Error {}
+import type { MessageKey } from './messages';
+
+/** A failure the visitor should see; `key` selects the localized message. */
+export class AuditError extends Error {
+  constructor(public key: MessageKey, public n?: number) { super(key); }
+}
 
 const UA = 'Mozilla/5.0 (compatible; WebuAudit/1.0; +https://webu-khaki.vercel.app)';
 const MAX_BYTES = 2_000_000;
@@ -17,9 +22,9 @@ export function normalizeUrl(input: string): URL {
   let s = input.trim();
   if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
   let u: URL;
-  try { u = new URL(s); } catch { throw new AuditError('მისამართი არასწორია'); }
-  if (!/^https?:$/.test(u.protocol) || u.username || u.password || (u.port && !['80', '443'].includes(u.port))) throw new AuditError('მისამართი არასწორია');
-  if (!u.hostname.includes('.') || isIP(u.hostname) || /(^|\.)(localhost|local|internal)$/i.test(u.hostname)) throw new AuditError('მისამართი არასწორია');
+  try { u = new URL(s); } catch { throw new AuditError('badUrl'); }
+  if (!/^https?:$/.test(u.protocol) || u.username || u.password || (u.port && !['80', '443'].includes(u.port))) throw new AuditError('badUrl');
+  if (!u.hostname.includes('.') || isIP(u.hostname) || /(^|\.)(localhost|local|internal)$/i.test(u.hostname)) throw new AuditError('badUrl');
   u.hash = '';
   return u;
 }
@@ -36,8 +41,8 @@ function isPrivate(ip: string) {
 
 async function assertPublic(host: string) {
   let addrs: { address: string }[];
-  try { addrs = await lookup(host, { all: true }); } catch { throw new AuditError('საიტი ვერ მოიძებნა'); }
-  if (!addrs.length || addrs.some(a => isPrivate(a.address))) throw new AuditError('საიტი ვერ მოიძებნა');
+  try { addrs = await lookup(host, { all: true }); } catch { throw new AuditError('notFound'); }
+  if (!addrs.length || addrs.some(a => isPrivate(a.address))) throw new AuditError('notFound');
 }
 
 type Fetched = { url: URL; status: number; headers: Headers; body: string; ms: number; bytes: number };
@@ -71,7 +76,7 @@ async function fetchPage(start: URL, readBody = true, timeout = 10000): Promise<
     }
     return { url, status: res.status, headers: res.headers, body, ms: performance.now() - t0, bytes };
   }
-  throw new AuditError('ძალიან ბევრი გადამისამართება');
+  throw new AuditError('redirects');
 }
 
 async function exists(u: URL) {
@@ -103,9 +108,9 @@ export async function runAudit(input: string): Promise<AuditResult> {
   let page: Fetched;
   try { page = await fetchPage(start); } catch (e) {
     if (e instanceof AuditError) throw e;
-    throw new AuditError('საიტი არ პასუხობს');
+    throw new AuditError('noResponse');
   }
-  if (page.status >= 400) throw new AuditError(`საიტმა დააბრუნა შეცდომა ${page.status}`);
+  if (page.status >= 400) throw new AuditError('httpError', page.status);
 
   const html = page.body, h = page.headers, final = page.url;
   const origin = final.origin;

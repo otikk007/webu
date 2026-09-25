@@ -5,7 +5,7 @@ import { ImageResponse } from 'next/og';
 export const OG_SIZE = { width: 1200, height: 630 };
 
 // Share image in the site's style: dark ground, lime accent, Georgian title.
-export async function ogImage(title: string, kicker: string) {
+export async function ogImage(title: string, kicker: string, tagline = 'თქვენი იდეა. ჩვენი გამოცდილება.') {
   const dir = join(process.cwd(), 'assets/fonts');
   const [geo, latin] = await Promise.all([
     readFile(join(dir, 'NotoSansGeorgian-Bold.ttf')),
@@ -24,7 +24,7 @@ export async function ogImage(title: string, kicker: string) {
           <div style={{ fontSize: 28, color: '#C6F432' }}>{kicker}</div>
           <div style={{ fontSize: size, lineHeight: 1.15, maxWidth: 1000 }}>{title}</div>
         </div>
-        <div style={{ fontSize: 26, color: '#9A9AA0' }}>თქვენი იდეა. ჩვენი გამოცდილება.</div>
+        <div style={{ fontSize: 26, color: '#9A9AA0' }}>{tagline}</div>
       </div>
     ),
     { ...OG_SIZE, fonts: [{ name: 'Geo', data: geo, weight: 700 }, { name: 'Latin', data: latin, weight: 700 }] },

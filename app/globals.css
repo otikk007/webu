@@ -179,3 +179,8 @@ button { font-family: inherit; }
 
 /* Russian: Noto Sans first, otherwise the Georgian font's Arial-based fallback renders Cyrillic. */
 html[lang="ru"] { --geo: var(--font-cyr), var(--font-geo), 'Noto Sans', sans-serif; }
+
+/* Text selection in the brand lime; on lime surfaces it flips to dark so it stays visible. */
+::selection { background: var(--lime); color: var(--bg); }
+[style*="background:#C6F432"] ::selection, [style*="background:#C6F432"]::selection,
+.mmenu ::selection, .cp-final ::selection, .nav-cta::selection, .cp-cta::selection, .cp-cta ::selection { background: var(--bg); color: var(--lime); }

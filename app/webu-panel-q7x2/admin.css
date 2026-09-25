@@ -84,3 +84,4 @@
 .an-table tr.hot td { color: var(--lime); }
 .an-sid { font-family: var(--mono); color: var(--muted-2); font-size: 12px; }
 .adm-lang { font-size: 12px; font-family: var(--mono); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.2); }
+.adm ::selection { background: var(--lime); color: var(--bg); }

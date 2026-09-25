@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const METRICS = ['სიჩქარე', 'ტექნიკური SEO', 'უსაფრთხოება', 'კონტენტი'];
 
@@ -15,6 +15,8 @@ export default function Audit() {
   const [hp, setHp] = useState('');
   const [send, setSend] = useState<'idle' | 'busy' | 'done'>('idle');
   const [sendErr, setSendErr] = useState('');
+  const born = useRef(0);
+  useEffect(() => { born.current = Date.now(); }, []);
 
   const run = async () => {
     const u = url.trim();
@@ -36,7 +38,7 @@ export default function Audit() {
     if (!res || send !== 'idle') return;
     setSend('busy'); setSendErr('');
     try {
-      const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'audit', url: res.url, email, scores: res.scores, issues: res.issues, website: hp }) });
+      const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'audit', url: res.url, email, scores: res.scores, issues: res.issues, website: hp, t: Date.now() - born.current }) });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || 'ვერ გაიგზავნა');
       setSend('done');

@@ -3,6 +3,8 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import { cookies } from 'next/headers';
 
 export const ADMIN_COOKIE = 'webu_admin';
+// Must match the app/ folder name. Kept out of robots.txt on purpose so it isn't advertised.
+export const ADMIN_PATH = '/webu-panel-q7x2';
 
 // The session cookie is an HMAC of the admin password, so changing
 // ADMIN_PASSWORD signs everyone out.

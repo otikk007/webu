@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { isAdmin } from '@/lib/admin-auth';
+import { ADMIN_PATH, isAdmin } from '@/lib/admin-auth';
 import { listLeads, type Lead } from '@/lib/leads';
 import { logout, removeLead, toggleStatus } from './actions';
 import LoginForm from './LoginForm';
@@ -89,7 +89,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
       </div>
       <nav className="adm-tabs" aria-label="ფილტრი">
         {TABS.map(t => (
-          <Link key={t.id} href={`/admin?tab=${t.id}`} aria-current={tab === t.id ? 'page' : undefined}>
+          <Link key={t.id} href={`${ADMIN_PATH}?tab=${t.id}`} aria-current={tab === t.id ? 'page' : undefined}>
             {t.label} <span>{count(t.id)}</span>
           </Link>
         ))}

@@ -22,7 +22,7 @@ export default function Footer() {
               <span style={{ color: '#9A9AA0' }}>თბილისი, ვაჟა ფშაველას 71</span>
             </address>
             <nav aria-label="ფუტერის ნავიგაცია" style={{ display: 'flex', gap: 40, flexWrap: 'wrap', fontSize: 15 }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}><a href="#services">სერვისები</a><a href="#work">ნამუშევრები</a><a href="#process">როგორ ვმუშაობთ</a></div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}><a href="#services">სერვისები</a><a href="#work">ნამუშევრები</a><a href="#process">როგორ ვმუშაობთ</a><a href="#audit">SEO აუდიტი</a></div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>

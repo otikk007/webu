@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { allow, clientIp, sameOrigin } from '@/lib/guard';
 import { saveLead } from '@/lib/leads';
 
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
@@ -6,10 +7,15 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const bad = (error: string) => NextResponse.json({ error }, { status: 400 });
 
 export async function POST(req: Request) {
+  if (!sameOrigin(req.headers)) return NextResponse.json({ error: 'არასწორი მოთხოვნა' }, { status: 403 });
   const b = await req.json().catch(() => null);
   if (!b || typeof b !== 'object') return bad('არასწორი მოთხოვნა');
-  // Honeypot: real visitors never see or fill this field.
-  if (str(b.website, 200)) return NextResponse.json({ ok: true });
+  // Bot traps, answered with a fake success so bots don't adapt:
+  // a honeypot field real visitors never see, and a form filled in under 3 seconds.
+  if (str(b.website, 200) || !(Number(b.t) >= 3000)) return NextResponse.json({ ok: true });
+  if (!allow(`lead:${clientIp(req.headers)}`, 5, 60 * 60_000) || !allow('lead:all', 100, 60 * 60_000)) {
+    return NextResponse.json({ error: 'ძალიან ბევრი მოთხოვნაა, სცადეთ მოგვიანებით' }, { status: 429 });
+  }
 
   try {
     if (b.type === 'audit') {

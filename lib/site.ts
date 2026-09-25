@@ -5,6 +5,7 @@ export const NAV = [
   { href: '#services', label: 'სერვისები' },
   { href: '#work', label: 'ნამუშევრები' },
   { href: '#process', label: 'როგორ ვმუშაობთ' },
+  { href: '#audit', label: 'SEO აუდიტი' },
   { href: '#price', label: 'ფასი' },
   { href: '#faq', label: 'კითხვები' },
 ];

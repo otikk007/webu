@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MONTHS, MONTHS_GEN } from '@/lib/site';
 import { Arrow, Goo } from './ui';
 
@@ -18,6 +18,8 @@ export default function Contact() {
   const [hp, setHp] = useState('');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
+  const born = useRef(0);
+  useEffect(() => { born.current = Date.now(); }, []);
 
   // month depends on the visitor's clock, so it is set after hydration
   useEffect(() => { const n = new Date(); setCal({ y: n.getFullYear(), m: n.getMonth() }); }, []);
@@ -60,7 +62,7 @@ export default function Contact() {
     setBusy(true); setErr('');
     const date = `${selD.y}-${String(selD.m + 1).padStart(2, '0')}-${String(selD.d).padStart(2, '0')}`;
     try {
-      const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'booking', name, contact, date, time: selT, website: hp }) });
+      const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'booking', name, contact, date, time: selT, website: hp, t: Date.now() - born.current }) });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || 'ვერ გაიგზავნა');
       setDone(true);

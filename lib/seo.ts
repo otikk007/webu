@@ -37,10 +37,13 @@ const faqLd = (id: string, faqs: { q: string; a: string }[]) => ({
 export function pageJsonLd(p: ContentPage) {
   const url = `${SITE_URL}${pageHref(p)}`;
   const org = { '@type': 'Organization', '@id': ORG_ID, name: BRAND.name, url: SITE_URL, logo: `${SITE_URL}/icon.svg` };
-  const main = p.kind === 'guide'
+  const main = p.kind === 'page'
+    ? { '@type': 'AboutPage', '@id': `${url}#about`, name: p.h1, description: p.answer, url, about: { '@id': ORG_ID }, inLanguage: 'ka' }
+    : p.kind === 'guide'
     ? {
         '@type': 'Article', '@id': `${url}#article`, headline: p.h1, description: p.description, inLanguage: 'ka',
         datePublished: UPDATED, dateModified: UPDATED, author: org, publisher: org, mainEntityOfPage: url, image: `${url}/opengraph-image`,
+        ...(p.sources ? { citation: p.sources.map(s => ({ '@type': 'CreativeWork', name: s.title, url: s.url })) } : {}),
       }
     : {
         '@type': 'Service', '@id': `${url}#service`, name: p.nav, description: p.answer, serviceType: p.nav, url,
@@ -54,10 +57,10 @@ export function pageJsonLd(p: ContentPage) {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'მთავარი', item: SITE_URL },
-          p.kind === 'guide'
+          ...(p.kind === 'page' ? [] : [p.kind === 'guide'
             ? { '@type': 'ListItem', position: 2, name: 'ბლოგი', item: `${SITE_URL}/blog` }
-            : { '@type': 'ListItem', position: 2, name: 'სერვისები', item: `${SITE_URL}/#services` },
-          { '@type': 'ListItem', position: 3, name: p.nav, item: url },
+            : { '@type': 'ListItem', position: 2, name: 'სერვისები', item: `${SITE_URL}/#services` }]),
+          { '@type': 'ListItem', position: p.kind === 'page' ? 2 : 3, name: p.nav, item: url },
         ],
       },
       {

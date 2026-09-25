@@ -2,6 +2,8 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   images: { formats: ['image/avif', 'image/webp'] },
+  // Inline CSS into the HTML so it no longer blocks the first paint.
+  experimental: { inlineCss: true },
   async headers() {
     return [{
       source: '/(.*)',

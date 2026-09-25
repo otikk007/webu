@@ -29,7 +29,7 @@ export default function ContentPageView({ page, updated }: { page: ContentPage; 
             <div className="inner">
               <nav aria-label="breadcrumb" className="cp-crumbs">
                 <Link href="/">მთავარი</Link><span aria-hidden="true">/</span>
-                <Link href={crumb.href}>{crumb.label}</Link><span aria-hidden="true">/</span>
+                {page.kind !== 'page' && <><Link href={crumb.href}>{crumb.label}</Link><span aria-hidden="true">/</span></>}
                 <span aria-current="page">{page.nav}</span>
               </nav>
               <h1>{page.h1}</h1>
@@ -63,6 +63,17 @@ export default function ContentPageView({ page, updated }: { page: ContentPage; 
               </div>
             </section>
           ))}
+
+          {page.sources && (
+            <section id="sources" className="cp-sec">
+              <div className="inner cp-narrow">
+                <h2>წყაროები</h2>
+                <ol className="cp-sources">
+                  {page.sources.map(s => <li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a></li>)}
+                </ol>
+              </div>
+            </section>
+          )}
 
           <section id="faq" className="cp-sec">
             <div className="inner cp-narrow">

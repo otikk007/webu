@@ -47,7 +47,7 @@ export const FAQS = [
 ];
 
 export const WORKS = [
-  { name: 'ტექსტილ მარკეტი', cat: 'ონლაინ მაღაზია', year: '2026', src: '/assets/laptop-color.mp4', poster: '/assets/c-laptop.jpg', vid: true },
+  { name: 'ტექსტილ მარკეტი', cat: 'ონლაინ მაღაზია', year: '2026', src: '/assets/laptop-color.mp4', poster: '/assets/c-laptop-1280.webp', vid: true },
   { name: 'ჰორიზონტი', cat: 'SaaS პლატფორმა, ვებსაიტი', year: '2025', src: '/assets/c-hero.jpg' },
   { name: 'ქალაქი 3D', cat: 'არქიტექტურა, ინტერაქტიული საიტი', year: '2025', src: '/assets/c-city.jpg' },
   { name: 'ოქროს ხაზი', cat: 'ინვესტიციები, კორპორატიული საიტი', year: '2024', src: '/assets/c-sculpture.jpg' },

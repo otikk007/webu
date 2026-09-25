@@ -63,7 +63,12 @@ export default function Work() {
             {WORKS.map((w, i) => (
               <div key={w.name} style={{ position: 'absolute', inset: 0, opacity: i === wi ? 1 : 0 }}>
                 {w.vid
-                  ? <video src={w.src} poster={w.poster} muted loop playsInline preload="metadata" className="fill" aria-label={w.name} />
+                  ? (
+                    <video poster={w.poster} muted loop playsInline preload="none" className="fill" aria-label={w.name}>
+                      <source src={w.src.replace('.mp4', '-720.mp4')} type="video/mp4" media="(max-width: 880px)" />
+                      <source src={w.src.replace('.mp4', '-1280.mp4')} type="video/mp4" />
+                    </video>
+                  )
                   : <Image src={w.src} alt={w.name} fill sizes="(max-width: 880px) 100vw, 66vw" style={{ objectFit: 'cover', animation: 'kb 9s ease-in-out infinite alternate' }} />}
               </div>
             ))}

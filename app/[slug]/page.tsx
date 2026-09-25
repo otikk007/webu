@@ -1,17 +1,17 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ContentPageView from '@/components/ContentPage';
-import { SERVICE_PAGES, UPDATED, pageBySlug } from '@/lib/pages';
+import { INFO_PAGES, SERVICE_PAGES, UPDATED, pageBySlug } from '@/lib/pages';
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return SERVICE_PAGES.map(p => ({ slug: p.slug }));
+  return [...SERVICE_PAGES, ...INFO_PAGES].map(p => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const p = pageBySlug((await params).slug);
-  if (!p || p.kind !== 'service') return {};
+  if (!p || p.kind === 'guide') return {};
   return {
     title: p.title,
     description: p.description,
@@ -23,6 +23,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const p = pageBySlug((await params).slug);
-  if (!p || p.kind !== 'service') notFound();
+  if (!p || p.kind === 'guide') notFound();
   return <ContentPageView page={p} updated={UPDATED} />;
 }

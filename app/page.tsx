@@ -11,9 +11,12 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import { SvgDefs } from '@/components/ui';
 import Tracker from '@/components/Tracker';
+import { preload } from 'react-dom';
 import { jsonLd } from '@/lib/seo';
 
 export default function Home() {
+  // The hero video poster is the largest paint on first load.
+  preload('/assets/s-hero-1280.webp', { as: 'image', fetchPriority: 'high' });
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd()) }} />

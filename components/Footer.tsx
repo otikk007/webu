@@ -26,7 +26,7 @@ export default function Footer() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {SERVICE_PAGES.map(p => <a key={p.slug} href={`/${p.slug}`}>{p.nav}</a>)}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}><a href="/#work">ნამუშევრები</a><a href="/#process">როგორ ვმუშაობთ</a><a href="/#audit">SEO აუდიტი</a><a href="/blog">ბლოგი</a><a href="/blog/saitis-damzadebis-fasi">საიტის დამზადების ფასი</a></div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}><a href="/#work">ნამუშევრები</a><a href="/#process">როგორ ვმუშაობთ</a><a href="/#audit">SEO აუდიტი</a><a href="/chven-shesakheb">ჩვენ შესახებ</a><a href="/blog">ბლოგი</a><a href="/blog/saitis-damzadebis-fasi">საიტის დამზადების ფასი</a></div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -34,7 +34,7 @@ export default function Footer() {
               </div>
             </nav>
           </div>
-          <div aria-label="webu" style={{ fontFamily: 'var(--unb)', fontSize: 'clamp(64px,19vw,300px)', fontWeight: 800, lineHeight: 0.9, letterSpacing: '-0.06em', display: 'flex', alignItems: 'center', gap: '0.12em', flexWrap: 'wrap' }}>
+          <div role="img" aria-label="webu" style={{ fontFamily: 'var(--unb)', fontSize: 'clamp(64px,19vw,300px)', fontWeight: 800, lineHeight: 0.9, letterSpacing: '-0.06em', display: 'flex', alignItems: 'center', gap: '0.12em', flexWrap: 'wrap' }}>
             <span style={{ display: 'flex' }} aria-hidden="true">
               {'webu'.split('').map(c => <span key={c} data-letter="" style={{ display: 'inline-block', transition: 'color .3s' }}>{c}</span>)}
             </span>

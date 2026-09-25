@@ -37,7 +37,7 @@ export default function Hero() {
   return (
     <section id="top" style={{ padding: 'clamp(40px,7vw,96px) var(--pad-x) 0', display: 'flex', justifyContent: 'center' }}>
       <div className="inner">
-        <h1 style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(48px,10vw,160px)', lineHeight: 1.02, letterSpacing: '-0.02em', display: 'flex', flexDirection: 'column', gap: '0.06em' }}>
+        <h1 style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(38px,10vw,160px)', lineHeight: 1.02, letterSpacing: '-0.02em', display: 'flex', flexDirection: 'column', gap: '0.06em' }}>
           <span data-depth="14" style={line}>
             ვებსაიტი
             <button onClick={() => setTg(v => !v)} aria-label="ჩართვა" aria-pressed={tg} className="unstyled" style={{ position: 'relative', display: 'inline-block', width: '1.7em', height: '0.7em', borderRadius: 999, background: tg ? '#C6F432' : '#23242a', flex: 'none', transition: 'background .45s cubic-bezier(.7,0,.3,1), box-shadow .45s', boxShadow: tg ? '0 0 0.3em rgba(198,244,50,0.45)' : 'none' }}>
@@ -76,7 +76,10 @@ export default function Hero() {
           </div>
         </div>
         <div data-hero-frame="" className="hero-frame">
-          <video src="/assets/hero-laptop.mp4" poster="/assets/s-hero.jpg" muted loop playsInline preload="metadata" className="fill" aria-hidden="true" />
+          <video poster="/assets/s-hero-1280.webp" muted loop playsInline preload="metadata" className="fill" aria-hidden="true">
+            <source src="/assets/hero-laptop-720.mp4" type="video/mp4" media="(max-width: 880px)" />
+            <source src="/assets/hero-laptop-1280.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </section>

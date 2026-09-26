@@ -7,8 +7,26 @@ import { track } from '@/lib/track';
 
 type Result = { url: string; scores: number[]; issues: string[] };
 
+// Status colors on the light audit cards; always paired with a text label.
+const tone = (v: number) => (v > 80 ? '#1a9e5a' : v > 65 ? '#d98a00' : '#e5484d');
+
+function useCountUp(target: number, ms = 1100) {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const t0 = performance.now();
+    let raf = 0;
+    const step = (now: number) => {
+      const k = Math.min(1, (now - t0) / ms);
+      setN(Math.round(target * (1 - Math.pow(1 - k, 3))));
+      if (k < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [target, ms]);
+  return n;
+}
+
 export default function Audit({ lang, t }: { lang: Lang; t: Dict['audit'] }) {
-  const METRICS = t.metrics;
   const [url, setUrl] = useState('');
   const [scan, setScan] = useState(false);
   const [res, setRes] = useState<Result | null>(null);
@@ -17,13 +35,21 @@ export default function Audit({ lang, t }: { lang: Lang; t: Dict['audit'] }) {
   const [hp, setHp] = useState('');
   const [send, setSend] = useState<'idle' | 'busy' | 'done'>('idle');
   const [sendErr, setSendErr] = useState('');
+  const [stepI, setStepI] = useState(0);
   const born = useRef(0);
   useEffect(() => { born.current = Date.now(); }, []);
+
+  // While scanning, cycle through what is being checked.
+  useEffect(() => {
+    if (!scan) return;
+    const id = setInterval(() => setStepI(i => (i + 1) % t.metrics.length), 1100);
+    return () => clearInterval(id);
+  }, [scan, t.metrics.length]);
 
   const run = async () => {
     const u = url.trim();
     if (!u || scan) return;
-    setScan(true); setRes(null); setErr(''); setSend('idle'); setSendErr('');
+    setScan(true); setStepI(0); setRes(null); setErr(''); setSend('idle'); setSendErr('');
     try {
       const r = await fetch('/api/audit', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url: u, lang }) });
       const d = await r.json();
@@ -52,58 +78,61 @@ export default function Audit({ lang, t }: { lang: Lang; t: Dict['audit'] }) {
   };
 
   const avg = res ? Math.round(res.scores.reduce((a, b) => a + b, 0) / 4) : 0;
-  const note = scan ? t.notes.checking : err ? t.notes.failed : res ? (avg > 80 ? t.notes.good : avg > 65 ? t.notes.ok : t.notes.bad) : t.notes.total;
-  const pill = { display: 'flex', gap: 8, padding: 8, borderRadius: 999, background: '#fff', border: '1px solid rgba(14,15,18,0.1)', maxWidth: 520 } as const;
-  const field = { flex: 1, minWidth: 0, border: 0, outline: 0, background: 'transparent', padding: '0 16px', fontSize: 16, fontFamily: 'inherit', color: '#0E0F12' } as const;
-  const btn = { border: 0, cursor: 'pointer', padding: '14px 24px', borderRadius: 999, background: '#0E0F12', color: '#F2F1EC', fontWeight: 600, fontSize: 15, whiteSpace: 'nowrap' } as const;
+  const shown = useCountUp(avg);
+  const status = res ? (avg > 80 ? t.notes.good : avg > 65 ? t.notes.ok : t.notes.bad) : err ? t.notes.failed : t.notes.total;
+  const color = res ? tone(avg) : '#0E0F12';
+  const C = 465;
 
   return (
     <section id="audit" className="sec">
-      <div className="inner r40" style={{ borderRadius: 40, background: '#F2F1EC', color: '#0E0F12', padding: 'clamp(24px,4vw,56px)', display: 'flex', flexWrap: 'wrap', gap: 'clamp(24px,4vw,56px)', alignItems: 'center' }}>
-        <div style={{ flex: '1 1 min(440px,100%)', minWidth: 0 }}>
-          <h2 className="h2" style={{ margin: '0 0 20px', fontSize: 'clamp(34px,4.6vw,64px)' }}>{t.h2}</h2>
-          <p style={{ margin: '0 0 32px', color: '#44454b', lineHeight: 1.6, maxWidth: 480 }}>{t.text}</p>
-          <form onSubmit={e => { e.preventDefault(); run(); }} style={pill}>
-            <input value={url} onChange={e => setUrl(e.target.value)} placeholder={t.placeholder} aria-label={t.urlLabel} inputMode="url" autoCapitalize="off" spellCheck={false} style={field} />
-            <button type="submit" className="audit-btn" disabled={scan} style={btn}>{scan ? t.scanning : t.check}</button>
+      <div className="inner r40 au">
+        <div className="au-left">
+          <h2 className="h2 au-h2">{t.h2}</h2>
+          <p className="au-text">{t.text}</p>
+          <form onSubmit={e => { e.preventDefault(); run(); }} className="au-pill">
+            <input value={url} onChange={e => setUrl(e.target.value)} placeholder={t.placeholder} aria-label={t.urlLabel} inputMode="url" autoCapitalize="off" spellCheck={false} className="au-field" />
+            <button type="submit" className="au-btn" disabled={scan}>{scan ? t.scanning : t.check}</button>
           </form>
           <div aria-live="polite">
-            {err && <p style={{ margin: '14px 0 0 16px', color: '#b3261e', fontSize: 14 }}>{err}</p>}
+            {err && <p className="au-err">{err}</p>}
             {res && send !== 'done' && (
-              <form onSubmit={e => { e.preventDefault(); request(); }} style={{ marginTop: 24 }}>
-                <p style={{ margin: '0 0 12px', fontSize: 15, lineHeight: 1.5 }}>
-                  {res.issues.length ? fill(t.found, { n: res.issues.length }) : ''}{t.offer}
-                </p>
-                <div style={pill}>
-                  <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder={t.email} aria-label={t.emailLabel} autoComplete="email" style={field} />
+              <form onSubmit={e => { e.preventDefault(); request(); }} className="au-offer">
+                <p>{res.issues.length ? <strong>{fill(t.found, { n: res.issues.length })}</strong> : null}{t.offer}</p>
+                <div className="au-pill">
+                  <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder={t.email} aria-label={t.emailLabel} autoComplete="email" className="au-field" />
                   <input tabIndex={-1} autoComplete="off" aria-hidden="true" value={hp} onChange={e => setHp(e.target.value)} name="website" style={{ position: 'absolute', left: -9999, width: 1, height: 1, opacity: 0 }} />
-                  <button type="submit" className="audit-btn" disabled={send === 'busy'} style={btn}>{send === 'busy' ? t.sending : t.request}</button>
+                  <button type="submit" className="au-btn" disabled={send === 'busy'}>{send === 'busy' ? t.sending : t.request}</button>
                 </div>
-                {sendErr && <p style={{ margin: '10px 0 0 16px', color: '#b3261e', fontSize: 14 }}>{sendErr}</p>}
+                {sendErr && <p className="au-err">{sendErr}</p>}
               </form>
             )}
-            {send === 'done' && <p style={{ margin: '24px 0 0', fontSize: 16, fontWeight: 600 }}>{t.thanks}</p>}
+            {send === 'done' && <p className="au-done">{t.thanks}</p>}
           </div>
         </div>
-        <div style={{ flex: '1 1 min(440px,100%)', minWidth: 0, display: 'flex', flexWrap: 'wrap', gap: 16 }} aria-live="polite">
-          <div style={{ flex: '1 1 min(220px,100%)', minWidth: 0, borderRadius: 28, background: '#fff', padding: 24, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', minHeight: 260 }}>
-            <svg viewBox="0 0 180 180" style={{ width: 200, height: 200, transform: 'rotate(-90deg)' }} aria-hidden="true">
-              <circle cx="90" cy="90" r="74" fill="none" stroke="#ECEBE6" strokeWidth="14" />
-              <circle cx="90" cy="90" r="74" fill="none" stroke="url(#ring)" strokeWidth="14" strokeLinecap="round" strokeDasharray="465" strokeDashoffset={465 * (1 - avg / 100)} style={{ transition: 'stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)' }} />
+
+        <div className="au-right" aria-live="polite">
+          <div className={`au-card au-ring${scan ? ' is-scanning' : ''}`}>
+            <svg viewBox="0 0 180 180" className="au-svg" aria-hidden="true">
+              <circle cx="90" cy="90" r="74" fill="none" stroke="#ECEBE6" strokeWidth="12" />
+              {scan
+                ? <circle className="au-spin" cx="90" cy="90" r="74" fill="none" stroke="url(#ring)" strokeWidth="12" strokeLinecap="round" strokeDasharray={`${C * 0.28} ${C}`} />
+                : <circle cx="90" cy="90" r="74" fill="none" stroke={res ? color : 'url(#ring)'} strokeWidth="12" strokeLinecap="round" strokeDasharray={C} strokeDashoffset={C * (1 - avg / 100)} style={{ transition: 'stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1), stroke .4s' }} />}
             </svg>
-            <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: 56, fontWeight: 800, lineHeight: 1 }}>{scan ? '...' : res ? avg : 0}</span>
-              <span style={{ fontSize: 13, color: '#5b5c62', marginTop: 6 }}>{note}</span>
+            <div className="au-center">
+              <span className="au-score" style={{ color: res ? color : undefined }}>{scan ? '' : res ? shown : 0}</span>
+              {scan
+                ? <span className="au-status au-step">{fill(t.step, { m: t.metrics[stepI] })}</span>
+                : <span className="au-status">{res && <i style={{ background: color }} />}{status}</span>}
             </div>
           </div>
-          <div style={{ flex: '1 1 min(220px,100%)', minWidth: 0, borderRadius: 28, background: '#fff', padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 18 }}>
-            {METRICS.map((m, i) => {
+          <div className="au-card au-bars">
+            {t.metrics.map((m, i) => {
               const v = res ? res.scores[i] : 0;
               return (
-                <div key={m}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, marginBottom: 8 }}><span>{m}</span><span className="mono">{v}</span></div>
-                  <div style={{ height: 8, borderRadius: 999, background: '#ECEBE6', overflow: 'hidden' }}>
-                    <div style={{ height: '100%', borderRadius: 999, background: '#0E0F12', width: v + '%', transition: 'width 1.1s cubic-bezier(.2,.8,.2,1)' }} />
+                <div key={m} className={scan && i === stepI ? 'is-active' : undefined}>
+                  <div className="au-bar-head"><span>{m}</span><span className="mono" style={{ color: res ? tone(v) : undefined }}>{res ? v : scan ? '·' : 0}</span></div>
+                  <div className="au-track">
+                    <div className={`au-fill${scan ? ' is-scanning' : ''}`} style={{ width: scan ? '100%' : v + '%', background: res ? tone(v) : undefined, transitionDelay: res ? `${0.15 + i * 0.12}s` : '0s' }} />
                   </div>
                 </div>
               );

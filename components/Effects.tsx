@@ -158,10 +158,14 @@ export default function Effects() {
         // Each group is checked for visibility separately so off-screen letters cost nothing.
         letters.forEach(L => {
           const r = L.getBoundingClientRect();
-          if (r.bottom < 0 || r.top > innerHeight) { if (L.style.translate) { L.style.translate = ''; L.style.color = ''; } return; }
+          if (r.bottom < 0 || r.top > innerHeight) { if (L.style.translate || L.style.color) { L.style.translate = ''; L.style.color = ''; } return; }
           const dx = r.left + r.width / 2 - mx, dy = r.top + r.height / 2 - my, d = Math.hypot(dx, dy), R = 260;
-          if (d < R) { const f = 1 - d / R; L.style.translate = `${(dx / d * f * 28 || 0).toFixed(1)}px ${(dy / d * f * 38 || 0).toFixed(1)}px`; L.style.color = f > 0.35 ? (L.dataset.hover || '#C6F432') : ''; }
-          else if (L.style.translate) { L.style.translate = ''; L.style.color = ''; }
+          if (d < R) {
+            const f = 1 - d / R;
+            // data-still letters (hero) only change color; the footer wordmark also moves aside.
+            if (L.dataset.still === undefined) L.style.translate = `${(dx / d * f * 28 || 0).toFixed(1)}px ${(dy / d * f * 38 || 0).toFixed(1)}px`;
+            L.style.color = f > 0.35 ? (L.dataset.hover || '#C6F432') : '';
+          } else if (L.style.translate || L.style.color) { L.style.translate = ''; L.style.color = ''; }
         });
         raf = Math.abs(mx - rx) + Math.abs(my - ry) > 0.3 ? requestAnimationFrame(tick) : 0;
       };

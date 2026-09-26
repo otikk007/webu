@@ -6,11 +6,11 @@ import { Goo } from './ui';
 
 const line = { display: 'flex', alignItems: 'center', gap: '0.2em', flexWrap: 'wrap' } as const;
 
-/** A word split into letters that react to the cursor (see Effects: [data-letter]). */
+/** A word split into letters that light up near the cursor without moving (see Effects: [data-letter]). */
 function Letters({ text, hover }: { text: string; hover?: string }) {
   return (
     <span style={{ display: 'inline-flex', whiteSpace: 'nowrap' }}>
-      {[...text].map((c, i) => <span key={i} data-letter="" data-hover={hover} style={{ display: 'inline-block', transition: 'color .3s' }}>{c}</span>)}
+      {[...text].map((c, i) => <span key={i} data-letter="" data-still="" data-hover={hover} style={{ display: 'inline-block', transition: 'color .3s' }}>{c}</span>)}
     </span>
   );
 }

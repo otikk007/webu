@@ -40,7 +40,7 @@ export default function Contact({ lang, t }: { lang: Lang; t: Dict['contact'] })
     const first = (new Date(cal.y, cal.m, 1).getDay() + 6) % 7, dim = new Date(cal.y, cal.m + 1, 0).getDate();
     for (let i = 0; i < first; i++) cells.push(<span key={'e' + i} />);
     for (let d = 1; d <= dim; d++) {
-      const dt = new Date(cal.y, cal.m, d), wd = dt.getDay(), off = dt < today || wd === 0 || wd === 6;
+      const dt = new Date(cal.y, cal.m, d), off = dt < today;
       const sel = !!selD && selD.y === cal.y && selD.m === cal.m && selD.d === d;
       const isT = +dt === +today;
       cells.push(

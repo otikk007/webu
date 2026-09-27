@@ -1,0 +1,31 @@
+/* Goo scrollbar (slidebar/README.md). Only active on fine-pointer devices (html.has-goo-scroll). */
+html.has-goo-scroll, html.has-goo-scroll body { scrollbar-width: none; }
+html.has-goo-scroll::-webkit-scrollbar, html.has-goo-scroll body::-webkit-scrollbar { display: none; }
+/* The goo rail already shows progress, so the thin top bar is only kept on phones. */
+html.has-goo-scroll [data-progress] { display: none; }
+
+.gs { position: fixed; z-index: 60; right: 0; top: 0; bottom: 0; width: 40px; transition: width .35s cubic-bezier(.3, 1.2, .5, 1); }
+.gs.is-open { width: 240px; }
+.gs-bg { position: absolute; inset: 0; pointer-events: none; background: transparent; transition: background .35s; }
+.gs.is-open .gs-bg { background: linear-gradient(90deg, rgba(14, 15, 18, 0) 0%, rgba(14, 15, 18, .85) 70%); }
+.gs.is-open.is-light .gs-bg { background: linear-gradient(90deg, rgba(242, 241, 236, 0) 0%, rgba(242, 241, 236, .85) 70%); }
+/* The track starts below the sticky header so the open list never covers the menu. */
+.gs-track { position: absolute; right: 16px; top: 96px; bottom: 24px; width: 28px; cursor: grab; touch-action: none; user-select: none; }
+.gs.is-drag .gs-track { cursor: grabbing; }
+.gs-line { position: absolute; left: 13px; top: 0; bottom: 0; width: 2px; border-radius: 2px; background: rgba(242, 241, 236, .14); transform: scaleX(.5); transition: transform .35s, background .35s; }
+.gs.is-light .gs-line { background: rgba(14, 15, 18, .16); }
+.gs.is-awake .gs-line { transform: scaleX(1); }
+.gs-trail { position: absolute; left: 13px; top: 0; width: 2px; border-radius: 2px; opacity: .55; transition: background .35s; }
+.gs-goo { position: absolute; inset: -20px -10px; filter: url(#goo-a); pointer-events: none; }
+.gs-goo-in { position: absolute; left: 10px; right: 10px; top: 20px; bottom: 20px; }
+.gs-tick { position: absolute; border-radius: 50%; transition: all .3s cubic-bezier(.3, 1.5, .5, 1); }
+.gs-thumb { position: absolute; border-radius: 14px; transition: width .35s cubic-bezier(.3, 1.5, .5, 1), left .35s cubic-bezier(.3, 1.5, .5, 1), background .35s; }
+.gs-drop { position: absolute; left: 14px; border-radius: 50%; transition: background .35s; }
+.gs-chip { position: absolute; right: 40px; transform: translateY(-50%); padding: 6px 10px; border-radius: 10px; font: 700 12px var(--mono); white-space: nowrap; pointer-events: none; transition: opacity .25s, background .35s; }
+.gs-label { position: absolute; right: 38px; display: flex; align-items: center; gap: 10px; cursor: pointer; opacity: 0; pointer-events: none; transform: translate(16px, -50%); transition: opacity .3s, transform .45s cubic-bezier(.3, 1.4, .5, 1); }
+.gs.is-open .gs-label { opacity: 1; pointer-events: auto; transform: translate(0, -50%); }
+.gs-num { font: 11px var(--mono); color: rgba(242, 241, 236, .55); }
+.gs.is-light .gs-num { color: rgba(14, 15, 18, .55); }
+.gs-pill { font-size: 14px; font-weight: 800; white-space: nowrap; padding: 7px 14px; border-radius: 999px; color: var(--ink); transition: background .25s, color .25s, transform .2s; }
+.gs.is-light .gs-pill { color: var(--bg); }
+.gs-label:hover .gs-pill { transform: translateX(-4px); }

@@ -21,7 +21,7 @@ export default function ContentPageView({ page, updated }: { page: ContentPage; 
   const date = new Date(updated).toLocaleDateString(LOCALE_TAG[lang], { day: 'numeric', month: 'long', year: 'numeric' });
 
   return (
-    <Shell lang={lang} alt={alternates(page)}>
+    <Shell lang={lang} alt={alternates(page)} sections={{ top: page.nav, sources: t.sources, faq: t.faq, contact: t.start, related: t.related }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageJsonLd(page)) }} />
       <main className="cp">
         <section id="top" className="cp-hero">

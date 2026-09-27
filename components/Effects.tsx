@@ -235,7 +235,7 @@ export default function Effects() {
         <span className="eg-zz" style={{ left: 20, top: -30, fontSize: 18, animationDelay: '.55s' }}>Z</span>
         <div ref={codeRef} className="eg-code"><span /><i /></div>
       </div>
-      <div ref={barRef} aria-hidden="true" style={{ position: 'fixed', left: 0, top: 0, right: 0, height: 3, background: '#C6F432', transformOrigin: '0 50%', transform: 'scaleX(0)', zIndex: 120, pointerEvents: 'none' }} />
+      <div ref={barRef} data-progress="" aria-hidden="true" style={{ position: 'fixed', left: 0, top: 0, right: 0, height: 3, background: '#C6F432', transformOrigin: '0 50%', transform: 'scaleX(0)', zIndex: 120, pointerEvents: 'none' }} />
     </>
   );
 }

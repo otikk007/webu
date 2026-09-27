@@ -22,7 +22,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   preload('/assets/s-hero-1280.webp', { as: 'image', fetchPriority: 'high' });
 
   return (
-    <Shell lang={lang} alt={{ ka: '/', en: '/en', ru: '/ru' }}>
+    <Shell lang={lang} alt={{ ka: '/', en: '/en', ru: '/ru' }} sections={{ top: d.content.home, ...Object.fromEntries(d.nav.items.map(n => [n.id, n.label])), contact: d.nav.cta }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(lang)) }} />
       <main>
         <Hero t={d.hero} />

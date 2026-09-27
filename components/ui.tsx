@@ -58,6 +58,11 @@ export function SvgDefs() {
           <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11" result="g" />
           <feComposite in="SourceGraphic" in2="g" operator="atop" />
         </filter>
+        <filter id="goo-a" x="-50%" y="-10%" width="200%" height="120%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="4.5" result="b" />
+          <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="g" />
+          <feComposite in="SourceGraphic" in2="g" operator="atop" />
+        </filter>
         <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#C6F432" />
           <stop offset="1" stopColor="#8B6CFF" />

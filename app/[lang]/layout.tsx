@@ -7,6 +7,7 @@ import { languageAlternates } from '@/lib/seo';
 import { SITE_URL } from '@/lib/site';
 import '../globals.css';
 import '../eggs.css';
+import '../scrollbar.css';
 
 export function generateStaticParams() {
   return LOCALES.map(lang => ({ lang }));

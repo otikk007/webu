@@ -22,7 +22,7 @@ export default async function Blog({ params }: { params: Promise<{ lang: string 
   if (!hasLocale(lang)) notFound();
   const t = getDict(lang).content;
   return (
-    <Shell lang={lang} alt={ALT}>
+    <Shell lang={lang} alt={ALT} sections={{ top: t.blog, posts: t.guide }}>
       <main className="cp">
         <section id="top" className="cp-hero">
           <div className="inner">

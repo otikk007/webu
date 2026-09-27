@@ -5,7 +5,8 @@ import { LANG_META, LOCALES, hasLocale } from '@/lib/i18n';
 import { UPDATED, alternates, pageBySlug, pageHref, pagesFor } from '@/lib/pages';
 import { languageAlternates } from '@/lib/seo';
 
-export const dynamicParams = false;
+// Unknown slugs fall through to notFound(), which renders the custom error page.
+export const dynamicParams = true;
 
 // Service pages and info pages; guides live under /blog.
 export function generateStaticParams({ params }: { params: { lang: string } }) {

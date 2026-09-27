@@ -3,13 +3,21 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Dict } from '@/lib/dict';
+import { egg } from '@/lib/eggs-text';
 import { WORKS as MEDIA } from '@/lib/site';
 import { Arrow } from './ui';
 
 const NS = 8, SLIDE = 5200, PHASE = 750;
 type Phase = 'idle' | 'cover' | 'reveal';
 
-export default function Work({ t }: { t: Dict['work'] }) {
+// Easter egg: holding the pointer on this project (index) for 1.8s reveals its backstory.
+const SECRET = 2;
+
+export default function Work({ t, secret }: { t: Dict['work']; secret: string }) {
+  const [tip, setTip] = useState(false);
+  const tipT = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const tipOn = () => { clearTimeout(tipT.current); tipT.current = setTimeout(() => { setTip(true); egg('client'); }, 1800); };
+  const tipOff = () => { clearTimeout(tipT.current); setTip(false); };
   const WORKS = MEDIA.map((m, i) => ({ ...m, ...t.items[i] }));
   const [wi, setWi] = useState(0);
   const [phase, setPhase] = useState<Phase>('idle');
@@ -85,12 +93,13 @@ export default function Work({ t }: { t: Dict['work'] }) {
           </div>
           <div style={{ flex: '1 1 min(320px,100%)', minWidth: 0, display: 'flex', flexDirection: 'column', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
             {WORKS.map((w, i) => (
-              <button key={w.name} className="unstyled" onClick={() => go(0, i)} aria-current={i === wi} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, padding: '22px 4px', borderBottom: '1px solid rgba(255,255,255,0.1)', color: i === wi ? '#C6F432' : '#F2F1EC', paddingLeft: i === wi ? 16 : 4 }}>
+              <button key={w.name} className="unstyled" onClick={() => go(0, i)} aria-current={i === wi} {...(i === SECRET ? { onMouseEnter: tipOn, onMouseLeave: tipOff, onTouchStart: tipOn, onTouchEnd: tipOff, onContextMenu: (e: React.MouseEvent) => e.preventDefault() } : {})} style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, padding: '22px 4px', borderBottom: '1px solid rgba(255,255,255,0.1)', color: i === wi ? '#C6F432' : '#F2F1EC', paddingLeft: i === wi ? 16 : 4 }}>
                 <span style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   <span style={{ fontSize: 'clamp(20px,1.8vw,26px)', fontWeight: 700 }}>{w.name}</span>
                   <span style={{ fontSize: 13, color: '#9A9AA0' }}>{w.cat}</span>
                 </span>
                 <span className="mono" style={{ fontSize: 13 }}>{w.year}</span>
+                {i === SECRET && tip && <span className="eg-tip" role="tooltip">{secret}<span><i /><i /><i /></span></span>}
               </button>
             ))}
           </div>

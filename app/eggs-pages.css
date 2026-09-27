@@ -1,0 +1,73 @@
+/* Secret pages: /matrix, /admin (fake) and /secret (vault). */
+
+/* /matrix */
+.eg-matrix { position: fixed; inset: 0; background: #000; overflow: hidden; }
+.eg-matrix canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.eg-matrix-in { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding: 24px; text-align: center; background: radial-gradient(ellipse at center, rgba(0, 0, 0, .85) 0%, rgba(0, 0, 0, .3) 60%, transparent 100%); }
+.eg-matrix-url { font: 13px var(--mono); color: #C6F432; letter-spacing: .2em; }
+.eg-matrix h1 { margin: 0; font-size: clamp(30px, 5vw, 64px); font-weight: 900; color: #C6F432; line-height: 1.1; min-height: 1.2em; text-shadow: 0 0 24px rgba(198, 244, 50, .6); }
+.eg-matrix h1 i { display: inline-block; width: .45em; height: .9em; margin-left: 4px; vertical-align: -.1em; background: #C6F432; animation: egCaret .8s infinite; }
+.eg-matrix-pick { display: flex; flex-direction: column; align-items: center; gap: 18px; animation: egRise .5s; }
+.eg-matrix-pick > span { font-size: 18px; color: #B8B8BE; }
+.eg-matrix-pick > div { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.eg-matrix-pick a { display: flex; align-items: center; gap: 12px; padding: 14px 24px; border-radius: 999px; font-size: 16px; font-weight: 800; transition: transform .2s; }
+.eg-matrix-pick a:hover { transform: scale(1.05); }
+.eg-matrix-pick a.violet, .eg-matrix-pick a.violet:hover { background: #8B6CFF; color: #F2F1EC; }
+.eg-matrix-pick a.lime, .eg-matrix-pick a.lime:hover { background: #C6F432; color: #0E0F12; }
+.eg-matrix-pick b { width: 26px; height: 12px; border-radius: 12px; }
+.eg-matrix-pick a.violet b { background: linear-gradient(90deg, #F2F1EC 50%, #5B3FD9 50%); }
+.eg-matrix-pick a.lime b { background: linear-gradient(90deg, #F2F1EC 50%, #7FA20F 50%); }
+
+/* /admin (fake) */
+.eg-admin { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 24px; background: #0E0F12; }
+.eg-admin.is-siren { animation: egSiren .6s infinite; }
+.eg-admin-card { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 18px; padding: 32px; border-radius: 28px; background: #17181D; border: 1px solid rgba(242, 241, 236, .1); }
+.eg-admin-top { display: flex; align-items: center; justify-content: space-between; }
+.eg-admin-top span:first-child { font: 800 20px var(--unb); letter-spacing: -.05em; }
+.eg-admin-top b { color: #FF6B4A; }
+.eg-admin-top span:last-child { font: 12px var(--mono); color: #6E6F76; }
+.eg-admin-card p { margin: 0; font-size: 15px; color: #B8B8BE; }
+.eg-admin-card input { height: 54px; padding: 0 18px; border-radius: 14px; border: 1px solid rgba(242, 241, 236, .12); background: #0E0F12; color: #F2F1EC; font: inherit; font-size: 16px; outline: none; }
+.eg-admin-card input:focus { border-color: rgba(255, 107, 74, .6); }
+.eg-admin-note { font-size: 13px; color: #FF6B4A; min-height: 18px; }
+.eg-admin-btnwrap { position: relative; height: 56px; }
+.eg-admin-btnwrap button { position: absolute; inset: 0; border: none; border-radius: 999px; background: #FF6B4A; color: #0E0F12; font: inherit; font-size: 16px; font-weight: 800; cursor: pointer; transition: transform .35s cubic-bezier(.3, 1.6, .5, 1); touch-action: manipulation; }
+.eg-admin-flee { align-self: center; font-size: 14px; color: #8C8C93; }
+.eg-admin-term { width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: 8px; padding: 28px; border-radius: 20px; background: #000; border: 1px solid #FF6B4A; font: 14px/1.6 var(--mono); white-space: pre-wrap; }
+.eg-admin-term span { animation: egRise .2s; }
+.eg-admin-caught { width: 100%; max-width: 760px; display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center; animation: egRise .5s; }
+.eg-admin-face { position: relative; width: 170px; height: 170px; border-radius: 50%; background: #FF6B4A; display: flex; align-items: center; justify-content: center; gap: 22px; }
+.eg-admin-face > span { width: 34px; height: 40px; border-radius: 50%; background: #0E0F12; display: flex; align-items: center; justify-content: center; animation: egBlink 4s infinite; }
+.eg-admin-face i { width: 13px; height: 13px; border-radius: 50%; background: #F2F1EC; }
+.eg-admin-face b { position: absolute; left: 50%; bottom: 36px; width: 44px; height: 6px; margin-left: -22px; border-radius: 6px; background: #0E0F12; }
+.eg-admin-denied { font: 13px var(--mono); color: #FF6B4A; letter-spacing: .2em; }
+.eg-admin-caught h1 { margin: 0; font-size: clamp(40px, 7vw, 84px); font-weight: 900; line-height: 1; letter-spacing: -.02em; }
+.eg-admin-caught p { margin: 0; max-width: 540px; font-size: 18px; line-height: 1.55; color: #B8B8BE; }
+.eg-admin-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.eg-admin-hire { display: inline-flex; align-items: center; gap: 12px; padding: 6px 6px 6px 22px; border-radius: 999px; background: #C6F432; color: #0E0F12; font: 700 16px var(--mono); transition: transform .2s; }
+.eg-admin-hire:hover { color: #0E0F12; transform: translateY(-2px); }
+.eg-admin-hire span { width: 42px; height: 42px; border-radius: 50%; background: #0E0F12; color: #C6F432; display: flex; align-items: center; justify-content: center; }
+.eg-admin-out { display: inline-flex; align-items: center; height: 54px; padding: 0 24px; border-radius: 999px; border: 1px solid rgba(242, 241, 236, .25); font-size: 16px; font-weight: 700; }
+
+/* /secret (vault) */
+.eg-vault { position: relative; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding: 24px; background: #8B6CFF; color: #0E0F12; }
+.eg-vault-close { position: absolute; right: 20px; top: 20px; width: 48px; height: 48px; border-radius: 50%; background: #0E0F12; display: flex; align-items: center; justify-content: center; }
+.eg-vault-head { text-align: center; display: flex; flex-direction: column; gap: 8px; }
+.eg-vault-head span { font: 13px var(--mono); letter-spacing: .2em; }
+.eg-vault-head h1 { margin: 0; font-size: clamp(32px, 5vw, 56px); font-weight: 900; line-height: 1.05; }
+.eg-vault-head p { margin: 0; font-size: 16px; font-weight: 600; }
+.eg-vault-box { position: relative; width: min(340px, 86vw); aspect-ratio: 1; perspective: 1200px; }
+.eg-vault-prize { position: absolute; inset: 0; border-radius: 36px; background: #0E0F12; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; color: #F2F1EC; text-align: center; }
+.eg-vault-prize .mono { font-size: 12px; color: #8C8C93; }
+.eg-vault-prize strong { font: 800 34px var(--unb); color: #C6F432; letter-spacing: -.03em; }
+.eg-vault-prize > span:not(.mono) { font-size: 14px; color: #B8B8BE; line-height: 1.45; }
+.eg-vault-prize button { margin-top: 6px; height: 46px; padding: 0 20px; border: none; border-radius: 999px; background: #C6F432; color: #0E0F12; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+.eg-vault-door { position: absolute; inset: 0; border-radius: 36px; background: #F2F1EC; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 22px; transform-origin: left center; transition: transform 1.1s cubic-bezier(.7, 0, .2, 1); box-shadow: 0 30px 70px rgba(14, 15, 18, .4); }
+.eg-vault-slots { display: flex; gap: 10px; }
+.eg-vault-slots span { width: 46px; height: 56px; border-radius: 12px; background: rgba(14, 15, 18, .12); color: #C6F432; display: flex; align-items: center; justify-content: center; font: 800 24px var(--unb); }
+.eg-vault-slots span.on { background: #0E0F12; }
+.eg-vault-pad { display: grid; grid-template-columns: repeat(3, 56px); gap: 8px; }
+.eg-vault-pad button { height: 48px; border: none; border-radius: 14px; background: #0E0F12; color: #F2F1EC; font: 700 18px var(--mono); cursor: pointer; display: flex; align-items: center; justify-content: center; touch-action: manipulation; transition: transform .1s; }
+.eg-vault-pad button.soft { background: rgba(14, 15, 18, .08); color: #0E0F12; }
+.eg-vault-pad button:active { transform: scale(.9); }
+.eg-vault-hint { font-size: 14px; font-weight: 700; }

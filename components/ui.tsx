@@ -10,13 +10,14 @@ export function Arrow({ size = 16, rot = 0 }: { size?: number; rot?: number }) {
 }
 
 /** Animated three-drop logo mark (§7.6). */
-export function Logo({ s, u, filter, dur }: { s: number; u: 'px' | 'em'; filter: 'goo-s' | 'goo-l'; dur: number }) {
+export function Logo({ s, u, filter, dur, ink }: { s: number; u: 'px' | 'em'; filter: 'goo-s' | 'goo-l'; dur: number; ink?: boolean }) {
+  const main = ink ? '#0E0F12' : '#C6F432';
   const v = (n: number) => (n * s).toFixed(3) + u;
   const drop: CSSProperties = { position: 'absolute', borderRadius: '50%' };
   return (
     <span aria-hidden="true" style={{ position: 'relative', display: 'inline-block', width: v(1.95), height: v(1.2), filter: `url(#${filter})`, flex: 'none' }}>
-      <span style={{ ...drop, left: 0, top: 0, width: v(1), height: v(1), background: '#C6F432', animation: `lgA ${dur}s ease-in-out infinite` }} />
-      <span style={{ ...drop, left: v(0.33), top: v(0.62), width: v(0.34), height: v(0.34), background: '#C6F432', ['--f' as string]: v(0.32), animation: `lgC ${dur}s cubic-bezier(.5,0,.5,1) infinite` }} />
+      <span style={{ ...drop, left: 0, top: 0, width: v(1), height: v(1), background: main, animation: `lgA ${dur}s ease-in-out infinite` }} />
+      <span style={{ ...drop, left: v(0.33), top: v(0.62), width: v(0.34), height: v(0.34), background: main, ['--f' as string]: v(0.32), animation: `lgC ${dur}s cubic-bezier(.5,0,.5,1) infinite` }} />
       <span style={{ ...drop, left: v(1.3), top: v(0.19), width: v(0.62), height: v(0.62), background: '#8B6CFF', ['--d' as string]: v(-0.58), animation: `lgB ${dur}s cubic-bezier(.65,0,.35,1) infinite` }} />
     </span>
   );

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Dict } from '@/lib/dict';
 import { LANG_META, LOCALES, lp, type Lang } from '@/lib/i18n';
 import Flag from './Flag';
-import { Logo } from './ui';
+import LogoEgg from './eggs/LogoEgg';
 
 type Props = { lang: Lang; t: Dict['nav']; alt: Partial<Record<Lang, string>> };
 
@@ -82,10 +82,7 @@ export default function Header({ lang, t, alt }: Props) {
     <>
       <header className="header">
         <nav className="nav" aria-label={t.main}>
-          <a href={home} aria-label={t.home} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Logo s={20} u="px" filter="goo-s" dur={4.5} />
-            <span style={{ fontFamily: 'var(--unb)', fontSize: 21, fontWeight: 800, letterSpacing: '-0.04em' }}>webu</span>
-          </a>
+          <LogoEgg lang={lang} href={home} label={t.home} />
           <div className="nav-links">
             {t.items.map(l => <a key={l.id} href={link(l.id)}>{l.label}</a>)}
           </div>

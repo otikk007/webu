@@ -6,6 +6,7 @@ import { LANG_META, LOCALES, hasLocale, lp } from '@/lib/i18n';
 import { languageAlternates } from '@/lib/seo';
 import { SITE_URL } from '@/lib/site';
 import '../globals.css';
+import '../eggs.css';
 
 export function generateStaticParams() {
   return LOCALES.map(lang => ({ lang }));

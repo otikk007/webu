@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { IDLE_CODE, egg } from '@/lib/eggs-text';
 
 const P = 170;
 const EASE = 'cubic-bezier(.2,.7,.2,1)';
@@ -14,6 +15,8 @@ export default function Effects() {
   const barRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const labRef = useRef<HTMLSpanElement>(null);
+  const idleRef = useRef<HTMLDivElement>(null);
+  const codeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const cleanups: (() => void)[] = [];
@@ -127,7 +130,7 @@ export default function Effects() {
       cleanups.push(() => cancelAnimationFrame(graf));
 
       // cursor ring, magnetic, tilt, parallax, letters
-      const ring = ringRef.current!, lab = labRef.current!;
+      const ring = ringRef.current!, lab = labRef.current!, idleBox = idleRef.current!, codeEl = codeRef.current!;
       let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, raf = 0, mode = '';
       let mag: HTMLElement | null = null, card: HTMLElement | null = null;
       const lines = [...document.querySelectorAll<HTMLElement>('[data-depth]')];
@@ -150,6 +153,7 @@ export default function Effects() {
       const tick = () => {
         rx += (mx - rx) * 0.22; ry += (my - ry) * 0.22;
         ring.style.transform = `translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px) translate(-50%,-50%)`;
+        idleBox.style.transform = `translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px)`;
         if (scrollY < innerHeight * 1.2) {
           const nx = mx / innerWidth - 0.5, ny = my / innerHeight - 0.5;
           lines.forEach(l => { const d = +l.dataset.depth!; l.style.translate = `${(nx * d).toFixed(1)}px ${(ny * d * 0.5).toFixed(1)}px`; });
@@ -169,8 +173,30 @@ export default function Effects() {
         });
         raf = Math.abs(mx - rx) + Math.abs(my - ry) > 0.3 ? requestAnimationFrame(tick) : 0;
       };
+      // Easter egg: the ring gets bored. 4s still -> falls asleep (z Z); 6.2s -> starts typing code.
+      let idleT = 0, seen = false, idleState = '';
+      const setIdle = (st: string) => {
+        if (st === idleState) return;
+        idleState = st;
+        idleBox.dataset.state = st;
+        ring.style.scale = st === 'sleep' ? '.7' : st === 'code' ? '.5' : '';
+        if (st === 'code') ring.style.borderColor = '#8B6CFF';
+        else if (!st) { const m = mode; mode = '*'; setMode(m); }
+      };
+      const idleIv = setInterval(() => {
+        if (!seen || idleT >= 200 || ring.style.opacity !== '1') return;
+        idleT++;
+        if (idleT === 40) egg('idle');
+        if (idleT >= 62) {
+          setIdle('code');
+          codeEl.firstChild!.textContent = IDLE_CODE.slice(0, Math.max(0, Math.floor((idleT - 62) / 1.2)));
+        } else if (idleT >= 40) setIdle('sleep');
+      }, 100);
+      cleanups.push(() => clearInterval(idleIv));
+
       on('mousemove', e => {
         mx = e.clientX; my = e.clientY;
+        seen = true; idleT = 0; if (idleState) setIdle('');
         if (!raf) raf = requestAnimationFrame(tick);
         const t = e.target as Element;
         if (ring.style.opacity !== '1') ring.style.opacity = '1';
@@ -203,6 +229,11 @@ export default function Effects() {
     <>
       <div ref={ringRef} aria-hidden="true" style={{ position: 'fixed', left: 0, top: 0, width: 32, height: 32, borderRadius: '50%', border: '1.5px solid rgba(198,244,50,0.8)', zIndex: 190, pointerEvents: 'none', opacity: 0, transform: 'translate(-100px,-100px)', transition: 'width .35s cubic-bezier(.5,1.6,.4,1),height .35s cubic-bezier(.5,1.6,.4,1),background .3s,border-color .3s,opacity .3s', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <span ref={labRef} style={{ fontSize: 12, fontWeight: 700, color: '#0E0F12', opacity: 0, transition: 'opacity .2s', whiteSpace: 'nowrap' }}>შემდეგი</span>
+      </div>
+      <div ref={idleRef} className="eg-idle" aria-hidden="true">
+        <span className="eg-zz" style={{ left: 14, top: -22, fontSize: 14 }}>z</span>
+        <span className="eg-zz" style={{ left: 20, top: -30, fontSize: 18, animationDelay: '.55s' }}>Z</span>
+        <div ref={codeRef} className="eg-code"><span /><i /></div>
       </div>
       <div ref={barRef} aria-hidden="true" style={{ position: 'fixed', left: 0, top: 0, right: 0, height: 3, background: '#C6F432', transformOrigin: '0 50%', transform: 'scaleX(0)', zIndex: 120, pointerEvents: 'none' }} />
     </>

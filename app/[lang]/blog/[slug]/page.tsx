@@ -5,7 +5,8 @@ import { LANG_META, LOCALES, hasLocale } from '@/lib/i18n';
 import { UPDATED, alternates, guides, pageBySlug, pageHref } from '@/lib/pages';
 import { languageAlternates } from '@/lib/seo';
 
-export const dynamicParams = false;
+// Unknown slugs fall through to notFound(), which renders the custom error page.
+export const dynamicParams = true;
 
 export function generateStaticParams({ params }: { params: { lang: string } }) {
   const langs = params?.lang && hasLocale(params.lang) ? [params.lang] : LOCALES;

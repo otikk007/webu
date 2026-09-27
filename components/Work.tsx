@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Dict } from '@/lib/dict';
-import { egg } from '@/lib/eggs-text';
+import { egg, type EggText } from '@/lib/eggs-text';
+import ClientTip from './eggs/ClientTip';
 import { WORKS as MEDIA } from '@/lib/site';
 import { Arrow } from './ui';
 
@@ -13,7 +14,7 @@ type Phase = 'idle' | 'cover' | 'reveal';
 // Easter egg: holding the pointer on this project (index) for 1.8s reveals its backstory.
 const SECRET = 2;
 
-export default function Work({ t, secret }: { t: Dict['work']; secret: string }) {
+export default function Work({ t, secret }: { t: Dict['work']; secret: EggText['client'] }) {
   const [tip, setTip] = useState(false);
   const tipT = useRef<ReturnType<typeof setTimeout>>(undefined);
   const tipOn = () => { clearTimeout(tipT.current); tipT.current = setTimeout(() => { setTip(true); egg('client'); }, 1800); };
@@ -99,7 +100,7 @@ export default function Work({ t, secret }: { t: Dict['work']; secret: string })
                   <span style={{ fontSize: 13, color: '#9A9AA0' }}>{w.cat}</span>
                 </span>
                 <span className="mono" style={{ fontSize: 13 }}>{w.year}</span>
-                {i === SECRET && tip && <span className="eg-tip" role="tooltip">{secret}<span><i /><i /><i /></span></span>}
+                {i === SECRET && tip && <ClientTip t={secret} />}
               </button>
             ))}
           </div>

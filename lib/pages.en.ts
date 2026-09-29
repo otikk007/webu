@@ -252,7 +252,7 @@ export const PAGES_EN: RawPage[] = [
     facts: [
       { k: 'Covers', v: 'UI/UX, branding, logo, redesign' },
       { k: 'Result', v: 'Prototype and design system' },
-      { k: 'Price', v: 'Logo from 420 GEL, branding from 1,200 GEL' },
+      { k: 'Price', v: 'Logo 420 GEL (35/month), branding from 1,200 GEL (100/month)' },
     ],
     price: 'from 420 GEL',
     priceValue: 420,
@@ -395,7 +395,7 @@ export const PAGES_EN: RawPage[] = [
     facts: [
       { k: 'Covers', v: 'Chatbots, assistants, recognition, automation, API' },
       { k: 'Where it runs', v: 'Website, messengers, internal systems' },
-      { k: 'Price', v: 'Chatbot from 720 GEL, automation from 360 GEL' },
+      { k: 'Price', v: 'Chatbot 720 GEL (60/month), automation from 360 GEL (30/month)' },
     ],
     price: 'from 360 GEL',
     priceValue: 360,

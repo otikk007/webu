@@ -14,9 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const PRIORITY = { service: 0.9, guide: 0.8, page: 0.7 } as const;
   const home = Object.fromEntries(LOCALES.map(l => [l, lp(l, '/')])) as Record<Lang, string>;
   const blog = Object.fromEntries(LOCALES.map(l => [l, lp(l, '/blog')])) as Record<Lang, string>;
+  const projects = Object.fromEntries(LOCALES.map(l => [l, lp(l, '/projects')])) as Record<Lang, string>;
   return [
     ...LOCALES.map(l => ({ url: abs(home[l]), lastModified, changeFrequency: 'weekly' as const, priority: l === 'ka' ? 1 : 0.9, alternates: { languages: absAll(home) } })),
     ...ALL_PAGES.map(p => ({ url: abs(pageHref(p)), lastModified, changeFrequency: 'monthly' as const, priority: PRIORITY[p.kind], alternates: { languages: absAll(alternates(p)) } })),
     ...LOCALES.map(l => ({ url: abs(blog[l]), lastModified, changeFrequency: 'weekly' as const, priority: 0.6, alternates: { languages: absAll(blog) } })),
+    ...LOCALES.map(l => ({ url: abs(projects[l]), lastModified, changeFrequency: 'monthly' as const, priority: 0.8, alternates: { languages: absAll(projects) } })),
   ];
 }

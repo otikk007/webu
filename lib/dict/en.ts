@@ -54,12 +54,21 @@ const en: Dict = {
     h2: 'Selected work',
     prev: 'Previous project',
     next: 'Next project',
+    all: 'All projects',
     items: [
       { name: 'Textile Market', cat: 'Online store' },
       { name: 'Horizon', cat: 'SaaS platform, website' },
       { name: 'City 3D', cat: 'Architecture, interactive site' },
       { name: 'Golden Line', cat: 'Investment, company website' },
     ],
+  },
+  projects: {
+    label: 'Work',
+    h2: 'Projects that are live',
+    lead: 'Real recordings from sites that are already running and serving customers.',
+    meta: 'Real recording from the site',
+    title: 'All projects | Webu',
+    description: 'Webu portfolio: web apps, platforms, a QR menu and websites. Real recordings from live sites.',
   },
   process: {
     h2: 'From idea to launch',

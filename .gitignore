@@ -8,3 +8,6 @@ next-env.d.ts
 
 # original uncompressed reference videos (compressed copies live in public/assets)
 /assets/*.mp4
+
+# design handoffs (source media is copied into public/)
+/jobs

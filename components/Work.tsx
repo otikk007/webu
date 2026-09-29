@@ -14,7 +14,7 @@ type Phase = 'idle' | 'cover' | 'reveal';
 // Easter egg: holding the pointer on this project (index) for 1.8s reveals its backstory.
 const SECRET = 2;
 
-export default function Work({ t, secret }: { t: Dict['work']; secret: EggText['client'] }) {
+export default function Work({ t, secret, allHref }: { t: Dict['work']; secret: EggText['client']; allHref: string }) {
   const [tip, setTip] = useState(false);
   const tipT = useRef<ReturnType<typeof setTimeout>>(undefined);
   const tipOn = () => { clearTimeout(tipT.current); tipT.current = setTimeout(() => { setTip(true); egg('client'); }, 1800); };
@@ -105,6 +105,10 @@ export default function Work({ t, secret }: { t: Dict['work']; secret: EggText['
             ))}
           </div>
         </div>
+        <a href={allHref} className="pj-cta pj-all">
+          {t.all}
+          <span className="pj-cta-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C6F432" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true"><path d="M5 12h14" /><path d="M13 6l6 6-6 6" /></svg></span>
+        </a>
       </div>
     </section>
   );

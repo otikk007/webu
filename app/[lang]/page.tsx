@@ -10,7 +10,7 @@ import Services from '@/components/Services';
 import Shell from '@/components/Shell';
 import Work from '@/components/Work';
 import { getDict } from '@/lib/dict';
-import { hasLocale } from '@/lib/i18n';
+import { hasLocale, lp } from '@/lib/i18n';
 import { eggText } from '@/lib/eggs-text';
 import { jsonLd } from '@/lib/seo';
 
@@ -27,7 +27,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <main>
         <Hero t={d.hero} />
         <Services lang={lang} t={d.services} serp={d.serp} />
-        <Work t={d.work} secret={eggText(lang).client} />
+        <Work t={d.work} secret={eggText(lang).client} allHref={lp(lang, '/projects')} />
         <Process t={d.process} />
         <Audit lang={lang} t={d.audit} />
         <Price t={d.price} />

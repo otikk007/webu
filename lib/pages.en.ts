@@ -305,16 +305,18 @@ export const PAGES_EN: RawPage[] = [
     title: 'Webu Care | Website Support and Maintenance After Launch',
     description: 'Webu Care: website and app support after launch. Monitoring, backups, updates, bug fixes, content changes and priority support.',
     h1: 'Webu Care: support after launch',
-    answer: 'Webu Care is Webu’s support service for websites and apps after launch. It covers monitoring, backups, updates, bug fixes, content changes and priority support. Terms are defined individually for each project.',
+    answer: 'Webu Care is Webu’s package for websites and apps after launch. It covers hosting, monitoring, backups, updates, bug fixes, content changes and priority support. On every new project the first 3 months of hosting are free. Other terms are defined individually for each project.',
     facts: [
       { k: 'For', v: 'Websites, stores and apps' },
-      { k: 'Covers', v: 'Monitoring, backups, updates, fixes' },
+      { k: 'Covers', v: 'Hosting, monitoring, backups, updates, fixes' },
+      { k: 'Hosting', v: 'First 3 months free' },
       { k: 'Price', v: 'Per project' },
     ],
     blocks: [
       {
         h2: 'What Webu Care covers',
         list: [
+          'Hosting and SSL certificate (first 3 months free)',
           'Monitoring: we know when the site goes down or slows down',
           'Regular backups',
           'System and component updates',
@@ -335,6 +337,7 @@ export const PAGES_EN: RawPage[] = [
       },
     ],
     faqs: [
+      { q: 'Is hosting included in Webu Care?', a: 'Yes. Webu Care includes hosting and an SSL certificate, and on every new project the first 3 months of hosting after launch are free.' },
       { q: 'How much does Webu Care cost?', a: 'Webu Care terms and pricing are set according to the size of the project and the support it needs. We agree the details at the first meeting.' },
       { q: 'Can you support a website someone else built?', a: 'Yes, after assessing the existing site. We first check its technical condition so we know what we are taking responsibility for.' },
       { q: 'When do you need Webu Care?', a: 'If your website or app matters to your business, takes orders or is used by customers regularly, support is essential to keep it fast, secure and working.' },

@@ -83,7 +83,12 @@ export default function Price({ t }: { t: Dict['price'] }) {
             <div aria-live="polite">
               <div className="pr-sum">{fmt(shown)}</div>
               <div className="pr-weeks">{fill(t.weeks, { n: wk })}</div>
+              <div className="pr-monthly">{fill(t.monthly, { p: fmt(Math.ceil(total / 12)) })}</div>
             </div>
+            <ul className="pr-perks">
+              <li><Check />{t.perkHosting}</li>
+              <li><Check />{t.perkInstall}</li>
+            </ul>
             <div className="pr-break" aria-label={t.breakdown}>
               <div><span>{typeLabel(sel.id)}</span><span>{fmt(sel.p)}</span></div>
               {chosen.map(a => <div key={a.id}><span>{addonLabel(a.id)}</span><span>+{fmt(a.p)}</span></div>)}

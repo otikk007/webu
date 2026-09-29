@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { preload } from 'react-dom';
 import Audit from '@/components/Audit';
+import Care from '@/components/Care';
 import Contact from '@/components/Contact';
 import Faq from '@/components/Faq';
 import Hero from '@/components/Hero';
@@ -13,11 +14,14 @@ import { getDict } from '@/lib/dict';
 import { hasLocale, lp } from '@/lib/i18n';
 import { eggText } from '@/lib/eggs-text';
 import { jsonLd } from '@/lib/seo';
+import { pageById, pageHref } from '@/lib/pages';
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const d = getDict(lang);
+  const care = pageById(lang, 'care');
+  const careHref = care ? pageHref(care) : lp(lang, '/');
   // The hero video poster is the largest paint on first load.
   preload('/assets/s-hero-1280.webp', { as: 'image', fetchPriority: 'high' });
 
@@ -31,6 +35,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         <Process t={d.process} />
         <Audit lang={lang} t={d.audit} />
         <Price t={d.price} />
+        <Care t={d.care} moreHref={careHref} />
         <Faq t={d.faq} />
         <Contact lang={lang} t={d.contact} />
       </main>

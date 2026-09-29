@@ -303,3 +303,25 @@ html[lang="ru"] { --geo: var(--font-cyr), var(--font-geo), 'Noto Sans', sans-ser
 .wk-frame { width: min(100%, 820px, calc((100cqh - 30px) * 1.84)); box-shadow: 0 0 0 1px rgba(242,241,236,0.08), 0 30px 80px rgba(0,0,0,0.45); }
 .pj-cta-arrow { color: var(--lime); }
 .pj-all { align-self: flex-start; margin-top: 24px; }
+
+/* price card perks: 0% installments, free hosting */
+.pr-monthly { margin-top: 6px; font-size: 14px; opacity: .78; }
+.pr-perks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 600; }
+.pr-perks li { display: flex; align-items: center; gap: 10px; }
+.pr-perks svg { flex: none; width: 20px; height: 20px; padding: 4px; border-radius: 50%; background: var(--bg); color: var(--lime); }
+
+/* Webu Care section */
+.care-free { flex: 1 1 min(360px, 100%); min-width: 0; background: var(--lime); color: var(--bg); padding: clamp(24px, 3vw, 40px); display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 380px; }
+.care-big { font-size: clamp(64px, 8vw, 120px); font-weight: 900; line-height: .9; letter-spacing: -0.03em; }
+.care-big-sub { margin-top: 10px; font-size: clamp(22px, 2.2vw, 30px); font-weight: 800; }
+.care-note { margin: 0; font-size: 15px; line-height: 1.5; max-width: 320px; }
+.care-cta { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 12px 12px 22px; border-radius: 14px; font-weight: 600; }
+.care-list { flex: 2 1 min(480px, 100%); padding: clamp(24px, 3vw, 40px); }
+.care-list ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 0 28px; }
+.care-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 16px; line-height: 1.45; }
+.care-tick { flex: none; width: 24px; height: 24px; border-radius: 50%; background: rgba(198, 244, 50, 0.14); color: var(--lime); display: flex; align-items: center; justify-content: center; margin-top: -1px; }
+.care-install { flex: 1 1 100%; padding: clamp(24px, 3vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: clamp(20px, 3vw, 40px); }
+.care-install > div:nth-child(2) { flex: 1 1 320px; min-width: 0; }
+.care-zero { font-size: clamp(64px, 7vw, 104px); font-weight: 900; line-height: .9; color: var(--lime); letter-spacing: -0.03em; }
+.care-install h3 { margin: 0 0 8px; font-size: clamp(22px, 2.2vw, 30px); font-weight: 800; }
+.care-install p { margin: 0; color: var(--muted); line-height: 1.6; max-width: 560px; }

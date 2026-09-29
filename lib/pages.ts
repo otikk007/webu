@@ -8,7 +8,7 @@ import { PAGES_EN } from './pages.en';
 import { PAGES_KA } from './pages.ka';
 import { PAGES_RU } from './pages.ru';
 
-export const UPDATED = '2026-09-25';
+export const UPDATED = '2026-09-29';
 
 export type Block = { h2: string; p?: string[]; list?: string[]; table?: { head: string[]; rows: string[][] } };
 export type QA = { q: string; a: string };

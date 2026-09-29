@@ -237,6 +237,46 @@ export const PAGES_EN: RawPage[] = [
     related: ['webapp', 'care', 'website'],
   },
   {
+    id: 'design',
+    slug: 'design-and-branding',
+    kind: 'service',
+    nav: 'Design and branding',
+    title: 'UI/UX Design, Branding and Logo | Webu',
+    description: 'UI/UX design, branding, logo and website redesign. An interactive prototype and design system before any code is written.',
+    h1: 'Design and branding: UI/UX, logo and redesign',
+    answer: 'Webu designs interfaces and brand visual language: UI/UX design, branding, logo and redesign of existing websites. You see every screen in an interactive prototype and approve it before any code is written. Pricing depends on the scope of the project.',
+    facts: [
+      { k: 'Covers', v: 'UI/UX, branding, logo, redesign' },
+      { k: 'Result', v: 'Prototype and design system' },
+      { k: 'Price', v: 'Per project' },
+    ],
+    blocks: [
+      {
+        h2: 'What it covers',
+        list: [
+          'UI/UX: user journey, site structure and an interactive prototype',
+          'Design system: colors, fonts and components that work the same on every page',
+          'Branding: a visual language that sets you apart',
+          'Logo and rules for using it',
+          'Redesign: updating an existing site based on analysis',
+        ],
+      },
+      {
+        h2: 'Why design comes before code',
+        p: [
+          'A change at the design stage is far cheaper and faster than after the code is written. So we build the structure and prototype first, you review every screen, and development starts only after your approval.',
+        ],
+      },
+    ],
+    faqs: [
+      { q: 'Can I order design only?', a: 'Yes. You can order design separately and hand it to your own developer, or we can build it too.' },
+      { q: 'What do I get at the end?', a: 'Design files, an interactive prototype and a design system. For branding, logo files and usage rules.' },
+      { q: 'When is a redesign worth it?', a: 'When the site looks dated, is awkward on mobile or visitors cannot find what they need. We analyze it first and tell you whether a redesign is enough.' },
+    ],
+    cta: 'Discuss design with us',
+    related: ['website', 'store', 'webapp'],
+  },
+  {
     id: 'seo',
     slug: 'seo-aeo-geo',
     kind: 'service',
@@ -296,6 +336,128 @@ export const PAGES_EN: RawPage[] = [
     ],
     cta: 'Take the free audit',
     related: ['website', 'care', 'cost'],
+  },
+  {
+    id: 'growth',
+    slug: 'ads-and-analytics',
+    kind: 'service',
+    nav: 'Google Ads, Meta Ads and analytics',
+    title: 'Google Ads, Meta Ads, Analytics and CRO | Webu',
+    description: 'Growth and marketing: SEO, Google Ads and Meta Ads, analytics setup and CRO (conversion rate optimization).',
+    h1: 'Growth: ads, analytics and conversion',
+    answer: 'Webu’s growth services cover SEO, Google Ads and Meta Ads, analytics setup and CRO (conversion rate optimization). The goal is to bring more of the right visitors to your site and turn more of them into orders or requests. Fees and ad budgets are set individually.',
+    facts: [
+      { k: 'Covers', v: 'SEO, Google Ads, Meta Ads, analytics, CRO' },
+      { k: 'Ad budget', v: 'Set by you' },
+      { k: 'Price', v: 'Per project' },
+    ],
+    blocks: [
+      {
+        h2: 'What it covers',
+        list: [
+          'SEO, AEO and GEO: visibility in Google and AI search',
+          'Google Ads: campaigns for people already searching for your service',
+          'Meta Ads: advertising on Facebook and Instagram',
+          'Analytics: GA4, conversion and goal setup',
+          'CRO: improving pages and forms so more visitors get in touch',
+        ],
+      },
+      {
+        h2: 'Why together',
+        p: [
+          'Ads, SEO and the site itself depend on each other. A good ad on a weak page wastes money, and without analytics you cannot tell which channel works. So we look at all three as one picture.',
+        ],
+      },
+    ],
+    faqs: [
+      { q: 'Is the ad budget included in the price?', a: 'No. The ad budget is paid directly to Google and Meta and you decide it. Our fee covers managing the campaigns.' },
+      { q: 'Do you guarantee results?', a: 'Nobody can honestly promise a specific ranking or number of sales. We promise transparent reports: what was spent, what came in and what we change next.' },
+      { q: 'What is CRO?', a: 'Conversion rate optimization: turning a larger share of visitors into customers. We find where people leave the site and improve those places.' },
+    ],
+    cta: 'Discuss growth with us',
+    related: ['seo', 'website', 'store'],
+  },
+  {
+    id: 'ai',
+    slug: 'ai-and-automation',
+    kind: 'service',
+    nav: 'AI and automation',
+    title: 'AI Chatbots and Business Automation | Webu',
+    description: 'AI chatbots, assistants, document and image recognition, automation and API integrations for business.',
+    h1: 'AI and automation for business',
+    answer: 'Webu builds AI chatbots, assistants and automations: a chatbot on your site or in messengers, document and image recognition, connecting systems through APIs and automating repetitive work. Pricing depends on the task.',
+    facts: [
+      { k: 'Covers', v: 'Chatbots, assistants, recognition, automation, API' },
+      { k: 'Where it runs', v: 'Website, messengers, internal systems' },
+      { k: 'Price', v: 'Per task' },
+    ],
+    blocks: [
+      {
+        h2: 'What we build',
+        list: [
+          'An AI chatbot on your site or in messengers that answers from your own information',
+          'Assistants for your team: searching documents and drafting texts',
+          'Recognition: extracting data from documents, receipts and images',
+          'Automation: requests, notifications and reports without manual work',
+          'API integrations: CRM, accounting, banks, Telegram and other systems',
+        ],
+      },
+      {
+        h2: 'Where we start',
+        p: [
+          'We first find one specific process that wastes the most time. We measure it, automate it and check the result. Then we expand where it really helps.',
+        ],
+      },
+    ],
+    faqs: [
+      { q: 'Is my data safe?', a: 'We give access only to the data the task needs and tell you in advance which services receive any information.' },
+      { q: 'Can the chatbot give a wrong answer?', a: 'AI can make mistakes, so we limit its topics, give it only verified information and have it hand the conversation to a person in difficult cases.' },
+      { q: 'Will it connect to my existing system?', a: 'If the system has an API or a way to export data, usually yes. We check first and tell you what is possible.' },
+    ],
+    cta: 'Discuss an AI project with us',
+    related: ['webapp', 'website', 'care'],
+  },
+  {
+    id: 'hosting',
+    slug: 'hosting-and-infrastructure',
+    kind: 'service',
+    nav: 'Hosting and infrastructure',
+    title: 'Hosting, Domain, SSL and Email | Webu',
+    description: 'Hosting and infrastructure: domain, hosting, SSL, business email, cloud and backups. The first 3 months of hosting are free on every new project.',
+    h1: 'Hosting and infrastructure',
+    answer: 'Webu sets up and manages everything your site runs on: domain, hosting, SSL certificate, business email, cloud services and backups. On every new project the first 3 months of hosting are free. Day-to-day care is part of the Webu Care package.',
+    facts: [
+      { k: 'Covers', v: 'Domain, hosting, SSL, email, cloud, backup' },
+      { k: 'Hosting', v: 'First 3 months free' },
+      { k: 'Ownership', v: 'The domain and data are yours' },
+    ],
+    blocks: [
+      {
+        h2: 'What it covers',
+        list: [
+          'Domain registration and DNS management',
+          'Fast, reliable hosting',
+          'An SSL certificate so the site opens over a secure connection',
+          'Business email on your domain',
+          'Cloud infrastructure for apps and databases',
+          'Regular backups',
+          'Moving an existing site from another host',
+        ],
+      },
+      {
+        h2: 'Infrastructure or Webu Care',
+        p: [
+          'Infrastructure is where your site runs. Webu Care is who looks after it every day: monitoring, updates and fixes. You can take both together.',
+        ],
+      },
+    ],
+    faqs: [
+      { q: 'What happens after the 3 free months?', a: 'Hosting continues within the Webu Care package or separately on agreed terms. We tell you the cost in advance.' },
+      { q: 'Whose name is the domain in?', a: 'The domain, content and data are yours.' },
+      { q: 'Can you move my existing site?', a: 'Yes. We check the site first and plan the move so that site and email downtime is kept to a minimum.' },
+    ],
+    cta: 'Discuss hosting with us',
+    related: ['care', 'website', 'store'],
   },
   {
     id: 'care',

@@ -325,3 +325,33 @@ html[lang="ru"] { --geo: var(--font-cyr), var(--font-geo), 'Noto Sans', sans-ser
 .care-zero { font-size: clamp(64px, 7vw, 104px); font-weight: 900; line-height: .9; color: var(--lime); letter-spacing: -0.03em; }
 .care-install h3 { margin: 0 0 8px; font-size: clamp(22px, 2.2vw, 30px); font-weight: 800; }
 .care-install p { margin: 0; color: var(--muted); line-height: 1.6; max-width: 560px; }
+
+/* services: AI chat visual (loops 7s) */
+.ai-vis { position: absolute; inset: 0; padding: clamp(20px, 5%, 40px); display: flex; flex-direction: column; justify-content: center; gap: 12px; background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 18px 18px; }
+.ai-msg { max-width: 78%; padding: 12px 16px; border-radius: 18px; font-size: 14px; line-height: 1.45; opacity: 0; }
+.ai-user { align-self: flex-end; background: #F2F1EC; color: var(--bg); border-bottom-right-radius: 6px; animation: aiUser 7s ease infinite both; }
+.ai-bot { align-self: flex-start; background: #1b1c21; border: 1px solid rgba(255,255,255,0.08); border-bottom-left-radius: 6px; }
+.ai-typing { display: flex; gap: 5px; padding: 16px 18px; animation: aiTyping 7s ease infinite both; }
+.ai-typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); animation: aiDot 1s ease-in-out infinite; }
+.ai-typing span:nth-child(2) { animation-delay: .15s; }
+.ai-typing span:nth-child(3) { animation-delay: .3s; }
+.ai-answer { display: flex; gap: 10px; align-items: flex-start; margin-top: -58px; animation: aiAnswer 7s ease infinite both; }
+.ai-dot { flex: none; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #C6F432, #8B6CFF); }
+@keyframes aiUser { 0%, 4% { opacity: 0; transform: translateY(10px) } 10%, 88% { opacity: 1; transform: none } 96%, 100% { opacity: 0 } }
+@keyframes aiTyping { 0%, 16% { opacity: 0; transform: translateY(10px) } 22%, 40% { opacity: 1; transform: none } 44%, 100% { opacity: 0 } }
+@keyframes aiAnswer { 0%, 42% { opacity: 0; transform: translateY(10px) } 50%, 88% { opacity: 1; transform: none } 96%, 100% { opacity: 0 } }
+@keyframes aiDot { 0%, 100% { transform: translateY(0); opacity: .5 } 50% { transform: translateY(-4px); opacity: 1 } }
+
+/* services: software dashboard visual */
+.soft-vis { display: flex; gap: 10px; height: 150px; padding: 12px; border-radius: 18px; background: #131418; border: 1px solid rgba(255,255,255,0.06); }
+.soft-side { flex: 0 0 22%; border-radius: 10px; background: repeating-linear-gradient(180deg, #1b1c21 0 14px, transparent 14px 24px); }
+.soft-main { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.soft-kpis { display: flex; gap: 8px; }
+.soft-kpis i { flex: 1; height: 30px; border-radius: 8px; background: #1b1c21; }
+.soft-kpis i:first-child { background: rgba(198,244,50,0.16); }
+.soft-chart { flex: 1; display: flex; align-items: flex-end; gap: 6px; padding: 8px; border-radius: 10px; background: #1b1c21; }
+.soft-chart b { flex: 1; border-radius: 4px 4px 2px 2px; background: #3a3b42; transform-origin: bottom; animation: softBar 4s cubic-bezier(.4,1.4,.4,1) infinite both; }
+.soft-chart b:nth-child(6) { background: var(--lime); }
+@keyframes softBar { 0%, 8% { transform: scaleY(.15) } 30%, 80% { transform: scaleY(1) } 100% { transform: scaleY(.15) } }
+
+.svc-badge { padding: 7px 12px; border-radius: 999px; background: var(--lime); color: var(--bg); font-size: 12px; font-weight: 700; white-space: nowrap; }

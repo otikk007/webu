@@ -80,11 +80,47 @@ function UiVis({ t }: { t: Dict['services']['ui'] }) {
   );
 }
 
-const Num = ({ n, lime = true, mb = 10 }: { n: string; lime?: boolean; mb?: number }) =>
-  <div style={{ ...mono, fontSize: 12, color: lime ? '#C6F432' : undefined, marginBottom: mb }}>{n}</div>;
+/** AI chat: a question, the assistant typing, then its answer. Loops. */
+function AiVis({ t }: { t: Dict['services']['ai'] }) {
+  return (
+    <div className="ai-vis" aria-hidden="true">
+      <div className="ai-msg ai-user">{t.q}</div>
+      <div className="ai-msg ai-bot ai-typing"><span /><span /><span /></div>
+      <div className="ai-msg ai-bot ai-answer"><span className="ai-dot" />{t.a}</div>
+    </div>
+  );
+}
+
+/** Mono label: number and English category name, e.g. "01 · WEB DEVELOPMENT". */
+const Cat = ({ n, cat, lime = true, mb = 10 }: { n: string; cat: string; lime?: boolean; mb?: number }) =>
+  <div style={{ ...mono, fontSize: 12, letterSpacing: '.06em', color: lime ? '#C6F432' : undefined, marginBottom: mb }}>{n} · {cat}</div>;
+
+const Chips = ({ items, light }: { items: string[]; light?: boolean }) => (
+  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+    {items.map(c => <span key={c} className="chip" style={light ? { borderColor: 'rgba(14,15,18,0.2)' } : undefined}>{c}</span>)}
+  </div>
+);
+
+/** Rows with a round arrow on the right (E-Commerce, Software). */
+const Rows = ({ items, dark }: { items: string[]; dark?: boolean }) => {
+  const line = dark ? 'rgba(255,255,255,0.1)' : 'rgba(14,15,18,0.2)';
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', borderTop: `1px solid ${line}` }}>
+      {items.map(i => (
+        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '13px 0', borderBottom: `1px solid ${line}`, fontWeight: 500 }}>
+          <span>{i}</span>
+          <span style={{ width: 34, height: 34, borderRadius: '50%', background: dark ? 'rgba(198,244,50,0.14)' : '#0E0F12', color: '#C6F432', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}><Arrow rot={-45} /></span>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default function Services({ lang, t, serp }: { lang: Lang; t: Dict['services']; serp: Dict['serp'] }) {
   const href = (id: string) => { const p = pageById(lang, id); return p ? pageHref(p) : ''; };
+  const More = ({ id, color = '#C6F432' }: { id: string; color?: string }) =>
+    href(id) ? <a href={href(id)} className="svc-more" style={{ color }}>{t.more} <Arrow size={14} rot={-45} /></a> : null;
+  const h3 = (size = 32) => ({ margin: '0 0 10px', fontSize: size, fontWeight: 800, lineHeight: 1.15 });
   return (
     <section id="services" className="sec">
       <div className="inner">
@@ -95,44 +131,70 @@ export default function Services({ lang, t, serp }: { lang: Lang; t: Dict['servi
           <p style={{ margin: 0, flex: '0 1 min(340px,100%)', minWidth: 0, color: '#9A9AA0', lineHeight: 1.6 }}>{t.sub}</p>
         </div>
         <div className="grid">
+          {/* 01 Web development */}
           <article className="card r32" style={{ flex: '1 1 min(620px,100%)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
             <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: '#131418', borderBottom: '1px solid rgba(255,255,255,0.06)', position: 'relative' }}><WebVis t={t.web} /></div>
             <div style={{ padding: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 20, flexWrap: 'wrap' }}>
               <div style={{ flex: '1 1 280px' }}>
-                <Num n="01" />
-                <h3 style={{ margin: '0 0 10px', fontSize: 32, fontWeight: 800 }}>{t.web.title}</h3>
+                <Cat n="01" cat={t.web.cat} />
+                <h3 style={h3()}>{t.web.title}</h3>
                 <p style={{ margin: 0, color: '#B9B9BE', lineHeight: 1.6 }}>{t.web.text}</p>
-                <a href={href('website')} className="svc-more" style={{ color: '#C6F432' }}>{t.more} <Arrow size={14} rot={-45} /></a>
+                <More id="website" />
               </div>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {t.web.chips.map(t => <span key={t} className="chip">{t}</span>)}
-              </div>
+              <Chips items={t.web.chips} />
             </div>
           </article>
 
+          {/* 02 E-commerce */}
           <article className="r32" style={{ flex: '1 1 min(400px,100%)', minWidth: 0, minHeight: 480, background: '#C6F432', color: '#0E0F12', padding: 28, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 32 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <Num n="02" lime={false} mb={0} />
+              <Cat n="02" cat={t.ecom.cat} lime={false} mb={0} />
               <div style={{ display: 'flex' }} aria-hidden="true">
                 <span style={{ width: 56, height: 56, borderRadius: '50%', background: '#0E0F12', display: 'block' }} />
                 <span style={{ width: 56, height: 56, borderRadius: '50%', border: '2px solid #0E0F12', display: 'block', marginLeft: -16 }} />
               </div>
             </div>
             <div>
-              <h3 style={{ margin: '0 0 10px', fontSize: 32, fontWeight: 800 }}>{t.mobile.title}</h3>
-              <p style={{ margin: '0 0 24px', lineHeight: 1.6, maxWidth: 380 }}>{t.mobile.text}</p>
-              <div style={{ marginBottom: 20 }}><a href={href('mobile')} className="svc-more" style={{ color: '#0E0F12' }}>{t.more} <Arrow size={14} rot={-45} /></a></div>
-              <div style={{ display: 'flex', flexDirection: 'column', borderTop: '1px solid rgba(14,15,18,0.2)' }}>
-                {t.mobile.items.map(t => (
-                  <div key={t} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 0', borderBottom: '1px solid rgba(14,15,18,0.2)', fontWeight: 500 }}>
-                    <span>{t}</span>
-                    <span style={{ width: 34, height: 34, borderRadius: '50%', background: '#0E0F12', color: '#C6F432', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Arrow rot={-45} /></span>
-                  </div>
-                ))}
-              </div>
+              <h3 style={h3()}>{t.ecom.title}</h3>
+              <p style={{ margin: '0 0 8px', lineHeight: 1.6, maxWidth: 400 }}>{t.ecom.text}</p>
+              <div style={{ marginBottom: 20 }}><More id="store" color="#0E0F12" /></div>
+              <Rows items={t.ecom.items} />
             </div>
           </article>
 
+          {/* 03 Software */}
+          <article className="card r32" style={{ flex: '1 1 min(400px,100%)', padding: 28, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 32 }}>
+            <div className="soft-vis" aria-hidden="true">
+              <span className="soft-side" />
+              <span className="soft-main">
+                <span className="soft-kpis"><i /><i /><i /></span>
+                <span className="soft-chart">{[40, 62, 48, 80, 66, 92, 74].map((h, i) => <b key={i} style={{ height: `${h}%`, animationDelay: `${i * 0.12}s` }} />)}</span>
+              </span>
+            </div>
+            <div>
+              <Cat n="03" cat={t.soft.cat} />
+              <h3 style={h3()}>{t.soft.title}</h3>
+              <p style={{ margin: '0 0 8px', color: '#B9B9BE', lineHeight: 1.6 }}>{t.soft.text}</p>
+              <div style={{ marginBottom: 20 }}><More id="webapp" /></div>
+              <Rows items={t.soft.items} dark />
+            </div>
+          </article>
+
+          {/* 04 Design */}
+          <article className="card r32" style={{ flex: '1 1 min(580px,100%)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, minHeight: 320, overflow: 'hidden', background: '#131418', borderBottom: '1px solid rgba(255,255,255,0.06)', position: 'relative' }}><UiVis t={t.ui} /></div>
+            <div style={{ padding: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 20, flexWrap: 'wrap' }}>
+              <div style={{ flex: '1 1 280px' }}>
+                <Cat n="04" cat={t.ui.cat} />
+                <h3 style={h3()}>{t.ui.title}</h3>
+                <p style={{ margin: 0, maxWidth: 460, color: '#B9B9BE', lineHeight: 1.6 }}>{t.ui.text}</p>
+                <More id="design" />
+              </div>
+              <Chips items={t.ui.chips} />
+            </div>
+          </article>
+
+          {/* 05 Growth */}
           <article className="r32" style={{ flex: '1 1 min(440px,100%)', minWidth: 0, background: '#F2F1EC', color: '#0E0F12', padding: 28, display: 'flex', flexDirection: 'column', gap: 28 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 18px', borderRadius: 999, background: '#fff', border: '1px solid rgba(14,15,18,0.1)', fontSize: 15 }}>
               <span style={{ width: 14, height: 14, borderRadius: '50%', border: '2px solid #0E0F12', flex: 'none' }} />
@@ -140,32 +202,55 @@ export default function Services({ lang, t, serp }: { lang: Lang; t: Dict['servi
             </div>
             <Serp t={serp} />
             <div>
-              <Num n="03" lime={false} mb={8} />
-              <h3 style={{ margin: '0 0 8px', fontSize: 30, fontWeight: 800 }}>{t.seo.title}</h3>
-              <p style={{ margin: 0, lineHeight: 1.6, color: '#44454b' }}>{t.seo.text}</p>
-              <a href={href('seo')} className="svc-more" style={{ color: '#0E0F12' }}>{t.more} <Arrow size={14} rot={-45} /></a>
-            </div>
-          </article>
-
-          <article className="card r32" style={{ flex: '1 1 min(580px,100%)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ flex: 1, minHeight: 320, overflow: 'hidden', background: '#131418', borderBottom: '1px solid rgba(255,255,255,0.06)', position: 'relative' }}><UiVis t={t.ui} /></div>
-            <div style={{ padding: 28 }}>
-              <Num n="04" />
-              <h3 style={{ margin: '0 0 8px', fontSize: 32, fontWeight: 800 }}>{t.ui.title}</h3>
-              <p style={{ margin: 0, maxWidth: 460, color: '#B9B9BE', lineHeight: 1.6 }}>{t.ui.text}</p>
-            </div>
-          </article>
-
-          {t.small.map(({ n, title, text, page }) => (
-            <article key={n} className="card r32 svc-small">
-              <Num n={n} mb={0} />
-              <div>
-                <h3 style={{ margin: '0 0 8px', fontSize: 24, fontWeight: 700 }}>{title}</h3>
-                <p style={{ margin: 0, color: '#9A9AA0', lineHeight: 1.6 }}>{text}</p>
-                {page && <a href={href(page)} className="svc-more" style={{ color: '#C6F432', marginTop: 12 }}>{t.more} <Arrow size={14} rot={-45} /></a>}
+              <Cat n="05" cat={t.seo.cat} lime={false} mb={8} />
+              <h3 style={h3(30)}>{t.seo.title}</h3>
+              <p style={{ margin: '0 0 16px', lineHeight: 1.6, color: '#44454b' }}>{t.seo.text}</p>
+              <Chips items={t.seo.chips} light />
+              <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
+                <More id="growth" color="#0E0F12" />
+                <a href={href('seo')} className="svc-more" style={{ color: '#0E0F12' }}>SEO, AEO, GEO <Arrow size={14} rot={-45} /></a>
               </div>
-            </article>
-          ))}
+            </div>
+          </article>
+
+          {/* 06 AI & automation */}
+          <article className="card r32" style={{ flex: '1 1 min(580px,100%)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, minHeight: 300, background: '#131418', borderBottom: '1px solid rgba(255,255,255,0.06)', position: 'relative', overflow: 'hidden' }}><AiVis t={t.ai} /></div>
+            <div style={{ padding: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 20, flexWrap: 'wrap' }}>
+              <div style={{ flex: '1 1 280px' }}>
+                <Cat n="06" cat={t.ai.cat} />
+                <h3 style={h3()}>{t.ai.title}</h3>
+                <p style={{ margin: 0, maxWidth: 460, color: '#B9B9BE', lineHeight: 1.6 }}>{t.ai.text}</p>
+                <More id="ai" />
+              </div>
+              <Chips items={t.ai.chips} />
+            </div>
+          </article>
+
+          {/* 07 Infrastructure */}
+          <article className="card r32 svc-small">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
+              <Cat n="07" cat={t.infra.cat} mb={0} />
+              <span className="svc-badge">{t.infra.badge}</span>
+            </div>
+            <div>
+              <h3 style={h3(26)}>{t.infra.title}</h3>
+              <p style={{ margin: '0 0 18px', color: '#9A9AA0', lineHeight: 1.6 }}>{t.infra.text}</p>
+              <Chips items={t.infra.chips} />
+              <More id="hosting" />
+            </div>
+          </article>
+
+          {/* 08 Support */}
+          <article className="card r32 svc-small">
+            <Cat n="08" cat={t.care.cat} mb={0} />
+            <div>
+              <h3 style={h3(26)}>{t.care.title}</h3>
+              <p style={{ margin: '0 0 18px', color: '#9A9AA0', lineHeight: 1.6 }}>{t.care.text}</p>
+              <Chips items={t.care.chips} />
+              <More id="care" />
+            </div>
+          </article>
         </div>
       </div>
     </section>

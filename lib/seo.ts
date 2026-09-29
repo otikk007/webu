@@ -25,14 +25,10 @@ const faqLd = (id: string, lang: Lang, faqs: { q: string; a: string }[]) => ({
   mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 });
 
-// The services Webu offers, in a language: every service page, plus the two
-// homepage services that have no page of their own.
+// The services Webu offers, in a language: one per service page.
 function catalog(lang: Lang) {
-  const t = getDict(lang).services;
   return [
     ...servicePages(lang).map(p => ({ name: p.nav, description: p.answer, url: abs(pageHref(p)) })),
-    { name: t.ui.title, description: t.ui.text },
-    { name: t.small[1].title, description: t.small[1].text },
   ];
 }
 
@@ -132,7 +128,7 @@ function llmsSection(lang: Lang, full: boolean) {
     '',
     `### ${h.services}`,
     '',
-    ...catalog(lang).map(s => ('url' in s ? `- [${s.name}](${s.url}): ${s.description}` : `- ${s.name}: ${s.description}`)),
+    ...catalog(lang).map(s => `- [${s.name}](${s.url}): ${s.description}`),
     '',
     `### ${h.guides}`,
     '',

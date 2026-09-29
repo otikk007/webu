@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import type { Dict } from '@/lib/dict';
-import { Arrow, Goo } from './ui';
+import { Goo } from './ui';
 
 const line = { display: 'flex', alignItems: 'center', gap: '0.2em', flexWrap: 'wrap' } as const;
 
@@ -47,7 +47,6 @@ export default function Hero({ t }: { t: Dict['hero'] }) {
   return (
     <section id="top" style={{ padding: 'clamp(40px,7vw,96px) var(--pad-x) 0', display: 'flex', justifyContent: 'center' }}>
       <div className="inner">
-        <a href="#price" className="hero-offer"><span className="hero-offer-dot" aria-hidden="true" />{t.offer}<Arrow size={14} rot={-45} /></a>
         <h1 aria-label={`${t.l1}, ${t.l2} ${t.l3a} ${t.l3b}`} style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(38px,10vw,160px)', lineHeight: 1.02, letterSpacing: '-0.02em', display: 'flex', flexDirection: 'column', gap: '0.06em' }}>
           <span data-depth="14" style={line}>
             <Letters text={t.l1} />

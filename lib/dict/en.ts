@@ -29,7 +29,6 @@ const en: Dict = {
     sub: 'We design and build professional websites, web apps and digital products shaped around your business goals and needs.',
     cta: 'Start a project',
     cta2: 'See our work',
-    offer: 'Websites from 40 GEL/month · 3 months of free hosting · 10% off when you pay in full',
   },
   services: {
     h2: 'Everything your business needs in the digital world',

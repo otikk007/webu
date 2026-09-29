@@ -10,6 +10,13 @@ import { PAGES_RU } from './pages.ru';
 
 export const UPDATED = '2026-09-29';
 
+// First publication date of each page (from git history). Unlike UPDATED, these never change.
+const PUBLISHED: Record<string, string> = {
+  website: '2026-09-25', store: '2026-09-25', webapp: '2026-09-25', mobile: '2026-09-25', seo: '2026-09-25', care: '2026-09-25',
+  cost: '2026-09-25', geo: '2026-09-25', cwv: '2026-09-25', landing: '2026-09-25', studio: '2026-09-25', about: '2026-09-25',
+  design: '2026-09-29', growth: '2026-09-29', ai: '2026-09-29', hosting: '2026-09-29', privacy: '2026-09-29',
+};
+
 export type Block = { h2: string; p?: string[]; list?: string[]; table?: { head: string[]; rows: string[][] } };
 export type QA = { q: string; a: string };
 
@@ -32,7 +39,7 @@ export type RawPage = {
   sources?: { title: string; url: string }[];  // primary sources cited by a guide
 };
 
-export type ContentPage = RawPage & { id: string; lang: Lang };
+export type ContentPage = RawPage & { id: string; lang: Lang; published: string };
 
 // Georgian slug -> language-independent id.
 const KA_IDS: Record<string, string> = {
@@ -56,9 +63,9 @@ const KA_IDS: Record<string, string> = {
 };
 
 const BY_LANG: Record<Lang, ContentPage[]> = {
-  ka: PAGES_KA.map(p => ({ ...p, id: KA_IDS[p.slug], lang: 'ka' as const, related: p.related.map(s => KA_IDS[s] ?? s) })),
-  en: PAGES_EN.map(p => ({ ...p, id: p.id!, lang: 'en' as const })),
-  ru: PAGES_RU.map(p => ({ ...p, id: p.id!, lang: 'ru' as const })),
+  ka: PAGES_KA.map(p => ({ ...p, id: KA_IDS[p.slug], lang: 'ka' as const, published: PUBLISHED[KA_IDS[p.slug]] ?? UPDATED, related: p.related.map(s => KA_IDS[s] ?? s) })),
+  en: PAGES_EN.map(p => ({ ...p, id: p.id!, lang: 'en' as const, published: PUBLISHED[p.id!] ?? UPDATED })),
+  ru: PAGES_RU.map(p => ({ ...p, id: p.id!, lang: 'ru' as const, published: PUBLISHED[p.id!] ?? UPDATED })),
 };
 
 export const pagesFor = (lang: Lang) => BY_LANG[lang];

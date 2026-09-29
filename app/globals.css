@@ -377,3 +377,12 @@ html[lang="ru"] { --geo: var(--font-cyr), var(--font-geo), 'Noto Sans', sans-ser
 .bk-quote { margin-top: 14px; padding: 10px 14px; border-radius: 12px; background: rgba(14, 15, 18, 0.08); font-size: 14px; font-weight: 600; line-height: 1.45; }
 .bk-quote span { display: block; font-family: var(--mono), var(--geo); font-size: 11px; font-weight: 400; opacity: .7; margin-bottom: 2px; }
 
+
+/* AEO: FAQ answers stay in the rendered HTML; home FAQ collapses visually only */
+.faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+.faq-a[data-open] { grid-template-rows: 1fr; }
+.faq-a > div { overflow: hidden; }
+.cp-qa { padding: 22px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.cp-qa h3 { margin: 0 0 10px; font-size: clamp(18px, 1.8vw, 22px); font-weight: 700; line-height: 1.35; }
+.cp-qa p { margin: 0; color: var(--muted); line-height: 1.65; }
+.cp-updated-top { margin: -6px 0 18px; }

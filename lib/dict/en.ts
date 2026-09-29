@@ -26,7 +26,7 @@ const en: Dict = {
     l2: 'Apps',
     l3a: '&',
     l3b: 'SEO',
-    sub: 'We design and build professional websites, web apps and digital products shaped around your business goals and needs.',
+    sub: 'Webu is a digital studio in Tbilisi. We build websites, online stores, and web and mobile apps, grow them with SEO and ads, and look after them after launch. Design, development, hosting and support come from one team.',
     cta: 'Start a project',
     cta2: 'See our work',
   },

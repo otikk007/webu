@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     title: p.title,
     description: p.description,
     alternates: { canonical: url, languages: languageAlternates(alternates(p)) },
-    openGraph: { type: 'article', locale: LANG_META[p.lang].og, siteName: 'Webu', url, title: p.title, description: p.description, modifiedTime: UPDATED, publishedTime: UPDATED },
+    openGraph: { type: 'article', locale: LANG_META[p.lang].og, siteName: 'Webu', url, title: p.title, description: p.description, modifiedTime: UPDATED, publishedTime: p.published },
     twitter: { card: 'summary_large_image', title: p.title, description: p.description },
   };
 }

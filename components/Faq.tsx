@@ -39,7 +39,7 @@ export default function Faq({ t }: { t: Dict['faq'] }) {
                   <span>{f.q}</span>
                   <span aria-hidden="true" style={{ flex: 'none', width: 40, height: 40, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, transform: o ? 'rotate(45deg)' : 'none', transition: 'transform .3s, background .3s', background: o ? '#C6F432' : 'transparent', color: o ? '#0E0F12' : '#F2F1EC' }}>+</span>
                 </button>
-                <p id={`faq-${i}`} hidden={!o} style={{ margin: '0 0 28px', maxWidth: 560, color: '#B9B9BE', lineHeight: 1.65, fontSize: 16 }}>{f.a}</p>
+                <div id={`faq-${i}`} className="faq-a" data-open={o || undefined}><div><p style={{ margin: '0 0 28px', maxWidth: 560, color: '#B9B9BE', lineHeight: 1.65, fontSize: 16 }}>{f.a}</p></div></div>
               </div>
             );
           })}

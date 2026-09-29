@@ -32,6 +32,7 @@ export default function ContentPageView({ page, updated }: { page: ContentPage; 
               <span aria-current="page">{page.nav}</span>
             </nav>
             <h1>{page.h1}</h1>
+            <p className="cp-updated cp-updated-top">{t.updated} <time dateTime={updated}>{date}</time> · Webu</p>
             <p className="cp-answer">{page.answer}</p>
             <div className="cp-cta-row">
               <a href={ctaHref} className="cp-cta">{page.cta}</a>
@@ -79,10 +80,10 @@ export default function ContentPageView({ page, updated }: { page: ContentPage; 
             <h2>{t.faq}</h2>
             <div className="cp-faq">
               {page.faqs.map(f => (
-                <details key={f.q}>
-                  <summary><h3>{f.q}</h3></summary>
+                <div key={f.q} className="cp-qa">
+                  <h3>{f.q}</h3>
                   <p>{f.a}</p>
-                </details>
+                </div>
               ))}
             </div>
           </div>
@@ -114,7 +115,6 @@ export default function ContentPageView({ page, updated }: { page: ContentPage; 
                   </Link>
                 ))}
               </div>
-              <p className="cp-updated">{t.updated} <time dateTime={updated}>{date}</time> · Webu</p>
             </div>
           </section>
         )}

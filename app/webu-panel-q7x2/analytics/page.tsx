@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ADMIN_PATH, isAdmin } from '@/lib/admin-auth';
+import { getCrawlStats } from '@/lib/crawl-log';
 import { getStats, type Row } from '@/lib/stats';
 import AdminNav from '../AdminNav';
 import LoginForm from '../LoginForm';
@@ -83,7 +84,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
 
   const d = Number((await searchParams).d);
   const days = PERIODS.some(p => p.d === d) ? d : 7;
-  const s = await getStats(days);
+  const [s, crawl] = await Promise.all([getStats(days), getCrawlStats(days)]);
   const secOrder = Object.keys(SECTIONS);
   const sections = secOrder.filter(k => k !== 'top').map(k => ({ k, n: s.sections.find(r => r.k === k)?.n ?? 0 }));
 
@@ -112,6 +113,20 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
         <Bars title="რას აჭერენ" rows={s.clicks} name={k => k.replace(/^(top|services|work|process|audit|price|faq|contact) · /, (_, id: string) => `${SECTIONS[id]} · `)} />
         <Bars title="მოწყობილობა" rows={s.devices} />
         <Bars title="ქალაქი / ქვეყანა" rows={s.places} />
+
+        <section className="an-card">
+          <h2>AI და საძიებო ბოტები</h2>
+          {crawl.bots.length ? (
+            <table className="an-table">
+              <thead><tr><th>ბოტი</th><th>ვიზიტი</th><th>ბოლოს</th></tr></thead>
+              <tbody>{crawl.bots.map(b => (
+                <tr key={b.bot}><td>{b.bot}</td><td className="num">{b.n}</td><td>{tbilisi(b.last)}</td></tr>
+              ))}</tbody>
+            </table>
+          ) : <p className="an-empty">ამ პერიოდში ბოტი არ შემოსულა</p>}
+          <p className="an-note">ChatGPT, Claude, Perplexity და Google ამ ბოტებით კითხულობენ საიტს. თუ ისინი რეგულარულად შემოდიან, საიტი AI პასუხებში მოხვედრის კანდიდატია.</p>
+        </section>
+        <Bars title="რომელ გვერდებს კითხულობენ ბოტები" rows={crawl.pages} />
 
         <section className="an-card">
           <h2>შემოწმებული საიტები (აუდიტი)</h2>

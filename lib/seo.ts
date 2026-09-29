@@ -45,7 +45,7 @@ export function pageJsonLd(p: ContentPage) {
     : p.kind === 'guide'
     ? {
         '@type': 'Article', '@id': `${url}#article`, headline: p.h1, description: p.description, inLanguage: p.lang,
-        datePublished: UPDATED, dateModified: UPDATED, author: org, publisher: org, mainEntityOfPage: url, image: `${url}/opengraph-image`,
+        datePublished: p.published, dateModified: UPDATED, author: org, publisher: org, mainEntityOfPage: url, image: `${url}/opengraph-image`,
         ...(p.sources ? { citation: p.sources.map(s => ({ '@type': 'CreativeWork', name: s.title, url: s.url })) } : {}),
       }
     : {

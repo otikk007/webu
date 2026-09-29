@@ -42,7 +42,7 @@ export const PAGES_EN: RawPage[] = [
         },
       },
       {
-        h2: 'What website development includes',
+        h2: 'What does website development at Webu include?',
         list: [
           'Getting to know your business and goals',
           'Site structure and content layout',
@@ -55,7 +55,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'How the process works',
+        h2: 'How does the website development process work?',
         p: ['First we understand your business, then we build the right solution for it. No project starts without a clear scope: before we begin, we put in writing what is included, what is not, the timeline, the cost and the number of revisions.'],
         list: [
           'Discovery and scope: goals, features, proposal',
@@ -65,12 +65,12 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Quality check before launch',
+        h2: 'How is website quality checked before launch?',
         p: ['Every website is tested before launch. We measure quality instead of just claiming it.'],
         list: QUALITY,
       },
       {
-        h2: 'Who owns the website',
+        h2: 'Who owns the website after it is built?',
         p: ['The domain, content and data are yours. Rights to the code and any third-party licenses are set out clearly in the contract. You have access to the relevant accounts, so you are never locked in to a single provider.'],
       },
     ],
@@ -103,7 +103,7 @@ export const PAGES_EN: RawPage[] = [
     priceValue: 1920,
     blocks: [
       {
-        h2: 'What an online store includes',
+        h2: 'What does building an online store include?',
         list: [
           'Product catalog with categories, filters and search',
           'Product pages with photos, descriptions and variants',
@@ -116,16 +116,16 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'What we define before we start',
+        h2: 'What is agreed before building an online store?',
         p: ['An online store involves many details, so before we begin we agree the scope together: the approximate number of products, payment methods, delivery rules, the integrations you need (for example accounting or warehouse systems) and who will add the products. You then get an exact proposal with price and timeline.'],
       },
       {
-        h2: 'Quality check before launch',
+        h2: 'How is an online store tested before launch?',
         p: ['A bug in a store hits sales directly, so before launch we test the full order flow, including payment.'],
         list: [...QUALITY, 'An end-to-end test order and payment'],
       },
       {
-        h2: 'After launch',
+        h2: 'What happens after an online store launches?',
         p: ['A store needs ongoing care: updates, backups and a fast response when something goes wrong. That is what Webu Care is for.'],
       },
     ],
@@ -156,11 +156,11 @@ export const PAGES_EN: RawPage[] = [
     priceValue: 3000,
     blocks: [
       {
-        h2: 'When you need a web app rather than a website',
+        h2: 'When do you need a web app rather than a website?',
         p: ['A website informs and encourages visitors to get in touch. A web app does work: it takes bookings, calculates, stores data, tracks statuses and sends notifications automatically. If your team spends hours every day on manual work in spreadsheets and messengers, that is a sign you need a web app.'],
       },
       {
-        h2: 'What kinds of web apps we build',
+        h2: 'What kinds of web apps does Webu build?',
         list: [
           'Online booking systems: calendar, available slots, confirmations and reminders',
           'Client portals: for viewing orders, documents and statuses',
@@ -169,7 +169,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'How we work',
+        h2: 'How does web app development work?',
         p: ['We do not sell technology to clients, we sell results. The logic is: business → problem → goal → solution → technology.'],
         list: [
           'Discovery: we study the current process and where time is lost',
@@ -180,7 +180,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Security by default',
+        h2: 'How is a web app kept secure?',
         p: ['Security is a baseline requirement, not a premium add-on. Depending on the product we use secure authentication, access roles, input validation, protected storage of secret keys and backups.'],
       },
     ],
@@ -211,7 +211,7 @@ export const PAGES_EN: RawPage[] = [
     priceValue: 6000,
     blocks: [
       {
-        h2: 'What mobile app development includes',
+        h2: 'What does mobile app development include?',
         list: [
           'Understanding the idea and the business goal',
           'Scope: features, screens, user journey',
@@ -227,7 +227,7 @@ export const PAGES_EN: RawPage[] = [
         p: ['An app is worth it when customers use it often: for ordering, booking, a loyalty card or a personal account. If customers only visit you once, a good website or web app is often the better choice. We discuss this honestly at the first meeting.'],
       },
       {
-        h2: 'Quality and release',
+        h2: 'How is a mobile app tested and released?',
         p: ['Before release we test the app on different screen sizes, on slow connections and in error situations. We take care of the App Store and Google Play review requirements.'],
       },
     ],
@@ -258,7 +258,7 @@ export const PAGES_EN: RawPage[] = [
     priceValue: 420,
     blocks: [
       {
-        h2: 'What it covers',
+        h2: 'What do design and branding at Webu include?',
         list: [
           'UI/UX: user journey, site structure and an interactive prototype',
           'Design system: colors, fonts and components that work the same on every page',
@@ -268,7 +268,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Why design comes before code',
+        h2: 'Why does design come before code?',
         p: [
           'A change at the design stage is far cheaper and faster than after the code is written. So we build the structure and prototype first, you review every screen, and development starts only after your approval.',
         ],
@@ -301,7 +301,7 @@ export const PAGES_EN: RawPage[] = [
     priceValue: 349,
     blocks: [
       {
-        h2: 'What is the difference between SEO, AEO and GEO',
+        h2: 'What is the difference between SEO, AEO and GEO?',
         table: {
           head: ['', 'SEO', 'AEO', 'GEO'],
           rows: [
@@ -312,7 +312,7 @@ export const PAGES_EN: RawPage[] = [
         },
       },
       {
-        h2: 'What we do',
+        h2: 'What does Webu do for SEO, AEO and GEO?',
         list: [
           'Technical audit: speed, indexing, mobile version, errors',
           'Site structure and pages for the questions your customers search for',
@@ -325,11 +325,11 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Why GEO matters now',
+        h2: 'Why does GEO matter now?',
         p: ['More and more people ask AI assistants directly, for example: “Who builds websites in Tbilisi?” The assistant answers using sources that clearly explain who you are, what you do and why you can be trusted. If your site does not present this clearly, the assistant mentions a competitor instead.'],
       },
       {
-        h2: 'What we do not promise',
+        h2: 'What can no one promise you in SEO?',
         p: ['No one can honestly promise you first place on Google or a mention in ChatGPT. We improve everything that influences it and measure the results. You will usually notice the first changes within 4 to 8 weeks, and steady growth builds over 3 to 6 months.'],
       },
     ],
@@ -359,7 +359,7 @@ export const PAGES_EN: RawPage[] = [
     ],
     blocks: [
       {
-        h2: 'What it covers',
+        h2: 'What do ads, analytics and CRO at Webu include?',
         list: [
           'SEO, AEO and GEO: visibility in Google and AI search',
           'Google Ads: campaigns for people already searching for your service',
@@ -369,7 +369,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Why together',
+        h2: 'Why should ads, SEO and analytics work together?',
         p: [
           'Ads, SEO and the site itself depend on each other. A good ad on a weak page wastes money, and without analytics you cannot tell which channel works. So we look at all three as one picture.',
         ],
@@ -401,7 +401,7 @@ export const PAGES_EN: RawPage[] = [
     priceValue: 360,
     blocks: [
       {
-        h2: 'What we build',
+        h2: 'What AI solutions does Webu build for businesses?',
         list: [
           'An AI chatbot on your site or in messengers that answers from your own information',
           'Assistants for your team: searching documents and drafting texts',
@@ -411,7 +411,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Where we start',
+        h2: 'Where does business automation start?',
         p: [
           'We first find one specific process that wastes the most time. We measure it, automate it and check the result. Then we expand where it really helps.',
         ],
@@ -441,7 +441,7 @@ export const PAGES_EN: RawPage[] = [
     ],
     blocks: [
       {
-        h2: 'What it covers',
+        h2: 'What do hosting and infrastructure at Webu include?',
         list: [
           'Domain registration and DNS management',
           'Fast, reliable hosting',
@@ -453,7 +453,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Infrastructure or Webu Care',
+        h2: 'What is the difference between infrastructure and Webu Care?',
         p: [
           'Infrastructure is where your site runs. Webu Care is who looks after it every day: monitoring, updates and fixes. You can take both together.',
         ],
@@ -484,7 +484,7 @@ export const PAGES_EN: RawPage[] = [
     ],
     blocks: [
       {
-        h2: 'Webu Care packages',
+        h2: 'How much do Webu Care packages cost?',
         table: {
           head: ['Package', 'What it includes', 'Price'],
           rows: [
@@ -495,7 +495,7 @@ export const PAGES_EN: RawPage[] = [
         },
       },
       {
-        h2: 'What Webu Care covers',
+        h2: 'What does Webu Care include?',
         list: [
           'Hosting and SSL certificate (first 3 months free)',
           'Monitoring: we know when the site goes down or slows down',
@@ -509,11 +509,11 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Why it matters',
+        h2: 'Why does a website need support after launch?',
         p: ['A website or app is a living product. Browsers, phones and online services change constantly and new security risks appear. A site left without support gradually slows down, becomes outdated and vulnerable.'],
       },
       {
-        h2: 'You always know what is happening',
+        h2: 'How do you know what is happening with your project?',
         p: ['A client should never have to ask, “Where is my project at?” With Webu Care you always know what was done, what is in progress, what we need from you and what comes next.'],
       },
     ],
@@ -543,7 +543,7 @@ export const PAGES_EN: RawPage[] = [
     ],
     blocks: [
       {
-        h2: 'Webu pricing by project type',
+        h2: 'How much does a website cost at Webu by type?',
         table: {
           head: ['What you need', 'Price', 'Over 12 months', 'Approx. timeline'],
           rows: [
@@ -560,7 +560,7 @@ export const PAGES_EN: RawPage[] = [
         p: ['“From” means the starting price. The final cost is set once the scope is agreed and is fixed in writing before the project begins.', 'Paying in full takes 10% off the price, and a returning client’s second project is 20% off. You can also split the price over 12 months.'],
       },
       {
-        h2: 'What drives the cost of a website',
+        h2: 'What does the cost of a website depend on?',
         list: [
           'Scope: how many pages and which features you need',
           'Design complexity: a standard structure or a fully custom design',
@@ -573,7 +573,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Costs on top of building the website',
+        h2: 'What costs come on top of building a website?',
         p: ['Besides the development price, plan for the costs a website needs to run:'],
         list: [
           'Domain, for example .ge: an annual fee to the registrar',
@@ -584,11 +584,11 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'A cheap website or the right website',
+        h2: 'Which is better: a cheap website or the right website?',
         p: ['The cheapest website often ends up the most expensive: it loads slowly, looks bad on mobile, cannot be found on Google or needs rebuilding within months. When comparing offers, ask besides the price: what is included, who owns the site and domain, what happens after launch and how quality is checked.'],
       },
       {
-        h2: 'How to plan your budget',
+        h2: 'How do you plan a website budget?',
         list: [
           'Write down what the site must do: calls, orders, bookings or information',
           'Decide what is essential now and what can be added later',
@@ -623,15 +623,15 @@ export const PAGES_EN: RawPage[] = [
     ],
     blocks: [
       {
-        h2: 'SEO, AEO and GEO: how they differ',
+        h2: 'How do SEO, AEO and GEO differ?',
         p: ['SEO is about classic search: ranking high in Google results. AEO (Answer Engine Optimization) is about direct answers: getting search or an assistant to answer a user’s question from your page. GEO is about generative assistants that write the answer themselves from several sources and often cite them.', 'All three rest on the same foundation: a technically sound website and content that genuinely helps people.'],
       },
       {
-        h2: 'What Google says about AI Overviews',
+        h2: 'What does Google say about AI Overviews?',
         p: ['Google’s documentation states plainly that there are no additional requirements or special optimizations needed to appear in AI Overviews or AI Mode. The page must be indexed and eligible to be shown in Google Search with a snippet.', 'Google recommends the same fundamentals as regular SEO: people-first content, crawling allowed in robots.txt, internal links, a good page experience, important content in text form, accurate structured data and Google Business Profile information.'],
       },
       {
-        h2: 'How a site gets into ChatGPT search',
+        h2: 'How does a website get into ChatGPT search?',
         p: ['OpenAI runs several crawlers with different purposes. OAI-SearchBot processes sites for ChatGPT search, and according to OpenAI’s documentation, a site that blocks this bot will not appear in ChatGPT search answers. GPTBot collects data for model training, and ChatGPT-User acts when a user asks ChatGPT to open a specific page.', 'These settings are independent: you can allow OAI-SearchBot for search and block GPTBot for training. According to OpenAI, it takes about 24 hours for a robots.txt change to take effect.'],
         table: {
           head: ['Crawler', 'Company', 'Purpose'],
@@ -647,7 +647,7 @@ export const PAGES_EN: RawPage[] = [
         },
       },
       {
-        h2: '8 practical GEO steps',
+        h2: 'Which 8 practical steps improve GEO?',
         list: [
           'Check robots.txt: AI search crawlers (OAI-SearchBot, PerplexityBot, Googlebot) must not be blocked',
           'Open every important page with a short, direct answer: who you are, what you do, what it costs and how long it takes',
@@ -660,11 +660,11 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'What is llms.txt',
+        h2: 'What is llms.txt?',
         p: ['llms.txt is a standard proposed by Jeremy Howard in 2024: a Markdown file at the site root (/llms.txt) that gives large language models short, structured information about the site. The only required part is an H1 heading with the site name, optionally followed by a short summary and lists of links to key pages.', 'llms.txt does not replace SEO. It is an extra channel that helps AI agents understand a site quickly and accurately.'],
       },
       {
-        h2: 'What no one can promise you',
+        h2: 'What can no one promise you about GEO?',
         p: ['No one can honestly promise that ChatGPT or Gemini will definitely mention your business: it depends on the question, the competition and how trustworthy the system considers your site. You can increase the chance and measure the result, exactly as with regular SEO.'],
       },
     ],
@@ -701,7 +701,7 @@ export const PAGES_EN: RawPage[] = [
     ],
     blocks: [
       {
-        h2: 'The three metrics in plain terms',
+        h2: 'What are the three Core Web Vitals metrics?',
         table: {
           head: ['Metric', 'What it measures', 'Good result'],
           rows: [
@@ -713,11 +713,11 @@ export const PAGES_EN: RawPage[] = [
         p: ['The thresholds come from web.dev’s official recommendations. Google suggests assessing the 75th percentile of visits: a metric is “good” if at least 75% of visits meet the threshold.'],
       },
       {
-        h2: 'Why speed is a business issue',
+        h2: 'Why is website speed a business issue?',
         p: ['On a slow website people wait, get frustrated and often simply go back to search and a competitor. Mobile matters most: many visitors open websites on their phones over mobile data. Google’s guidance names a good page experience as one of the foundations of success in search.'],
       },
       {
-        h2: 'How to measure your website speed',
+        h2: 'How do you measure website speed?',
         list: [
           'PageSpeed Insights (pagespeed.web.dev): free, shows both lab data and real-user data when the site has enough traffic',
           'Google Search Console: the Core Web Vitals report for the whole site',
@@ -726,7 +726,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'The most common reasons a website is slow',
+        h2: 'Why is a website slow?',
         list: [
           'Unoptimized images and videos: files that are too large and old formats (JPG and PNG instead of WebP and AVIF)',
           'Heavy templates and too many plugins loading dozens of scripts on every page',
@@ -737,7 +737,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'How we improve speed',
+        h2: 'How does Webu improve website speed?',
         p: ['Speed is part of the mandatory quality check on every Webu project. A practical example from our own website: we prepared separate, lighter homepage videos for mobile, converted images to WebP and gave the main element high loading priority. We measure quality instead of just claiming it.'],
         list: [
           'Compressed images in modern formats',
@@ -777,7 +777,7 @@ export const PAGES_EN: RawPage[] = [
     ],
     blocks: [
       {
-        h2: 'The main differences',
+        h2: 'How does a landing page differ from a company website?',
         table: {
           head: ['', 'Landing page', 'Company website'],
           rows: [
@@ -791,7 +791,7 @@ export const PAGES_EN: RawPage[] = [
         },
       },
       {
-        h2: 'When a landing page is the better choice',
+        h2: 'When is a landing page the better choice?',
         list: [
           'You have one product or service',
           'You are running an ad campaign on Facebook, Instagram or Google',
@@ -801,7 +801,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'When a company website is the better choice',
+        h2: 'When is a company website the better choice?',
         list: [
           'You have several services or directions',
           'You want to show up on Google for many different phrases',
@@ -811,7 +811,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'A simple test: 3 questions',
+        h2: 'How can 3 questions help you choose?',
         p: ['Answer three questions. If the answer to two or more is “yes”, you most likely need a company website. If not, start with a landing page.'],
         list: [
           'Do you offer more than one service or product?',
@@ -844,7 +844,7 @@ export const PAGES_EN: RawPage[] = [
     answer: 'When choosing a web studio, five things matter more than price: real work, a clear scope (what is included and what is not), who owns the site, domain and code, how quality is checked, and what happens after launch. Below are 12 questions to ask before you sign a contract.',
     blocks: [
       {
-        h2: '12 questions to ask a web studio',
+        h2: 'Which 12 questions should you ask a web studio?',
         list: [
           'Can you show me real, live websites you have built?',
           'What is included in the price and what is not? Can you put it in writing?',
@@ -861,7 +861,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Warning signs',
+        h2: 'What warning signs should you watch for?',
         list: [
           'A price is quoted before they understand your business and goals',
           'There is no written scope, everything is “agreed” verbally',
@@ -872,11 +872,11 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Why the scope matters most',
+        h2: 'Why does the scope matter most?',
         p: ['Most project problems start with unclear requirements: the client expects one thing, the provider delivers another. A good scope defines in writing what is being built, what is not included, the key features, timeline, cost, number of revisions, how extra work is priced, the client’s responsibilities and the support terms.', 'At Webu no project starts without a clear scope. It is one of our core principles.'],
       },
       {
-        h2: 'Price or value',
+        h2: 'What matters more: price or value?',
         p: ['The cheapest offer often turns out expensive: a site that is slow, looks bad on mobile or needs rebuilding within months means paying twice. Compare not only the price but also what it includes, who owns the result and what happens after launch.'],
       },
     ],
@@ -960,13 +960,13 @@ export const PAGES_EN: RawPage[] = [
     ],
     blocks: [
       {
-        h2: 'Who processes the data',
+        h2: 'Who processes your data?',
         p: [
           'The data is processed by Webu (“we”). Contact: hello@webu.ge, +995 32 219 22 70, 40 Zhiuli Shartava St., Tbilisi.',
         ],
       },
       {
-        h2: 'What we collect',
+        h2: 'What data does Webu collect?',
         list: [
           'When you book a consultation: your name, phone or email, the chosen date and time, and the package picked in the price calculator, if any',
           'When you request an SEO audit report: the website address, your email and the audit results',
@@ -974,7 +974,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Why we use it',
+        h2: 'Why does Webu use the data?',
         list: [
           'To answer your request and arrange the consultation',
           'To prepare and send the audit report',
@@ -985,7 +985,7 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Who receives the data',
+        h2: 'Who receives the data?',
         list: [
           'Vercel: website hosting and secure storage of requests',
           'Neon: the database for anonymous statistics',
@@ -997,19 +997,19 @@ export const PAGES_EN: RawPage[] = [
         ],
       },
       {
-        h2: 'Cookies and browser storage',
+        h2: 'Does the site use cookies?',
         p: [
           'The site uses no advertising or tracking cookies. Only technical data is kept in your browser: an anonymous session code that is deleted when you close the tab, and settings the site’s features need.',
         ],
       },
       {
-        h2: 'How long we keep it',
+        h2: 'How long is the data kept?',
         p: [
           'We keep requests as long as needed to communicate and work with you, and no longer than 2 years after the last contact, unless the law requires otherwise.',
         ],
       },
       {
-        h2: 'Your rights',
+        h2: 'What are your rights?',
         list: [
           'Get information about the data we process about you and a copy of it',
           'Ask for the data to be corrected or deleted',

@@ -21,6 +21,7 @@ export type BookingLead = {
   contact: string;
   date: string;
   time: string;
+  quote?: string;  // package picked in the price calculator
   lang?: string;
 };
 

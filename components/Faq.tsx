@@ -25,7 +25,7 @@ export default function Faq({ t }: { t: Dict['faq'] }) {
                   <span>hello@webu.ge</span>
                   <span style={{ width: 34, height: 34, borderRadius: '50%', background: '#C6F432', color: '#0E0F12', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Arrow size={15} rot={-45} /></span>
                 </a>
-                <a href="tel:+995555123456" className="btn-tel" style={{ display: 'inline-flex', alignItems: 'center', padding: '10px 20px', borderRadius: 14, fontWeight: 600 }}>+995 555 12 34 56</a>
+                <a href="tel:+995322192270" className="btn-tel" style={{ display: 'inline-flex', alignItems: 'center', padding: '10px 20px', borderRadius: 14, fontWeight: 600 }}>+995 32 219 22 70</a>
               </div>
             </div>
           </div>

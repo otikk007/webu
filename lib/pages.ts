@@ -47,6 +47,7 @@ const KA_IDS: Record<string, string> = {
   'ai-da-avtomatizacia': 'ai',
   'hostingi-da-infrastruktura': 'hosting',
   'chven-shesakheb': 'about',
+  'konfidencialurobis-politika': 'privacy',
   'saitis-damzadebis-fasi': 'cost',
   'ra-aris-geo': 'geo',
   'core-web-vitals': 'cwv',

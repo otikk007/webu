@@ -38,7 +38,9 @@ export function pageJsonLd(p: ContentPage) {
   const t = getDict(p.lang).content;
   const url = abs(pageHref(p));
   const org = { '@type': 'Organization', '@id': ORG_ID, name: BRAND.name, url: SITE_URL, logo: `${SITE_URL}/icon.svg` };
-  const main = p.kind === 'page'
+  const main = p.id === 'privacy'
+    ? { '@type': 'WebPage', '@id': `${url}#page`, name: p.h1, description: p.answer, url, inLanguage: p.lang }
+    : p.kind === 'page'
     ? { '@type': 'AboutPage', '@id': `${url}#about`, name: p.h1, description: p.answer, url, about: { '@id': ORG_ID }, inLanguage: p.lang }
     : p.kind === 'guide'
     ? {
@@ -92,6 +94,9 @@ export function jsonLd(lang: Lang) {
         image: `${SITE_URL}/assets/s-hero.jpg`,
         slogan: BRAND.slogan[lang],
         description: BRAND.description[lang],
+        telephone: '+995322192270',
+        email: 'hello@webu.ge',
+        address: { '@type': 'PostalAddress', streetAddress: d.footer.address.replace(/^[^,]+,\s*/, ''), addressLocality: 'Tbilisi', addressCountry: 'GE' },
         areaServed: { '@type': 'Country', name: 'Georgia' },
         knowsLanguage: ['ka', 'en', 'ru'],
         knowsAbout: ['საიტის დამზადება', 'ონლაინ მაღაზიის შექმნა', 'მობილური აპლიკაციის შექმნა', 'Website development', 'Web application development', 'Mobile app development', 'Разработка сайтов', 'UI/UX', 'SEO', 'AEO', 'GEO', 'AI search optimization'],

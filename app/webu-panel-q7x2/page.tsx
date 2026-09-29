@@ -31,6 +31,7 @@ function Card({ l }: { l: Lead }) {
           <dt>სახელი</dt><dd>{l.name}</dd>
           <dt>კონტაქტი</dt><dd><a href={isEmail(l.contact) ? `mailto:${l.contact}` : `tel:${l.contact.replace(/[^\d+]/g, '')}`}>{l.contact}</a></dd>
           <dt>შეხვედრა</dt><dd>{l.date}, {l.time}</dd>
+          {l.quote && <><dt>პაკეტი</dt><dd>{l.quote}</dd></>}
         </dl>
       ) : (
         <>

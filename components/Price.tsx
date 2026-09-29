@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Dict } from '@/lib/dict';
 import { fill } from '@/lib/i18n';
-import { ADDONS, TYPES, fmt } from '@/lib/site';
+import { ADDONS, PAY_IN_FULL_OFF, TYPES, fmt } from '@/lib/site';
+import { QUOTE_EVENT, QUOTE_KEY } from '@/lib/quote';
 import { track } from '@/lib/track';
 import { Arrow } from './ui';
 
@@ -41,8 +42,19 @@ export default function Price({ t }: { t: Dict['price'] }) {
   const total = sel.p + chosen.reduce((s, a) => s + a.p, 0);
   const wk = sel.w + chosen.reduce((s, a) => s + a.w, 0);
   // Prices are 12 x a round monthly amount, so the split is always whole.
-  const shown = useCountUp(total);
+  const full = Math.round(total * (1 - PAY_IN_FULL_OFF));
+  const shown = useCountUp(full);
   const shownMonthly = useCountUp(total / 12);
+
+  // Once the visitor has used the calculator, the booking form carries this package.
+  const touched = useRef(false);
+  const publish = () => {
+    const items = [typeLabel(sel.id), ...chosen.map(a => addonLabel(a.id))].join(' + ');
+    const quote = `${items} · ${fmt(total)} (${fmt(total / 12)}${t.perMonth.replace(' ', '')})`;
+    try { sessionStorage.setItem(QUOTE_KEY, quote); } catch { /* private mode */ }
+    window.dispatchEvent(new CustomEvent(QUOTE_EVENT, { detail: quote }));
+  };
+  useEffect(() => { if (touched.current) publish(); }, [type, add]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <section id="price" className="sec">
@@ -55,7 +67,7 @@ export default function Price({ t }: { t: Dict['price'] }) {
               {TYPES.map(x => {
                 const on = x.id === type;
                 return (
-                  <button key={x.id} type="button" role="radio" aria-checked={on} className="pr-type" onClick={() => { setType(x.id); track('price', typeLabel(x.id)); }}>
+                  <button key={x.id} type="button" role="radio" aria-checked={on} className="pr-type" onClick={() => { touched.current = true; setType(x.id); track('price', typeLabel(x.id)); }}>
                     <span className="pr-type-top">
                       <span className="pr-type-name">{typeLabel(x.id)}</span>
                       <span className="pr-radio" aria-hidden="true" />
@@ -71,7 +83,7 @@ export default function Price({ t }: { t: Dict['price'] }) {
               {ADDONS.map(a => {
                 const on = !!add[a.id];
                 return (
-                  <button key={a.id} type="button" role="checkbox" aria-checked={on} className="pr-addon" onClick={() => { setAdd(p => ({ ...p, [a.id]: !p[a.id] })); if (!on) track('price', '+ ' + addonLabel(a.id)); }}>
+                  <button key={a.id} type="button" role="checkbox" aria-checked={on} className="pr-addon" onClick={() => { touched.current = true; setAdd(p => ({ ...p, [a.id]: !p[a.id] })); if (!on) track('price', '+ ' + addonLabel(a.id)); }}>
                     <span className="pr-box" aria-hidden="true">{on && <Check />}</span>
                     <span className="pr-addon-name">{addonLabel(a.id)}</span>
                     <span className="pr-addon-price">+{fmt(a.p)} · {fmt(a.p / 12)}{t.perMonth.replace(' ', '')}</span>
@@ -86,8 +98,9 @@ export default function Price({ t }: { t: Dict['price'] }) {
             <div aria-live="polite">
               <div className="pr-both">
                 <div>
-                  <div className="pr-opt">{t.full}</div>
+                  <div className="pr-opt">{t.full} <span className="pr-off">{t.off}</span></div>
                   <div className="pr-sum">{fmt(shown)}</div>
+                  <div className="pr-was">{fill(t.was, { p: fmt(total) })}</div>
                 </div>
                 <div>
                   <div className="pr-opt">{t.split}</div>
@@ -99,13 +112,15 @@ export default function Price({ t }: { t: Dict['price'] }) {
             <ul className="pr-perks">
               <li><Check />{t.perkHosting}</li>
               <li><Check />{t.perkInstall}</li>
+              <li><Check />{t.perkFull}</li>
+              <li><Check />{t.perkSecond}</li>
             </ul>
             <div className="pr-break" aria-label={t.breakdown}>
               <div><span>{typeLabel(sel.id)}</span><span>{fmt(sel.p)}</span></div>
               {chosen.map(a => <div key={a.id}><span>{addonLabel(a.id)}</span><span>+{fmt(a.p)}</span></div>)}
             </div>
             <p className="pr-note">{t.note}</p>
-            <a href="#contact" className="btn-dark pr-cta">
+            <a href="#contact" className="btn-dark pr-cta" onClick={() => { touched.current = true; publish(); }}>
               <span>{t.cta}</span>
               <span className="pr-cta-arrow"><Arrow /></span>
             </a>

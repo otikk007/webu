@@ -557,7 +557,7 @@ export const PAGES_EN: RawPage[] = [
             ['Webu Care', 'from 49 GEL/month', 'Monthly', 'After launch'],
           ],
         },
-        p: ['“From” means the starting price. The final cost is set once the scope is agreed and is fixed in writing before the project begins.'],
+        p: ['“From” means the starting price. The final cost is set once the scope is agreed and is fixed in writing before the project begins.', 'Paying in full takes 10% off the price, and a returning client’s second project is 20% off. You can also split the price over 12 months.'],
       },
       {
         h2: 'What drives the cost of a website',
@@ -943,5 +943,89 @@ export const PAGES_EN: RawPage[] = [
     ],
     cta: 'Start a project',
     related: ['website', 'studio', 'care'],
+  },
+  {
+    id: 'privacy',
+    slug: 'privacy-policy',
+    kind: 'page',
+    nav: 'Privacy',
+    title: 'Privacy Policy | Webu',
+    description: 'What data the Webu website collects, why we use it, who receives it and what rights you have.',
+    h1: 'Privacy policy',
+    answer: 'This policy explains what data the Webu website collects, why we use it and how we protect it. The site uses no advertising cookies, and statistics are collected without cookies and without storing IP addresses.',
+    facts: [
+      { k: 'Cookies', v: 'No advertising cookies' },
+      { k: 'Contact', v: 'hello@webu.ge' },
+      { k: 'Updated', v: '29 September 2026' },
+    ],
+    blocks: [
+      {
+        h2: 'Who processes the data',
+        p: [
+          'The data is processed by Webu (“we”). Contact: hello@webu.ge, +995 32 219 22 70, 40 Zhiuli Shartava St., Tbilisi.',
+        ],
+      },
+      {
+        h2: 'What we collect',
+        list: [
+          'When you book a consultation: your name, phone or email, the chosen date and time, and the package picked in the price calculator, if any',
+          'When you request an SEO audit report: the website address, your email and the audit results',
+          'Anonymous statistics: pages viewed, country and city, device and browser type, and where you came from. We do not store IP addresses: visitors are counted with an anonymous code that changes every day',
+        ],
+      },
+      {
+        h2: 'Why we use it',
+        list: [
+          'To answer your request and arrange the consultation',
+          'To prepare and send the audit report',
+          'To improve the site based on anonymous statistics',
+        ],
+        p: [
+          'We do not sell data or share it with third parties for advertising.',
+        ],
+      },
+      {
+        h2: 'Who receives the data',
+        list: [
+          'Vercel: website hosting and secure storage of requests',
+          'Neon: the database for anonymous statistics',
+          'Telegram: a notification to our team about a new request',
+          'Google PageSpeed Insights: the website address you enter in the audit, for analysis',
+        ],
+        p: [
+          'These services may have servers outside Georgia. They receive data only for the purposes listed.',
+        ],
+      },
+      {
+        h2: 'Cookies and browser storage',
+        p: [
+          'The site uses no advertising or tracking cookies. Only technical data is kept in your browser: an anonymous session code that is deleted when you close the tab, and settings the site’s features need.',
+        ],
+      },
+      {
+        h2: 'How long we keep it',
+        p: [
+          'We keep requests as long as needed to communicate and work with you, and no longer than 2 years after the last contact, unless the law requires otherwise.',
+        ],
+      },
+      {
+        h2: 'Your rights',
+        list: [
+          'Get information about the data we process about you and a copy of it',
+          'Ask for the data to be corrected or deleted',
+          'Withdraw consent or restrict processing',
+          'Complain to the Personal Data Protection Service of Georgia',
+        ],
+        p: [
+          'To send a request, email hello@webu.ge.',
+        ],
+      },
+    ],
+    faqs: [
+      { q: 'Do I need to accept cookies?', a: 'No. The site uses no advertising or tracking cookies, so there is no consent banner.' },
+      { q: 'How do I delete my data?', a: 'Email hello@webu.ge from the phone number or email you used in your request, and we will delete it.' },
+    ],
+    cta: 'Write to us with a question',
+    related: ['about', 'website', 'care'],
   },
 ];

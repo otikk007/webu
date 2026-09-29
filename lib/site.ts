@@ -12,6 +12,10 @@ export const TYPES = [
   { id: 'mobile', p: 6000, w: 14 },
 ];
 
+// Discounts: paying the whole project up front, and a client's second project.
+export const PAY_IN_FULL_OFF = 0.1;
+export const SECOND_PROJECT_OFF = 0.2;
+
 export const ADDONS = [
   { id: 'seo', p: 360, w: 1 },
   { id: 'lang', p: 300, w: 1 },

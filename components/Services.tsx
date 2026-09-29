@@ -175,7 +175,7 @@ export default function Services({ lang, t, serp }: { lang: Lang; t: Dict['servi
               <Cat n="03" cat={t.soft.cat} />
               <h3 style={h3()}>{t.soft.title}</h3>
               <p style={{ margin: '0 0 8px', color: '#B9B9BE', lineHeight: 1.6 }}>{t.soft.text}</p>
-              <div style={{ marginBottom: 20 }}><More id="webapp" /></div>
+              <div style={{ marginBottom: 20, display: 'flex', gap: 20, flexWrap: 'wrap' }}><More id="webapp" /><a href={href('mobile')} className="svc-more" style={{ color: '#C6F432' }}>{t.soft.mobile} <Arrow size={14} rot={-45} /></a></div>
               <Rows items={t.soft.items} dark />
             </div>
           </article>

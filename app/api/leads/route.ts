@@ -39,16 +39,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true });
     }
     if (b.type === 'booking') {
-      const name = str(b.name, 120), contact = str(b.contact, 200), date = str(b.date, 10), time = str(b.time, 5);
+      const name = str(b.name, 120), contact = str(b.contact, 200), date = str(b.date, 10), time = str(b.time, 5), quote = str(b.quote, 300);
       if (!name) return bad('name');
       if (!EMAIL.test(contact) && contact.replace(/\D/g, '').length < 9) return bad('contact');
       if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) return bad('when');
-      await saveLead({ type: 'booking', name, contact, date, time, lang });
+      await saveLead({ type: 'booking', name, contact, date, time, ...(quote ? { quote } : {}), lang });
       await notify(`📅 ${flag}ახალი კონსულტაცია
 
 სახელი: ${name}
 კონტაქტი: ${contact}
-დრო: ${date}, ${time}`);
+დრო: ${date}, ${time}${quote ? `\nპაკეტი: ${quote}` : ''}`);
       return NextResponse.json({ ok: true });
     }
   } catch (e) {

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Dict } from '@/lib/dict';
 import { fill, type Lang } from '@/lib/i18n';
+import { QUOTE_EVENT, QUOTE_KEY } from '@/lib/quote';
 import { track } from '@/lib/track';
 import { Arrow, Goo } from './ui';
 
@@ -22,6 +23,13 @@ export default function Contact({ lang, t }: { lang: Lang; t: Dict['contact'] })
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
   const born = useRef(0);
+  const [quote, setQuote] = useState('');
+  useEffect(() => {
+    try { setQuote(sessionStorage.getItem(QUOTE_KEY) ?? ''); } catch { /* private mode */ }
+    const on = (e: Event) => setQuote((e as CustomEvent<string>).detail);
+    window.addEventListener(QUOTE_EVENT, on);
+    return () => window.removeEventListener(QUOTE_EVENT, on);
+  }, []);
   useEffect(() => { born.current = Date.now(); }, []);
 
   // month depends on the visitor's clock, so it is set after hydration
@@ -65,7 +73,7 @@ export default function Contact({ lang, t }: { lang: Lang; t: Dict['contact'] })
     setBusy(true); setErr('');
     const date = `${selD.y}-${String(selD.m + 1).padStart(2, '0')}-${String(selD.d).padStart(2, '0')}`;
     try {
-      const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'booking', name, contact, date, time: selT, website: hp, t: Date.now() - born.current, lang }) });
+      const r = await fetch('/api/leads', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: 'booking', name, contact, date, time: selT, quote, website: hp, t: Date.now() - born.current, lang }) });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || t.failed);
       setDone(true);
@@ -117,6 +125,7 @@ export default function Contact({ lang, t }: { lang: Lang; t: Dict['contact'] })
               <div>
                 <div style={{ fontFamily: 'var(--mono), var(--geo)', fontSize: 13, marginBottom: 10 }}>{t.yours}</div>
                 <div aria-live="polite" style={{ fontSize: 'clamp(24px,2.4vw,32px)', fontWeight: 800, lineHeight: 1.25 }}>{booking}</div>
+                {quote && <div className="bk-quote"><span>{t.quoteLabel}</span>{quote}</div>}
               </div>
               {!done && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>

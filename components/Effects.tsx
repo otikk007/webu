@@ -32,7 +32,8 @@ export default function Effects() {
       const v = e.target as HTMLVideoElement;
       if (e.isIntersecting) { v.muted = true; v.play().catch(() => {}); } else v.pause();
     }), { threshold: 0.05 });
-    document.querySelectorAll('video').forEach(v => vio.observe(v));
+    // [data-manual] videos (the Work slider) are played by their own component.
+    document.querySelectorAll('video:not([data-manual])').forEach(v => vio.observe(v));
     cleanups.push(() => vio.disconnect());
 
     // reveal

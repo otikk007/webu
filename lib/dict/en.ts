@@ -57,9 +57,9 @@ const en: Dict = {
     all: 'All projects',
     items: [
       { name: 'Textile Market', cat: 'Online store' },
-      { name: 'Horizon', cat: 'SaaS platform, website' },
-      { name: 'City 3D', cat: 'Architecture, interactive site' },
-      { name: 'Golden Line', cat: 'Investment, company website' },
+      { name: 'Fabra Service', cat: 'Web app, CRM' },
+      { name: 'Tevzao', cat: 'Platform, fishing map' },
+      { name: 'gemo.menu', cat: 'SaaS, QR menu for restaurants' },
     ],
   },
   projects: {

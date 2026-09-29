@@ -37,7 +37,7 @@ export default async function Projects({ params }: { params: Promise<{ lang: str
         </header>
         <div className="pj-grid">
           {PROJECTS.map((p, i) => (
-            <ProjectCard key={p.id} p={p} lang={lang} n={i + 1} total={PROJECTS.length} meta={t.meta} eager={i < 2} />
+            <ProjectCard key={p.id} p={p} lang={lang} n={i + 1} total={PROJECTS.length} meta={t.meta} />
           ))}
         </div>
       </main>

@@ -17,12 +17,14 @@ export const ADDONS = [
 ];
 
 // Project media; names and categories live in the dictionaries (work.items), same order.
+// Home Work slider: the laptop showcase, then real client projects (lib/projects ids).
+// `tag` is the small mono label on the right of each row.
 export const WORKS = [
-  { year: '2026', src: '/assets/laptop-color.mp4', poster: '/assets/c-laptop-1280.webp', vid: true },
-  { year: '2025', src: '/assets/c-hero.jpg' },
-  { year: '2025', src: '/assets/c-city.jpg' },
-  { year: '2024', src: '/assets/c-sculpture.jpg' },
-] as { year: string; src: string; poster?: string; vid?: boolean }[];
+  { tag: '2026', src: '/assets/laptop-color.mp4', poster: '/assets/c-laptop-1280.webp' },
+  { tag: 'service.fabra.ge', project: '01' },
+  { tag: 'tevzao.ge', project: '02' },
+  { tag: 'gemo.menu', project: '03' },
+] as { tag: string; src?: string; poster?: string; project?: string }[];
 
 export const fmt = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₾';
 

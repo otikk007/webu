@@ -1,11 +1,12 @@
 'use client';
 
-import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Dict } from '@/lib/dict';
 import { egg, type EggText } from '@/lib/eggs-text';
 import ClientTip from './eggs/ClientTip';
+import { PROJECTS } from '@/lib/projects';
 import { WORKS as MEDIA } from '@/lib/site';
+import ProjectFrame from './ProjectFrame';
 import { Arrow } from './ui';
 
 const NS = 8, SLIDE = 5200, PHASE = 750;
@@ -19,7 +20,9 @@ export default function Work({ t, secret, allHref }: { t: Dict['work']; secret: 
   const tipT = useRef<ReturnType<typeof setTimeout>>(undefined);
   const tipOn = () => { clearTimeout(tipT.current); tipT.current = setTimeout(() => { setTip(true); egg('client'); }, 1800); };
   const tipOff = () => { clearTimeout(tipT.current); setTip(false); };
-  const WORKS = MEDIA.map((m, i) => ({ ...m, ...t.items[i] }));
+  const WORKS = MEDIA.map((m, i) => ({ ...m, ...t.items[i], p: PROJECTS.find(x => x.id === m.project) }));
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [seen, setSeen] = useState(false);
   const [wi, setWi] = useState(0);
   const [phase, setPhase] = useState<Phase>('idle');
   const [prog, setProg] = useState(false);
@@ -54,6 +57,20 @@ export default function Work({ t, secret, allHref }: { t: Dict['work']; secret: 
     return () => { clearTimeout(wt.current); t.forEach(clearTimeout); };
   }, [startWork]);
 
+  // Only the visible slide plays, and only while the stage is on screen.
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting), { threshold: 0.05 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    stageRef.current?.querySelectorAll<HTMLVideoElement>('video').forEach(v => {
+      if (seen && Number(v.dataset.i) === wi) { v.muted = true; v.play().catch(() => {}); } else v.pause();
+    });
+  }, [seen, wi]);
+
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
@@ -70,17 +87,21 @@ export default function Work({ t, secret, allHref }: { t: Dict['work']; secret: 
           </div>
         </div>
         <div className="grid">
-          <div data-stage="" className="r32" onClick={() => go(1)} style={{ flex: '2 1 min(640px,100%)', minWidth: 0, position: 'relative', overflow: 'hidden', aspectRatio: '16/10', background: '#17181C', cursor: 'pointer' }}>
+          <div ref={stageRef} data-stage="" className="r32" onClick={() => go(1)} style={{ flex: '2 1 min(640px,100%)', minWidth: 0, position: 'relative', overflow: 'hidden', aspectRatio: '16/10', background: '#17181C', cursor: 'pointer' }}>
             {WORKS.map((w, i) => (
               <div key={w.name} style={{ position: 'absolute', inset: 0, opacity: i === wi ? 1 : 0 }}>
-                {w.vid
+                {w.p
                   ? (
-                    <video poster={w.poster} muted loop playsInline preload="none" className="fill" aria-label={w.name}>
-                      <source src={w.src.replace('.mp4', '-720.mp4')} type="video/mp4" media="(max-width: 880px)" />
-                      <source src={w.src.replace('.mp4', '-1280.mp4')} type="video/mp4" />
-                    </video>
+                    <div className="wk-proj" style={{ background: `radial-gradient(80% 90% at 50% 40%, ${w.p.glow.replace(/[\d.]+\)$/, '0.22)')}, transparent 70%), ${w.p.bg}` }}>
+                      <ProjectFrame p={w.p} className="wk-frame" manual={i} />
+                    </div>
                   )
-                  : <Image src={w.src} alt={w.name} fill sizes="(max-width: 880px) 100vw, 66vw" style={{ objectFit: 'cover', animation: 'kb 9s ease-in-out infinite alternate' }} />}
+                  : (
+                    <video data-manual="" data-i={i} poster={w.poster} muted loop playsInline preload="none" className="fill" aria-label={w.name}>
+                      <source src={w.src!.replace('.mp4', '-720.mp4')} type="video/mp4" media="(max-width: 880px)" />
+                      <source src={w.src!.replace('.mp4', '-1280.mp4')} type="video/mp4" />
+                    </video>
+                  )}
               </div>
             ))}
             <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', pointerEvents: 'none' }} aria-hidden="true">
@@ -99,16 +120,16 @@ export default function Work({ t, secret, allHref }: { t: Dict['work']; secret: 
                   <span style={{ fontSize: 'clamp(20px,1.8vw,26px)', fontWeight: 700 }}>{w.name}</span>
                   <span style={{ fontSize: 13, color: '#9A9AA0' }}>{w.cat}</span>
                 </span>
-                <span className="mono" style={{ fontSize: 13 }}>{w.year}</span>
+                <span className="mono" style={{ fontSize: 13, whiteSpace: 'nowrap' }}>{w.tag}</span>
                 {i === SECRET && tip && <ClientTip t={secret} />}
               </button>
             ))}
+            <a href={allHref} className="pj-cta pj-all">
+              {t.all}
+              <span className="pj-cta-arrow"><Arrow /></span>
+            </a>
           </div>
         </div>
-        <a href={allHref} className="pj-cta pj-all">
-          {t.all}
-          <span className="pj-cta-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C6F432" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true"><path d="M5 12h14" /><path d="M13 6l6 6-6 6" /></svg></span>
-        </a>
       </div>
     </section>
   );

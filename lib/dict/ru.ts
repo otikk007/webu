@@ -57,9 +57,9 @@ const ru: Dict = {
     all: 'Все проекты',
     items: [
       { name: 'Textile Market', cat: 'Интернет-магазин' },
-      { name: 'Горизонт', cat: 'SaaS-платформа, сайт' },
-      { name: 'Город 3D', cat: 'Архитектура, интерактивный сайт' },
-      { name: 'Золотая линия', cat: 'Инвестиции, корпоративный сайт' },
+      { name: 'Fabra Service', cat: 'Веб-приложение, CRM' },
+      { name: 'Tevzao', cat: 'Платформа, карта рыбалки' },
+      { name: 'gemo.menu', cat: 'SaaS, QR-меню для ресторанов' },
     ],
   },
   projects: {

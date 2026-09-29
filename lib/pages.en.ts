@@ -16,28 +16,28 @@ export const PAGES_EN: RawPage[] = [
     kind: 'service',
     nav: 'Website development',
     title: 'Website Development in Georgia | Pricing, Timeline, Process | Webu',
-    description: 'Website development from 499 GEL: landing pages and company websites built around your business goals. See what is included, how long it takes and how we work.',
+    description: 'Website development from 480 GEL: landing pages and company websites built around your business goals. See what is included, how long it takes and how we work.',
     h1: 'Website development your business actually needs',
-    answer: 'Webu builds landing pages and company websites for businesses in Georgia. A simple website starts from 499 GEL and a standard website from 1,499 GEL. A landing page takes about 2 weeks, a company website 4 to 6 weeks. Every site goes through a quality check before launch, and the domain, content and data belong to the client.',
+    answer: 'Webu builds landing pages and company websites for businesses in Georgia. A simple website starts from 480 GEL and a standard website from 1,200 GEL. A landing page takes about 2 weeks, a company website 4 to 6 weeks. Every site goes through a quality check before launch, and the domain, content and data belong to the client.',
     facts: [
-      { k: 'Price', v: 'from 499 GEL' },
+      { k: 'Price', v: 'from 480 GEL · 40 GEL/month' },
       { k: 'Timeline', v: '2 to 6 weeks' },
       { k: 'Included', v: 'Design, development, SEO basics, testing' },
       { k: 'After launch', v: 'Webu Care support' },
     ],
-    price: 'from 499 GEL',
-    priceValue: 499,
+    price: 'from 480 GEL',
+    priceValue: 480,
     blocks: [
       {
         h2: 'Landing page or company website: which do you need?',
         p: ['It depends on what the site has to do. If you have one product or service and need to lead visitors to a single action, a landing page is enough. If your company has several services, directions or audiences, a company website is the better choice.'],
         table: {
-          head: ['', 'Simple website (landing page)', 'Standard website (company site)'],
+          head: ['', 'Simple website (landing page)', 'Standard website (business site)'],
           rows: [
             ['Best for', 'One service, campaign or product', 'A company with several services'],
             ['Pages', 'One long page', 'Several pages and sections'],
             ['Timeline', 'About 2 weeks', '4 to 6 weeks'],
-            ['Price', 'from 499 GEL', 'from 1,499 GEL'],
+            ['Price', 'from 480 GEL', 'from 1,200 GEL'],
           ],
         },
       },
@@ -75,7 +75,7 @@ export const PAGES_EN: RawPage[] = [
       },
     ],
     faqs: [
-      { q: 'How much does a website cost?', a: 'A simple website (landing page) starts from 499 GEL and a standard website from 1,499 GEL. The final price depends on the number of pages, features, integrations and design complexity, and is set once the scope is agreed.' },
+      { q: 'How much does a website cost?', a: 'A simple website (landing page) starts from 480 GEL and a standard website from 1,200 GEL. The final price depends on the number of pages, features, integrations and design complexity, and is set once the scope is agreed.' },
       { q: 'How long does it take to build a website?', a: 'A landing page takes about 2 weeks, a company website 4 to 6 weeks. You get an exact schedule after our first meeting.' },
       { q: 'Can I manage the website myself?', a: 'Yes. When needed, the site comes with an admin panel so you can update texts, photos and products yourself.' },
       { q: 'What happens after launch?', a: 'Launch is not the end of the relationship. Webu Care covers monitoring, backups, updates and bug fixes.' },
@@ -97,8 +97,10 @@ export const PAGES_EN: RawPage[] = [
       { k: 'Timeline', v: '2 to 3 months' },
       { k: 'Payments', v: 'Through Georgian banks' },
       { k: 'Management', v: 'Admin panel' },
-      { k: 'Price', v: 'Based on scope' },
+      { k: 'Price', v: 'from 1,920 GEL · 160 GEL/month' },
     ],
+    price: 'from 1,920 GEL',
+    priceValue: 1920,
     blocks: [
       {
         h2: 'What an online store includes',
@@ -148,8 +150,10 @@ export const PAGES_EN: RawPage[] = [
     facts: [
       { k: 'Examples', v: 'Booking system, portal, internal tool' },
       { k: 'Approach', v: 'Business first, then technology' },
-      { k: 'Price and timeline', v: 'Based on scope' },
+      { k: 'Price and timeline', v: 'from 3,000 GEL · 250 GEL/month' },
     ],
+    price: 'from 3,000 GEL',
+    priceValue: 3000,
     blocks: [
       {
         h2: 'When you need a web app rather than a website',
@@ -194,17 +198,17 @@ export const PAGES_EN: RawPage[] = [
     kind: 'service',
     nav: 'Mobile app development',
     title: 'Mobile App Development for iOS and Android | Price, Timeline | Webu',
-    description: 'Mobile app development for iOS and Android from 1,999 GEL: from design to release on the App Store and Google Play, with support after launch.',
+    description: 'Mobile app development for iOS and Android from 6,000 GEL: from design to release on the App Store and Google Play, with support after launch.',
     h1: 'Mobile app development for iOS and Android',
-    answer: 'Webu builds mobile apps for iOS and Android, from design to release on the App Store and Google Play. Mobile app development starts from 1,999 GEL, usually takes 2 to 3 months, and after launch Webu Care keeps the app supported.',
+    answer: 'Webu builds mobile apps for iOS and Android, from design to release on the App Store and Google Play. Mobile app development starts from 6,000 GEL, usually takes 2 to 3 months, and after launch Webu Care keeps the app supported.',
     facts: [
-      { k: 'Price', v: 'from 1,999 GEL' },
+      { k: 'Price', v: 'from 6,000 GEL · 500 GEL/month' },
       { k: 'Timeline', v: '2 to 3 months' },
       { k: 'Platforms', v: 'iOS and Android' },
       { k: 'Included', v: 'Release on the App Store and Google Play' },
     ],
-    price: 'from 1,999 GEL',
-    priceValue: 1999,
+    price: 'from 6,000 GEL',
+    priceValue: 6000,
     blocks: [
       {
         h2: 'What mobile app development includes',
@@ -228,7 +232,7 @@ export const PAGES_EN: RawPage[] = [
       },
     ],
     faqs: [
-      { q: 'How much does mobile app development cost?', a: 'Mobile app development starts from 1,999 GEL. The final price depends on the number of screens, features, integrations and design complexity.' },
+      { q: 'How much does mobile app development cost?', a: 'Mobile app development starts from 6,000 GEL. The final price depends on the number of screens, features, integrations and design complexity.' },
       { q: 'How long does it take to build an app?', a: 'Usually 2 to 3 months. You get an exact schedule once the scope is agreed.' },
       { q: 'Do you publish the app on the App Store and Google Play?', a: 'Yes, release is part of the service. Developer accounts are opened in your name so the app remains your property.' },
       { q: 'What happens after launch?', a: 'Webu Care handles compatibility with new iOS and Android versions, updates and bug fixes.' },
@@ -248,8 +252,10 @@ export const PAGES_EN: RawPage[] = [
     facts: [
       { k: 'Covers', v: 'UI/UX, branding, logo, redesign' },
       { k: 'Result', v: 'Prototype and design system' },
-      { k: 'Price', v: 'Per project' },
+      { k: 'Price', v: 'Logo from 420 GEL, branding from 1,200 GEL' },
     ],
+    price: 'from 420 GEL',
+    priceValue: 420,
     blocks: [
       {
         h2: 'What it covers',
@@ -282,17 +288,17 @@ export const PAGES_EN: RawPage[] = [
     kind: 'service',
     nav: 'SEO, AEO & GEO',
     title: 'SEO, AEO & GEO Optimization | Google and AI Search | Webu',
-    description: 'SEO, AEO and GEO optimization: higher rankings on Google, direct answers in search and visibility in ChatGPT, Gemini and Perplexity. From 699 GEL, starting with a free audit.',
+    description: 'SEO, AEO and GEO optimization: higher rankings on Google, direct answers in search and visibility in ChatGPT, Gemini and Perplexity. From 349 GEL/month, starting with a free audit.',
     h1: 'SEO, AEO & GEO: be found on Google and in AI search',
-    answer: 'SEO improves your site’s rankings on Google. AEO (Answer Engine Optimization) prepares content so search engines and assistants show a direct answer from your site. GEO (Generative Engine Optimization) increases the chance that ChatGPT, Gemini, Perplexity and other AI assistants mention your business. Webu does all three together, starting from 699 GEL.',
+    answer: 'SEO improves your site’s rankings on Google. AEO (Answer Engine Optimization) prepares content so search engines and assistants show a direct answer from your site. GEO (Generative Engine Optimization) increases the chance that ChatGPT, Gemini, Perplexity and other AI assistants mention your business. Webu does all three together, starting from 349 GEL/month.',
     facts: [
-      { k: 'Price', v: 'from 699 GEL' },
+      { k: 'Price', v: 'from 349 GEL/month' },
       { k: 'Covers', v: 'SEO, AEO and GEO' },
       { k: 'First step', v: 'Free audit' },
       { k: 'Available for', v: 'New and existing websites' },
     ],
-    price: 'from 699 GEL',
-    priceValue: 699,
+    price: 'from 349 GEL/month',
+    priceValue: 349,
     blocks: [
       {
         h2: 'What is the difference between SEO, AEO and GEO',
@@ -330,7 +336,7 @@ export const PAGES_EN: RawPage[] = [
     faqs: [
       { q: 'What is AEO?', a: 'AEO (Answer Engine Optimization) means preparing content so Google and assistants show a direct answer to a user’s question from your site.' },
       { q: 'What is GEO?', a: 'GEO (Generative Engine Optimization) means optimizing your site and brand so ChatGPT, Gemini, Perplexity and other AI assistants mention your business in their answers and use your site as a source.' },
-      { q: 'How much do SEO, AEO and GEO cost?', a: 'Pricing starts from 699 GEL. The final price depends on the size of the site, its current state and the competition in your field. You can take a free audit before you start.' },
+      { q: 'How much do SEO, AEO and GEO cost?', a: 'Pricing starts from 349 GEL/month. The final price depends on the size of the site, its current state and the competition in your field. You can take a free audit before you start.' },
       { q: 'When will results show?', a: 'You will usually notice the first changes within 4 to 8 weeks, and steady growth builds over 3 to 6 months.' },
       { q: 'Can you do SEO for a website someone else built?', a: 'Yes. SEO, AEO and GEO are available as a standalone service for existing websites. We start with an audit to find what needs fixing.' },
     ],
@@ -349,7 +355,7 @@ export const PAGES_EN: RawPage[] = [
     facts: [
       { k: 'Covers', v: 'SEO, Google Ads, Meta Ads, analytics, CRO' },
       { k: 'Ad budget', v: 'Set by you' },
-      { k: 'Price', v: 'Per project' },
+      { k: 'Price', v: 'SEO 349 GEL/month, ads from 249 GEL/month' },
     ],
     blocks: [
       {
@@ -389,8 +395,10 @@ export const PAGES_EN: RawPage[] = [
     facts: [
       { k: 'Covers', v: 'Chatbots, assistants, recognition, automation, API' },
       { k: 'Where it runs', v: 'Website, messengers, internal systems' },
-      { k: 'Price', v: 'Per task' },
+      { k: 'Price', v: 'Chatbot from 720 GEL, automation from 360 GEL' },
     ],
+    price: 'from 360 GEL',
+    priceValue: 360,
     blocks: [
       {
         h2: 'What we build',
@@ -428,7 +436,7 @@ export const PAGES_EN: RawPage[] = [
     answer: 'Webu sets up and manages everything your site runs on: domain, hosting, SSL certificate, business email, cloud services and backups. On every new project the first 3 months of hosting are free. Day-to-day care is part of the Webu Care package.',
     facts: [
       { k: 'Covers', v: 'Domain, hosting, SSL, email, cloud, backup' },
-      { k: 'Hosting', v: 'First 3 months free' },
+      { k: 'Hosting', v: 'First 3 months free, then 19 GEL/month' },
       { k: 'Ownership', v: 'The domain and data are yours' },
     ],
     blocks: [
@@ -472,9 +480,20 @@ export const PAGES_EN: RawPage[] = [
       { k: 'For', v: 'Websites, stores and apps' },
       { k: 'Covers', v: 'Hosting, monitoring, backups, updates, fixes' },
       { k: 'Hosting', v: 'First 3 months free' },
-      { k: 'Price', v: 'Per project' },
+      { k: 'Price', v: '49, 129 or 279 GEL/month' },
     ],
     blocks: [
+      {
+        h2: 'Webu Care packages',
+        table: {
+          head: ['Package', 'What it includes', 'Price'],
+          rows: [
+            ['Start', 'Hosting, SSL, backups, monitoring, updates', '49 GEL/month'],
+            ['Business', 'Start + 3 hours of changes a month, priority support', '129 GEL/month'],
+            ['Pro', 'Business + 8 hours of development a month, fast response', '279 GEL/month'],
+          ],
+        },
+      },
       {
         h2: 'What Webu Care covers',
         list: [
@@ -500,7 +519,7 @@ export const PAGES_EN: RawPage[] = [
     ],
     faqs: [
       { q: 'Is hosting included in Webu Care?', a: 'Yes. Webu Care includes hosting and an SSL certificate, and on every new project the first 3 months of hosting after launch are free.' },
-      { q: 'How much does Webu Care cost?', a: 'Webu Care terms and pricing are set according to the size of the project and the support it needs. We agree the details at the first meeting.' },
+      { q: 'How much does Webu Care cost?', a: 'Webu Care has three packages: Start at 49 GEL/month, Business at 129 GEL/month and Pro at 279 GEL/month. On new projects the first 3 months of hosting are free.' },
       { q: 'Can you support a website someone else built?', a: 'Yes, after assessing the existing site. We first check its technical condition so we know what we are taking responsibility for.' },
       { q: 'When do you need Webu Care?', a: 'If your website or app matters to your business, takes orders or is used by customers regularly, support is essential to keep it fast, secure and working.' },
     ],
@@ -515,24 +534,27 @@ export const PAGES_EN: RawPage[] = [
     title: 'How Much Does a Website Cost in 2026? A Complete Pricing Guide | Webu',
     description: 'How much a website costs in Georgia in 2026: what drives the price, the extra costs of domain and hosting, and what a landing page, company website or app costs at Webu.',
     h1: 'How much does a website cost in 2026',
-    answer: 'The cost of a website depends on its type, the number of pages and features, design complexity, integrations and support. At Webu a simple website (landing page) starts from 499 GEL, a standard website from 1,499 GEL, a mobile app from 1,999 GEL, and SEO, AEO and GEO from 699 GEL. On top of that, plan for a domain, hosting and support after launch.',
+    answer: 'The cost of a website depends on its type, the number of pages and features, design complexity, integrations and support. At Webu a simple website (landing page) starts from 480 GEL, a standard website from 1,200 GEL, a mobile app from 6,000 GEL, and SEO, AEO and GEO from 349 GEL/month. On top of that, plan for a domain, hosting and support after launch.',
     facts: [
-      { k: 'Simple website', v: 'from 499 GEL' },
-      { k: 'Standard website', v: 'from 1,499 GEL' },
-      { k: 'Mobile app', v: 'from 1,999 GEL' },
-      { k: 'SEO, AEO & GEO', v: 'from 699 GEL' },
+      { k: 'Simple website', v: 'from 480 GEL' },
+      { k: 'Standard website', v: 'from 1,200 GEL' },
+      { k: 'Mobile app', v: 'from 6,000 GEL' },
+      { k: 'SEO, AEO & GEO', v: 'from 349 GEL/month' },
     ],
     blocks: [
       {
         h2: 'Webu pricing by project type',
         table: {
-          head: ['What you need', 'Price', 'Approximate timeline'],
+          head: ['What you need', 'Price', 'Over 12 months', 'Approx. timeline'],
           rows: [
-            ['Simple website (landing page)', 'from 499 GEL', '2 weeks'],
-            ['Standard (company) website', 'from 1,499 GEL', '4 to 6 weeks'],
-            ['Online store', 'Based on scope', '2 to 3 months'],
-            ['Mobile app', 'from 1,999 GEL', '2 to 3 months'],
-            ['SEO, AEO & GEO', 'from 699 GEL', 'Results in 4 to 8 weeks'],
+            ['Landing page', 'from 480 GEL', '40 GEL/month', '1 to 2 weeks'],
+            ['Business website', 'from 1,200 GEL', '100 GEL/month', '3 to 4 weeks'],
+            ['Corporate website', 'from 2,280 GEL', '190 GEL/month', '5 to 8 weeks'],
+            ['Online store', 'from 1,920 GEL', '160 GEL/month', '5 to 7 weeks'],
+            ['Web app / CRM', 'from 3,000 GEL', '250 GEL/month', '6 to 12 weeks'],
+            ['Mobile app', 'from 6,000 GEL', '500 GEL/month', '3 to 4 months'],
+            ['SEO, AEO and GEO', 'from 349 GEL/month', 'Monthly', 'Results in 4 to 8 weeks'],
+            ['Webu Care', 'from 49 GEL/month', 'Monthly', 'After launch'],
           ],
         },
         p: ['“From” means the starting price. The final cost is set once the scope is agreed and is fixed in writing before the project begins.'],
@@ -577,8 +599,8 @@ export const PAGES_EN: RawPage[] = [
       },
     ],
     faqs: [
-      { q: 'How much does a landing page cost?', a: 'At Webu a simple website (landing page) starts from 499 GEL and takes about 2 weeks.' },
-      { q: 'How much does a company website cost?', a: 'At Webu a standard (company) website starts from 1,499 GEL and takes 4 to 6 weeks.' },
+      { q: 'How much does a landing page cost?', a: 'At Webu a simple website (landing page) starts from 480 GEL and takes about 2 weeks.' },
+      { q: 'How much does a company website cost?', a: 'At Webu a standard (business) website starts from 1,200 GEL and takes 4 to 6 weeks.' },
       { q: 'Are the domain and hosting included in the price?', a: 'The domain and hosting are separate costs because they should be registered in your name. We help with setup and configuration.' },
       { q: 'How does payment work?', a: 'In stages: 40 percent at the start, 30 percent when the design is approved and the rest at launch. SEO and support are billed monthly.' },
     ],
@@ -748,10 +770,10 @@ export const PAGES_EN: RawPage[] = [
     title: 'Landing Page vs Company Website: Which Does Your Business Need? | Webu',
     description: 'Landing page vs company website: how they differ, when each one is the better choice, what they cost and how long they take. A simple test to help you decide.',
     h1: 'Landing page or company website: which does your business need',
-    answer: 'A landing page is a one-page website built for a single goal, such as selling one service, running a campaign or taking event registrations. A company website has several pages and presents the whole business: services, work, team and contacts. At Webu a simple website (landing page) starts from 499 GEL and takes about 2 weeks; a standard (company) website starts from 1,499 GEL and takes 4 to 6 weeks.',
+    answer: 'A landing page is a one-page website built for a single goal, such as selling one service, running a campaign or taking event registrations. A company website has several pages and presents the whole business: services, work, team and contacts. At Webu a simple website (landing page) starts from 480 GEL and takes about 2 weeks; a standard (business) website starts from 1,200 GEL and takes 4 to 6 weeks.',
     facts: [
-      { k: 'Landing page', v: 'from 499 GEL · ~2 weeks' },
-      { k: 'Company website', v: 'from 1,499 GEL · 4–6 weeks' },
+      { k: 'Landing page', v: 'from 480 GEL · ~2 weeks' },
+      { k: 'Company website', v: 'from 1,200 GEL · 4–6 weeks' },
     ],
     blocks: [
       {
@@ -764,7 +786,7 @@ export const PAGES_EN: RawPage[] = [
             ['SEO', 'One or two search phrases', 'Many phrases, a page for each service'],
             ['For ads', 'Excellent', 'Good, if each campaign has its own page'],
             ['Timeline at Webu', 'About 2 weeks', '4 to 6 weeks'],
-            ['Price at Webu', 'from 499 GEL', 'from 1,499 GEL'],
+            ['Price at Webu', 'from 480 GEL', 'from 1,200 GEL'],
           ],
         },
       },
@@ -804,7 +826,7 @@ export const PAGES_EN: RawPage[] = [
     ],
     faqs: [
       { q: 'What is a landing page?', a: 'A landing page is a one-page website built for one specific goal, such as selling a service, running a campaign or taking registrations.' },
-      { q: 'How much do a landing page and a company website cost?', a: 'At Webu a simple website (landing page) starts from 499 GEL and a standard (company) website from 1,499 GEL. The final price is set once the scope is agreed.' },
+      { q: 'How much do a landing page and a company website cost?', a: 'At Webu a simple website (landing page) starts from 480 GEL and a standard (business) website from 1,200 GEL. The final price is set once the scope is agreed.' },
       { q: 'Which is better for SEO?', a: 'For ranking on many search phrases a company website is better, because each service can have its own optimized page. A landing page works for one or two main phrases.' },
       { q: 'Which is better for advertising?', a: 'For an ad campaign a landing page is often better, because it keeps visitors focused on one goal without distracting links.' },
     ],

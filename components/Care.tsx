@@ -5,7 +5,7 @@ const Check = () => (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
 );
 
-/** Webu Care package: hosting (first 3 months free), what the package covers, and 0% installments. */
+/** Webu Care package: hosting (first 3 months free), what the package covers, and the 12-month payment split. */
 export default function Care({ t, moreHref }: { t: Dict['care']; moreHref: string }) {
   return (
     <section id="care" className="sec">
@@ -23,7 +23,10 @@ export default function Care({ t, moreHref }: { t: Dict['care']; moreHref: strin
               <div className="care-big">{t.badge}</div>
               <div className="care-big-sub">{t.badgeText}</div>
             </div>
-            <p className="care-note">{t.badgeNote}</p>
+            <div>
+              <p className="care-note">{t.badgeNote}</p>
+              <p className="care-price">{t.price}</p>
+            </div>
             <a href={moreHref} className="btn-dark care-cta">
               <span>{t.more}</span>
               <span className="pr-cta-arrow"><Arrow /></span>
@@ -36,7 +39,7 @@ export default function Care({ t, moreHref }: { t: Dict['care']; moreHref: strin
             </ul>
           </div>
           <div className="card r32 care-install">
-            <div className="care-zero">0%</div>
+            <div className="care-zero">{t.installBig}</div>
             <div>
               <h3>{t.installTitle}</h3>
               <p>{t.installText}</p>

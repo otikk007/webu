@@ -36,8 +36,8 @@ export default function EggsProvider({ lang, children, overscroll = true }: { la
     if (found.includes(id) || !EGG_IDS.includes(id)) return;
     found.push(id);
     try { localStorage.setItem(KEY, JSON.stringify(found)); } catch { /* private mode */ }
-    showToast(fillT(t.found, { name: t.names[id] }), found.length >= 8 ? t.all : fillT(t.progress, { n: found.length }));
-  }, [showToast, t]);
+    // Discoveries are recorded silently: no "secret found" toast.
+  }, []);
 
   // Events from other components (header logo, cursor, portfolio, secret pages).
   useEffect(() => {

@@ -52,6 +52,10 @@ export default function Work({ t, secret, allHref }: { t: Dict['work']; secret: 
   goRef.current = go;
 
   useEffect(() => {
+    // Start on a random project so returning visitors do not always see the same one.
+    const r = Math.floor(Math.random() * WORKS.length);
+    st.current.wi = r;
+    setWi(r);
     startWork();
     const t = timers.current;
     return () => { clearTimeout(wt.current); t.forEach(clearTimeout); };

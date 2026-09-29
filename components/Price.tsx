@@ -40,7 +40,9 @@ export default function Price({ t }: { t: Dict['price'] }) {
   const chosen = ADDONS.filter(a => add[a.id]);
   const total = sel.p + chosen.reduce((s, a) => s + a.p, 0);
   const wk = sel.w + chosen.reduce((s, a) => s + a.w, 0);
-  const shown = useCountUp(total);
+  // Prices are 12 x a round monthly amount, so the split is always whole.
+  const monthly = total / 12;
+  const shown = useCountUp(monthly);
 
   return (
     <section id="price" className="sec">
@@ -58,7 +60,7 @@ export default function Price({ t }: { t: Dict['price'] }) {
                       <span className="pr-type-name">{typeLabel(x.id)}</span>
                       <span className="pr-radio" aria-hidden="true" />
                     </span>
-                    <span className="pr-type-meta">{fill(t.from, { p: fmt(x.p) })} · {fill(t.weeksShort, { n: x.w })}</span>
+                    <span className="pr-type-meta">{fill(t.from, { p: fmt(x.p / 12) })} · {fill(t.weeksShort, { n: x.w })}</span>
                   </button>
                 );
               })}
@@ -71,7 +73,7 @@ export default function Price({ t }: { t: Dict['price'] }) {
                   <button key={a.id} type="button" role="checkbox" aria-checked={on} className="pr-addon" onClick={() => { setAdd(p => ({ ...p, [a.id]: !p[a.id] })); if (!on) track('price', '+ ' + addonLabel(a.id)); }}>
                     <span className="pr-box" aria-hidden="true">{on && <Check />}</span>
                     <span className="pr-addon-name">{addonLabel(a.id)}</span>
-                    <span className="pr-addon-price">+{fmt(a.p)}</span>
+                    <span className="pr-addon-price">+{fmt(a.p / 12)}{t.perMonth.replace(' ', '')}</span>
                   </button>
                 );
               })}
@@ -81,9 +83,9 @@ export default function Price({ t }: { t: Dict['price'] }) {
           <div className="r32 pr-total">
             <div className="pr-kicker">{t.budget}</div>
             <div aria-live="polite">
-              <div className="pr-sum">{fmt(shown)}</div>
+              <div className="pr-sum">{fmt(shown)}<span className="pr-per">{t.perMonth}</span></div>
+              <div className="pr-monthly">{fill(t.total, { p: fmt(total) })}</div>
               <div className="pr-weeks">{fill(t.weeks, { n: wk })}</div>
-              <div className="pr-monthly">{fill(t.monthly, { p: fmt(Math.ceil(total / 12)) })}</div>
             </div>
             <ul className="pr-perks">
               <li><Check />{t.perkHosting}</li>

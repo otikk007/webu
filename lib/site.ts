@@ -2,18 +2,23 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
   ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000');
 
 // Calculator prices (GEL) and timelines (weeks); labels live in the dictionaries.
+// Every price is 12 x a round monthly amount, so the 12-month split is always a clean number.
 export const TYPES = [
-  { id: 'land', p: 499, w: 2 },
-  { id: 'corp', p: 1499, w: 4 },
-  { id: 'shop', p: 5200, w: 7 },
-  { id: 'app', p: 1999, w: 10 },
+  { id: 'land', p: 480, w: 2 },
+  { id: 'biz', p: 1200, w: 4 },
+  { id: 'corp', p: 2280, w: 6 },
+  { id: 'shop', p: 1920, w: 6 },
+  { id: 'app', p: 3000, w: 8 },
+  { id: 'mobile', p: 6000, w: 14 },
 ];
 
 export const ADDONS = [
-  { id: 'seo', p: 699, w: 1 },
-  { id: 'lang', p: 600, w: 1 },
-  { id: 'admin', p: 1400, w: 2 },
-  { id: 'brand', p: 1100, w: 2 },
+  { id: 'seo', p: 360, w: 1 },
+  { id: 'lang', p: 300, w: 1 },
+  { id: 'admin', p: 720, w: 2 },
+  { id: 'brand', p: 1200, w: 3 },
+  { id: 'ai', p: 720, w: 2 },
+  { id: 'analytics', p: 180, w: 0 },
 ];
 
 // Project media; names and categories live in the dictionaries (work.items), same order.

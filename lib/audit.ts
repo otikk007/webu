@@ -1,5 +1,5 @@
 import 'server-only';
-import { lookup } from 'node:dns/promises';
+import { Resolver } from 'node:dns/promises';
 import { isIP } from 'node:net';
 
 // Quick site audit: fetches the page itself and checks SEO tags, security headers
@@ -39,10 +39,15 @@ function isPrivate(ip: string) {
   return a === 10 || a === 127 || a === 0 || (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || (a === 100 && b >= 64 && b <= 127) || a >= 224;
 }
 
+// Checked against public DNS, not the system resolver: on a self-hosted server a
+// split-horizon resolver maps sites hosted on the same machine to LAN addresses.
+const publicDns = new Resolver({ timeout: 3000, tries: 2 });
+publicDns.setServers(['1.1.1.1', '8.8.8.8']);
+
 async function assertPublic(host: string) {
-  let addrs: { address: string }[];
-  try { addrs = await lookup(host, { all: true }); } catch { throw new AuditError('notFound'); }
-  if (!addrs.length || addrs.some(a => isPrivate(a.address))) throw new AuditError('notFound');
+  const found = await Promise.allSettled([publicDns.resolve4(host), publicDns.resolve6(host)]);
+  const addrs = found.flatMap(r => (r.status === 'fulfilled' ? r.value : []));
+  if (!addrs.length || addrs.some(isPrivate)) throw new AuditError('notFound');
 }
 
 type Fetched = { url: URL; status: number; headers: Headers; body: string; ms: number; bytes: number };

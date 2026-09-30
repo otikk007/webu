@@ -1,7 +1,7 @@
 import 'server-only';
 import { sql } from './db';
 
-// Aggregations for the admin analytics dashboard. Days are grouped in Tbilisi time.
+// Aggregations for the admin analytics dashboard. Days are grouped in Tbilisi time (UTC+4, no DST).
 
 export type Row = { k: string; n: number };
 const rows = (r: Record<string, unknown>[]): Row[] => r.map(x => ({ k: String(x.k ?? '—'), n: Number(x.n) }));
@@ -14,11 +14,11 @@ export async function getStats(days: number) {
           count(DISTINCT visitor) FILTER (WHERE type = 'pageview') AS visitors,
           count(*) FILTER (WHERE type = 'pageview') AS views,
           count(DISTINCT session) AS sessions,
-          round(avg(LEAST(value, 1800)) FILTER (WHERE type = 'leave' AND value > 0)) AS avg_sec,
+          round(avg(min(value, 1800)) FILTER (WHERE type = 'leave' AND value > 0)) AS avg_sec,
           count(*) FILTER (WHERE type IN ('audit_request', 'booking')) AS leads,
           count(*) FILTER (WHERE type = 'audit_run') AS audits
         FROM events WHERE ts >= ${since}`,
-    sql`SELECT to_char(date_trunc('day', ts AT TIME ZONE 'Asia/Tbilisi'), 'YYYY-MM-DD') AS k, count(DISTINCT visitor) AS n
+    sql`SELECT date(ts, '+4 hours') AS k, count(DISTINCT visitor) AS n
         FROM events WHERE type = 'pageview' AND ts >= ${since} GROUP BY 1 ORDER BY 1`,
     sql`SELECT source AS k, count(DISTINCT visitor) AS n FROM events WHERE type = 'pageview' AND ts >= ${since} GROUP BY 1 ORDER BY 2 DESC LIMIT 12`,
     sql`SELECT label AS k, count(DISTINCT session) AS n FROM events WHERE type = 'section' AND ts >= ${since} GROUP BY 1`,
@@ -29,10 +29,10 @@ export async function getStats(days: number) {
     sql`SELECT label AS k, max(value) AS n, max(ts) AS ts FROM events WHERE type = 'audit_run' AND ts >= ${since} GROUP BY 1 ORDER BY 3 DESC LIMIT 20`,
     sql`WITH s AS (
           SELECT session,
-            bool_or(type = 'section' AND label = 'services') AS services,
-            bool_or(type IN ('audit_run', 'price') OR (type = 'click' AND label ILIKE '%დაიწყეთ პროექტი%')) AS engaged,
-            bool_or(type IN ('audit_request', 'booking')) AS converted
-          FROM events WHERE ts >= ${since} GROUP BY session HAVING bool_or(type = 'pageview'))
+            max(type = 'section' AND label = 'services') AS services,
+            max(type IN ('audit_run', 'price') OR (type = 'click' AND label LIKE '%დაიწყეთ პროექტი%')) AS engaged,
+            max(type IN ('audit_request', 'booking')) AS converted
+          FROM events WHERE ts >= ${since} GROUP BY session HAVING max(type = 'pageview'))
         SELECT count(*) AS total, count(*) FILTER (WHERE services) AS services,
                count(*) FILTER (WHERE engaged) AS engaged, count(*) FILTER (WHERE converted) AS converted FROM s`,
     sql`SELECT ts, session, type, label, value, source, city, country, device FROM events WHERE ts >= ${since} ORDER BY ts DESC LIMIT 60`,

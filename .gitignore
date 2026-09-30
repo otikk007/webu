@@ -11,3 +11,6 @@ next-env.d.ts
 
 # design handoffs (source media is copied into public/)
 /jobs
+
+# SQLite analytics database
+/data

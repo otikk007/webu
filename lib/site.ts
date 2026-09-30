@@ -1,5 +1,6 @@
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
-  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000');
+// Public address used for canonical URLs, sitemap, hreflang and JSON-LD.
+// Defaults to the live domain so a build without NEXT_PUBLIC_SITE_URL never ships localhost.
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://webu.ge').replace(/\/$/, '');
 
 // Calculator prices (GEL) and timelines (weeks); labels live in the dictionaries.
 // Every price is 12 x a round monthly amount, so the 12-month split is always a clean number.

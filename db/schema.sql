@@ -29,3 +29,12 @@ CREATE TABLE IF NOT EXISTS crawls (
   path text
 );
 CREATE INDEX IF NOT EXISTS crawls_ts ON crawls (ts);
+
+-- Leads from the booking and audit forms. `data` is the full Lead as JSON;
+-- ids start with a timestamp, so sorting by id sorts by date.
+CREATE TABLE IF NOT EXISTS leads (
+  id text PRIMARY KEY,
+  created_at text NOT NULL,
+  status text NOT NULL DEFAULT 'new',  -- new | done
+  data text NOT NULL
+);

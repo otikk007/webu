@@ -1,8 +1,8 @@
 import 'server-only';
-import { del, get, list, put } from '@vercel/blob';
+import { sql } from './db';
 
-// Leads are stored as one private JSON blob each: leads/<id>.json.
-// Ids start with a timestamp, so sorting by pathname sorts by date.
+// Leads are stored in the SQLite `leads` table, one JSON row each.
+// Ids start with a timestamp, so sorting by id sorts by date.
 
 export type LeadStatus = 'new' | 'done';
 
@@ -27,50 +27,25 @@ export type BookingLead = {
 
 export type Lead = (AuditLead | BookingLead) & { id: string; createdAt: string; status: LeadStatus };
 
-const PREFIX = 'leads/';
-const path = (id: string) => `${PREFIX}${id}.json`;
-
-async function write(lead: Lead) {
-  await put(path(lead.id), JSON.stringify(lead), {
-    access: 'private',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-  });
-}
-
-async function read(pathname: string): Promise<Lead | null> {
-  const res = await get(pathname, { access: 'private', useCache: false });
-  if (!res) return null;
-  return JSON.parse(await new Response(res.stream).text()) as Lead;
-}
+const parse = (r: Record<string, unknown>) => ({ ...JSON.parse(String(r.data)), status: r.status }) as Lead;
 
 export async function saveLead(data: AuditLead | BookingLead) {
   const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const lead = { ...data, id, createdAt: new Date().toISOString(), status: 'new' } as Lead;
-  await write(lead);
+  await sql`INSERT INTO leads (id, created_at, status, data) VALUES (${id}, ${lead.createdAt}, ${lead.status}, ${JSON.stringify(lead)})`;
   return lead;
 }
 
 export async function listLeads(): Promise<Lead[]> {
-  const paths: string[] = [];
-  let cursor: string | undefined;
-  do {
-    const page = await list({ prefix: PREFIX, cursor });
-    paths.push(...page.blobs.map(b => b.pathname));
-    cursor = page.hasMore ? page.cursor : undefined;
-  } while (cursor);
-  const leads = await Promise.all(paths.map(read));
-  return leads.filter((l): l is Lead => !!l).sort((a, b) => b.id.localeCompare(a.id));
+  return (await sql`SELECT status, data FROM leads ORDER BY id DESC`).map(parse);
 }
 
 export async function setLeadStatus(id: string, status: LeadStatus) {
-  const lead = await read(path(id));
-  if (lead) await write({ ...lead, status });
+  await sql`UPDATE leads SET status = ${status} WHERE id = ${id}`;
 }
 
 export async function deleteLead(id: string) {
-  await del(path(id));
+  await sql`DELETE FROM leads WHERE id = ${id}`;
 }
 
 export const isLeadId = (id: string) => /^\d{13}-[a-z0-9]{1,8}$/.test(id);

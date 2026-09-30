@@ -1,5 +1,6 @@
 {
   "redirects": [
+    { "source": "/", "destination": "https://webu.ge/", "permanent": true },
     { "source": "/:path*", "destination": "https://webu.ge/:path*", "permanent": true }
   ]
 }

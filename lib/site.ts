@@ -36,6 +36,13 @@ export const WORKS = [
   { tag: 'gemo.menu', project: '03' },
 ] as { tag: string; src?: string; poster?: string; project?: string }[];
 
+// Official social profiles: footer links and JSON-LD sameAs.
+export const SOCIAL = [
+  { name: 'Facebook', url: 'https://www.facebook.com/webugeo' },
+  { name: 'Instagram', url: 'https://www.instagram.com/webu.ge/' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/webugeo/' },
+];
+
 export const fmt = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₾';
 
 export const NEON = (() => {

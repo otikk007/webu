@@ -1,7 +1,7 @@
 import type { Dict } from '@/lib/dict';
 import { lp, type Lang } from '@/lib/i18n';
 import { guides, infoPages, pageById, pageHref, servicePages } from '@/lib/pages';
-import { NEON } from '@/lib/site';
+import { NEON, SOCIAL } from '@/lib/site';
 import { Logo } from './ui';
 
 export default function Footer({ lang, t }: { lang: Lang; t: Dict['footer'] }) {
@@ -39,9 +39,7 @@ export default function Footer({ lang, t }: { lang: Lang; t: Dict['footer'] }) {
                 {guides(lang).filter(g => g.id === 'cost').map(g => <a key={g.id} href={pageHref(g)}>{g.nav}</a>)}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="https://behance.net" target="_blank" rel="noopener noreferrer">Behance</a>
+                {SOCIAL.map(s => <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer me">{s.name}</a>)}
               </div>
             </nav>
           </div>

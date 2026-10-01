@@ -1,7 +1,7 @@
 import { getDict } from './dict';
 import { LANG_META, LOCALES, lp, type Lang } from './i18n';
 import { ALL_PAGES, UPDATED, guides, pageHref, servicePages, type ContentPage } from './pages';
-import { SITE_URL } from './site';
+import { SITE_URL, SOCIAL } from './site';
 
 // Machine-readable facts about Webu (JSON-LD and llms.txt) in every language.
 // Only verified facts go here: no phone, address, clients or numbers until they are real.
@@ -96,6 +96,7 @@ export function jsonLd(lang: Lang) {
         description: BRAND.description[lang],
         telephone: '+995322192270',
         email: 'hello@webu.ge',
+        sameAs: SOCIAL.map(s => s.url),
         address: { '@type': 'PostalAddress', streetAddress: d.footer.address.replace(/^[^,]+,\s*/, ''), addressLocality: 'Tbilisi', addressCountry: 'GE' },
         areaServed: { '@type': 'Country', name: 'Georgia' },
         knowsLanguage: ['ka', 'en', 'ru'],

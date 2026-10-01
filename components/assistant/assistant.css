@@ -19,13 +19,14 @@
 @keyframes vbCaret{50%{opacity:0}}
 @keyframes vbTease{from{opacity:0;transform:translateX(14px) scale(.9)}to{opacity:1;transform:none}}
 
-.vb-root { font-family: var(--geo); -webkit-font-smoothing: antialiased; }
+/* Placement: away from the screen corner and clear of the site's goo scrollbar (right 44px). */
+.vb-root { --vb-size: 74px; --vb-r: clamp(20px, 4.5vw, 72px); --vb-b: clamp(20px, 4vh, 40px); --vb-gap: 14px; font-family: var(--geo); -webkit-font-smoothing: antialiased; }
 .vb-root *, .vb-root *::before, .vb-root *::after { box-sizing: border-box; }
 .vb-btn { all: unset; cursor: pointer; box-sizing: border-box; }
 .vb-btn:focus-visible { outline: 2px solid #8B6CFF; outline-offset: 3px; }
 
 /* launcher */
-.vb-launcher { position: fixed; right: clamp(12px, 3vw, 28px); bottom: 24px; z-index: 70; width: 74px; height: 74px; border-radius: 50%; background: #0E0F12; box-shadow: 0 0 0 1.5px rgba(198,244,50,0.35), 0 20px 40px -14px rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; transition: transform .4s cubic-bezier(.3,1.5,.5,1); }
+.vb-launcher { position: fixed; right: calc(var(--vb-r) + env(safe-area-inset-right, 0px)); bottom: calc(var(--vb-b) + env(safe-area-inset-bottom, 0px)); z-index: 70; width: var(--vb-size); height: var(--vb-size); border-radius: 50%; background: #0E0F12; box-shadow: 0 0 0 1.5px rgba(198,244,50,0.35), 0 20px 40px -14px rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; transition: transform .4s cubic-bezier(.3,1.5,.5,1); }
 .vb-launcher:hover { transform: scale(1.08); }
 .vb-shine-wrap { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; pointer-events: none; }
 .vb-shine { position: absolute; top: -20%; left: 0; width: 30%; height: 140%; background: linear-gradient(90deg, transparent, rgba(198,244,50,0.22), transparent); animation: vbShine 4.5s ease-in-out infinite; }
@@ -33,12 +34,12 @@
 .vb-x { animation: vbPop .35s both; }
 
 /* teaser */
-.vb-teaser { position: fixed; right: clamp(96px, 10vw, 118px); bottom: 34px; z-index: 68; max-width: 260px; padding: 14px 16px 14px 18px; border-radius: 20px 20px 6px 20px; background: #F2F1EC; color: #0E0F12; box-shadow: 0 20px 50px -18px rgba(0,0,0,0.6); display: flex; align-items: flex-start; gap: 10px; animation: vbTease .5s cubic-bezier(.3,1.4,.5,1) both; }
+.vb-teaser { position: fixed; right: calc(var(--vb-r) + var(--vb-size) + 12px + env(safe-area-inset-right, 0px)); bottom: calc(var(--vb-b) + 10px + env(safe-area-inset-bottom, 0px)); z-index: 68; max-width: 260px; padding: 14px 16px 14px 18px; border-radius: 20px 20px 6px 20px; background: #F2F1EC; color: #0E0F12; box-shadow: 0 20px 50px -18px rgba(0,0,0,0.6); display: flex; align-items: flex-start; gap: 10px; animation: vbTease .5s cubic-bezier(.3,1.4,.5,1) both; }
 .vb-teaser-text { font-size: 15px; font-weight: 700; line-height: 1.45; text-align: left; }
 .vb-teaser-x { flex: none; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #E3E2DB; }
 
 /* panel */
-.vb-panel { position: fixed; right: clamp(12px, 3vw, 28px); bottom: 112px; z-index: 69; width: min(410px, calc(100vw - 24px)); height: min(660px, calc(100dvh - 136px)); border-radius: 30px; background: #F2F1EC; color: #0E0F12; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 40px 90px -30px rgba(0,0,0,0.75), 0 0 0 1px rgba(14,15,18,0.08); animation: vbPanel .6s cubic-bezier(.6,0,.2,1) both; }
+.vb-panel { position: fixed; right: calc(var(--vb-r) + env(safe-area-inset-right, 0px)); bottom: calc(var(--vb-b) + var(--vb-size) + var(--vb-gap) + env(safe-area-inset-bottom, 0px)); z-index: 69; width: min(410px, calc(100vw - 2 * var(--vb-r))); height: min(660px, calc(100dvh - var(--vb-b) - var(--vb-size) - var(--vb-gap) - 24px)); border-radius: 30px; background: #F2F1EC; color: #0E0F12; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 40px 90px -30px rgba(0,0,0,0.75), 0 0 0 1px rgba(14,15,18,0.08); animation: vbPanel .6s cubic-bezier(.6,0,.2,1) both; }
 .vb-head { position: relative; flex: none; background: #0E0F12; color: #F2F1EC; padding: 18px 16px 20px 18px; display: flex; align-items: center; gap: 8px; overflow: hidden; }
 .vb-head::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(242,241,236,0.07) 1.2px, transparent 1.3px); background-size: 18px 18px; pointer-events: none; }
 .vb-head-bot { position: relative; width: 64px; height: 52px; display: flex; align-items: center; justify-content: center; }
@@ -119,7 +120,7 @@
 /* request form */
 .vb-form { border-radius: 22px; background: #FFFFFF; box-shadow: 0 0 0 1px rgba(14,15,18,0.06); padding: 16px; display: flex; flex-direction: column; gap: 10px; animation: vbPop .45s both; }
 .vb-form-h { font-size: 16px; font-weight: 900; line-height: 1.3; }
-.vb-form input, .vb-form textarea { width: 100%; border: 0; outline: 0; border-radius: 14px; background: #F2F1EC; padding: 12px 14px; font: 400 15px var(--geo); color: #0E0F12; resize: vertical; }
+.vb-form input, .vb-form textarea { width: 100%; border: 0; outline: 0; border-radius: 14px; background: #F2F1EC; padding: 12px 14px; font: 400 16px var(--geo); color: #0E0F12; resize: vertical; }
 .vb-form input:focus, .vb-form textarea:focus { box-shadow: 0 0 0 2px #0E0F12; }
 .vb-form textarea { min-height: 70px; }
 .vb-form-lbl { margin: 2px 0 -4px; font-size: 13px; font-weight: 700; color: #55565C; }
@@ -141,17 +142,53 @@
 .vb-note { margin: 8px 6px 0; font-size: 11px; line-height: 1.4; color: #8C8C93; text-align: center; }
 
 /* the site's goo scrollbar steps aside for the chat */
-body:has(.vb-launcher) .gs-track { bottom: 116px; }
+body:has(.vb-launcher) .gs-track { bottom: 132px; }
 body:has(.vb-panel) .gs { opacity: 0; pointer-events: none; }
 
 /* phones: full-screen panel */
+/* tablets: a little smaller, still floating */
+@media (max-width: 880px) {
+  .vb-root { --vb-size: 66px; --vb-r: 20px; --vb-b: 20px; }
+}
+
+/* phones: smaller launcher, full-screen chat that follows the on-screen keyboard */
 @media (max-width: 520px) {
-  .vb-panel { inset: 0; right: 0; bottom: 0; width: 100vw; height: 100dvh; border-radius: 0; }
-  .vb-root.is-open .vb-launcher { display: none; }
-  .vb-teaser { right: 96px; bottom: 30px; max-width: min(240px, calc(100vw - 120px)); }
+  .vb-root { --vb-size: 58px; --vb-r: 14px; --vb-b: 14px; }
+  .vb-launcher .vb-mascot-wrap { transform: scale(.86); }
+  .vb-panel { inset: auto; left: 0; right: 0; top: var(--vb-top, 0px); bottom: auto; width: 100%; height: var(--vb-vh, 100dvh); border-radius: 0; animation: vbTease .35s cubic-bezier(.3,1.4,.5,1) both; }
+  .vb-root.is-open .vb-launcher, .vb-root.is-open .vb-teaser { display: none; }
+  .vb-head { padding: calc(12px + env(safe-area-inset-top, 0px)) 12px 14px 14px; }
+  .vb-head-bot { width: 54px; height: 44px; }
+  .vb-name { font-size: 18px; }
+  .vb-body { padding: 16px 14px 8px 12px; gap: 12px; }
+  .vb-hello { padding: 8px 4px 2px; gap: 10px; }
+  .vb-hello-bot { height: 80px; }
+  .vb-hello-h { font-size: 21px; }
+  .vb-hello-p { font-size: 14px; }
+  .vb-starter { padding: 12px 12px 14px; gap: 14px; border-radius: 18px; }
+  .vb-starter-label { font-size: 14px; }
+  .vb-user, .vb-bubble { font-size: 15px; }
+  .vb-botrow { max-width: 96%; }
+  .vb-chips { padding-left: 0; }
+  .vb-alt-q { margin-left: 0; }
+  .vb-foot { padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); }
+  .vb-input { min-height: 52px; padding: 5px 5px 5px 16px; }
+  .vb-send { width: 42px; height: 42px; }
+  .vb-note { margin-top: 6px; font-size: 10.5px; }
+  .vb-teaser { max-width: min(230px, calc(100vw - var(--vb-size) - 44px)); padding: 12px 12px 12px 14px; }
+  .vb-teaser-text { font-size: 14px; }
+}
+
+/* very narrow phones (320 px) */
+@media (max-width: 360px) {
+  .vb-starters { gap: 8px; }
+  .vb-starter-label { font-size: 13px; }
+  .vb-hello-bot { height: 64px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .vb-root [data-vb-body], .vb-shine, .vb-ring { animation: none !important; }
   .vb-panel { animation: none; }
 }
+
+.vb-mascot-wrap { display: inline-flex; transition: transform .3s; }

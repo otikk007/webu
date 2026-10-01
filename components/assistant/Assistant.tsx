@@ -155,6 +155,23 @@ export default function Assistant() {
     return () => { removeEventListener('keydown', onKey); clearTimeout(t); };
   }, [open]);
 
+  useEffect(() => {
+    if (!open || !matchMedia('(max-width: 520px)').matches) return;
+    const root = document.documentElement, prev = root.style.overflow;
+    root.style.overflow = 'hidden';
+    const vv = window.visualViewport;
+    const fit = () => {
+      const panel = document.querySelector<HTMLElement>('.vb-panel');
+      if (!panel || !vv) return;
+      panel.style.setProperty('--vb-vh', `${vv.height}px`);
+      panel.style.setProperty('--vb-top', `${vv.offsetTop}px`);
+    };
+    fit();
+    vv?.addEventListener('resize', fit);
+    vv?.addEventListener('scroll', fit);
+    return () => { root.style.overflow = prev; vv?.removeEventListener('resize', fit); vv?.removeEventListener('scroll', fit); };
+  }, [open]);
+
   useEffect(() => () => { clearInterval(typeT.current); clearTimeout(scrollT.current); clearTimeout(moodT.current); }, []);
 
   // Own scrollbar thumb (design §5): native one hidden; violet and squashed while scrolling.
@@ -449,7 +466,7 @@ export default function Assistant() {
         {!open && !touched && <span className="vb-ring" aria-hidden="true" />}
         {open
           ? <svg className="vb-x" width="22" height="22" viewBox="0 0 14 14" stroke="#C6F432" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8" /></svg>
-          : <Mascot size={46} mood={launchMood} />}
+          : <span className="vb-mascot-wrap"><Mascot size={46} mood={launchMood} /></span>}
       </button>
     </div>
   );

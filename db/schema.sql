@@ -38,3 +38,30 @@ CREATE TABLE IF NOT EXISTS leads (
   status text NOT NULL DEFAULT 'new',  -- new | done
   data text NOT NULL
 );
+
+-- Call history posted by the office Asterisk PBX after every call (POST /api/pbx/calls).
+-- Times are UTC ISO strings like the rest of the file; call_id makes resends idempotent.
+CREATE TABLE IF NOT EXISTS pbx_calls (
+  id integer PRIMARY KEY AUTOINCREMENT,
+  call_id text NOT NULL UNIQUE,
+  started_at text,
+  answered_at text,
+  ended_at text,
+  direction text,          -- inbound | outbound | internal
+  caller text,
+  callee text,
+  lang text,               -- ka | en
+  ivr_choice text,         -- "1" | "2" | "5" | "timeout"
+  answered_by text,        -- extension, e.g. "101"
+  status text,             -- answered | missed | voicemail | busy | abandoned_ivr | failed
+  wait_seconds integer,
+  talk_seconds integer,
+  total_seconds integer,
+  voicemail_mailbox text,
+  voicemail_msg text,
+  received_at text NOT NULL
+  -- voicemail_file, voicemail_listened_at: added in lib/db.ts (ADDED_COLUMNS)
+);
+CREATE INDEX IF NOT EXISTS pbx_calls_started_at ON pbx_calls (started_at);
+CREATE INDEX IF NOT EXISTS pbx_calls_caller ON pbx_calls (caller);
+CREATE INDEX IF NOT EXISTS pbx_calls_status ON pbx_calls (status);

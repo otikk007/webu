@@ -8,6 +8,11 @@ import Database from 'better-sqlite3';
 // Timestamps are stored as ISO strings in UTC ("2026-09-30T12:00:00.000Z").
 let db: Database.Database | null = null;
 
+const ADDED_COLUMNS: [table: string, column: string, type: string][] = [
+  ['pbx_calls', 'voicemail_file', 'text'],         // path under data/, e.g. pbx_voicemail/1790792842.36.mp3
+  ['pbx_calls', 'voicemail_listened_at', 'text'],  // first time an admin played it
+];
+
 function open() {
   const file = process.env.SQLITE_PATH || join(process.cwd(), 'data', 'webu.db');
   mkdirSync(dirname(file), { recursive: true });
@@ -15,6 +20,12 @@ function open() {
   d.pragma('journal_mode = WAL');
   d.pragma('busy_timeout = 5000');
   d.exec(readFileSync(join(process.cwd(), 'db', 'schema.sql'), 'utf8'));
+  // Columns added after a table first shipped: CREATE TABLE IF NOT EXISTS skips
+  // existing tables, so they are added here when missing.
+  for (const [table, column, type] of ADDED_COLUMNS) {
+    const has = (d.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[]).some(c => c.name === column);
+    if (!has) d.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`);
+  }
   return d;
 }
 

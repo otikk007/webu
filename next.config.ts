@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
         { key: 'X-Content-Type-Options', value: 'nosniff' },
         { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
         { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+        // Test copy on Vercel (VERCEL=1): keep every response out of search indexes.
+        ...(process.env.VERCEL === '1' ? [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] : []),
       ],
     }];
   },

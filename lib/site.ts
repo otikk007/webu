@@ -2,6 +2,10 @@
 // Defaults to the live domain so a build without NEXT_PUBLIC_SITE_URL never ships localhost.
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://webu.ge').replace(/\/$/, '');
 
+// The Vercel deployment is a test copy of webu.ge (Vercel sets VERCEL=1 when building).
+// It is kept out of search engines so it never competes with the live site.
+export const IS_STAGING = process.env.VERCEL === '1';
+
 // Calculator prices (GEL) and timelines (weeks); labels live in the dictionaries.
 // Every price is 12 x a round monthly amount, so the 12-month split is always a clean number.
 export const TYPES = [

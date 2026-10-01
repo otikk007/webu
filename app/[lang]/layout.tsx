@@ -4,7 +4,7 @@ import { getDict } from '@/lib/dict';
 import { fontClasses } from '@/lib/fonts';
 import { LANG_META, LOCALES, hasLocale, lp } from '@/lib/i18n';
 import { languageAlternates } from '@/lib/seo';
-import { SITE_URL } from '@/lib/site';
+import { IS_STAGING, SITE_URL } from '@/lib/site';
 import '../globals.css';
 import '../eggs.css';
 import '../scrollbar.css';
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     alternates: { canonical: url, languages: languageAlternates({ ka: '/', en: '/en', ru: '/ru' }) },
     openGraph: { type: 'website', locale: LANG_META[lang].og, alternateLocale: LOCALES.filter(l => l !== lang).map(l => LANG_META[l].og), url, siteName: 'Webu', title, description, images: [{ url: '/assets/s-hero.jpg' }] },
     twitter: { card: 'summary_large_image', title, description, images: ['/assets/s-hero.jpg'] },
-    robots: { index: true, follow: true },
+    robots: IS_STAGING ? { index: false, follow: false } : { index: true, follow: true },
   };
 }
 

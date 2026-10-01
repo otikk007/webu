@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { allow, clear, clientIp } from '@/lib/guard';
 import { ADMIN_PATH, endSession, isAdmin, passwordMatches, startSession } from '@/lib/admin-auth';
+import { startDeploy } from '@/lib/deploy';
 import { deleteLead, isLeadId, setLeadStatus } from '@/lib/leads';
 
 export async function login(_: string | null, form: FormData): Promise<string | null> {
@@ -37,4 +38,10 @@ export async function removeLead(form: FormData) {
   const id = String(form.get('id') ?? '');
   if (isLeadId(id)) await deleteLead(id);
   revalidatePath(ADMIN_PATH);
+}
+
+export async function deploy() {
+  if (!(await isAdmin())) return;
+  startDeploy();
+  revalidatePath(`${ADMIN_PATH}/deploy`);
 }

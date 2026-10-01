@@ -15,3 +15,6 @@ next-env.d.ts
 
 # SQLite analytics database
 /data
+
+# chatbot reference implementation and design handoff (engine and data live in lib/webu-assistant)
+/AIBOT

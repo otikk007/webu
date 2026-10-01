@@ -65,3 +65,15 @@ CREATE TABLE IF NOT EXISTS pbx_calls (
 CREATE INDEX IF NOT EXISTS pbx_calls_started_at ON pbx_calls (started_at);
 CREATE INDEX IF NOT EXISTS pbx_calls_caller ON pbx_calls (caller);
 CREATE INDEX IF NOT EXISTS pbx_calls_status ON pbx_calls (status);
+
+-- Questions asked in the chat assistant (no IP, no session, no contact data), so the
+-- owner can add phrasings for questions it could not answer (mode clarify / fallback).
+CREATE TABLE IF NOT EXISTS chat_questions (
+  id integer PRIMARY KEY AUTOINCREMENT,
+  created_at text NOT NULL,
+  question text NOT NULL,
+  mode text NOT NULL,       -- faq | clarify | fallback
+  intent text,
+  rejected integer NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS chat_questions_created ON chat_questions (created_at);

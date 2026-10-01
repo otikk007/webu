@@ -956,7 +956,7 @@ export const PAGES_EN: RawPage[] = [
     facts: [
       { k: 'Cookies', v: 'No advertising cookies' },
       { k: 'Contact', v: 'hello@webu.ge' },
-      { k: 'Updated', v: '29 September 2026' },
+      { k: 'Updated', v: '1 October 2026' },
     ],
     blocks: [
       {
@@ -970,6 +970,7 @@ export const PAGES_EN: RawPage[] = [
         list: [
           'When you book a consultation: your name, phone or email, the chosen date and time, and the package picked in the price calculator, if any',
           'When you request an SEO audit report: the website address, your email and the audit results',
+          'In the chat assistant: the questions you ask, without your name, IP address or session. If you leave a request: your name, phone or email, what you need and the last messages of the conversation',
           'Anonymous statistics: pages viewed, country and city, device and browser type, and where you came from. We do not store IP addresses: visitors are counted with an anonymous code that changes every day',
         ],
       },
@@ -979,6 +980,7 @@ export const PAGES_EN: RawPage[] = [
           'To answer your request and arrange the consultation',
           'To prepare and send the audit report',
           'To improve the site based on anonymous statistics',
+          'To improve the chat assistant’s answers',
         ],
         p: [
           'We do not sell data or share it with third parties for advertising.',
@@ -987,19 +989,18 @@ export const PAGES_EN: RawPage[] = [
       {
         h2: 'Who receives the data?',
         list: [
-          'Vercel: website hosting and secure storage of requests',
-          'Neon: the database for anonymous statistics',
-          'Telegram: a notification to our team about a new request',
+          'Webu’s own server: website hosting and storage of requests and anonymous statistics',
+          'Telegram: a notification to our team about a new request, including from the chat assistant',
           'Google PageSpeed Insights: the website address you enter in the audit, for analysis',
         ],
         p: [
-          'These services may have servers outside Georgia. They receive data only for the purposes listed.',
+          'Telegram and Google may have servers outside Georgia. They receive data only for the purposes listed.',
         ],
       },
       {
         h2: 'Does the site use cookies?',
         p: [
-          'The site uses no advertising or tracking cookies. Only technical data is kept in your browser: an anonymous session code that is deleted when you close the tab, and settings the site’s features need.',
+          'The site uses no advertising or tracking cookies. Only technical data is kept in your browser: an anonymous session code that is deleted when you close the tab, the chat assistant conversation, also deleted when you close the tab, and settings the site’s features need.',
         ],
       },
       {

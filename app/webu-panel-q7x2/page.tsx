@@ -11,6 +11,7 @@ const TABS = [
   { id: 'all', label: 'ყველა ახალი' },
   { id: 'booking', label: 'კონსულტაციები' },
   { id: 'audit', label: 'აუდიტის მოთხოვნები' },
+  { id: 'chat', label: 'ჩატბოტი' },
   { id: 'done', label: 'დასრულებული' },
 ] as const;
 
@@ -21,7 +22,7 @@ function Card({ l }: { l: Lead }) {
   return (
     <article className={`adm-card${l.status === 'done' ? ' is-done' : ''}`}>
       <header>
-        <span className={`adm-badge ${l.type}`}>{l.type === 'booking' ? 'კონსულტაცია' : 'აუდიტი'}</span>
+        <span className={`adm-badge ${l.type}`}>{l.type === 'booking' ? 'კონსულტაცია' : l.type === 'chat' ? 'ჩატბოტი' : 'აუდიტი'}</span>
         {l.status === 'new' && <span className="adm-new">ახალი</span>}
         {l.lang && l.lang !== 'ka' && <span className="adm-lang">{l.lang.toUpperCase()}</span>}
         <time dateTime={l.createdAt}>{when(l.createdAt)}</time>
@@ -33,6 +34,21 @@ function Card({ l }: { l: Lead }) {
           <dt>შეხვედრა</dt><dd>{l.date}, {l.time}</dd>
           {l.quote && <><dt>პაკეტი</dt><dd>{l.quote}</dd></>}
         </dl>
+      ) : l.type === 'chat' ? (
+        <>
+          <dl>
+            <dt>სახელი</dt><dd>{l.name}</dd>
+            <dt>კონტაქტი</dt><dd><a href={isEmail(l.contact) ? `mailto:${l.contact}` : `tel:${l.contact.replace(/[^\d+]/g, '')}`}>{l.contact}</a></dd>
+            {l.need && <><dt>რა სჭირდება</dt><dd>{l.need}</dd></>}
+            {l.interests.length > 0 && <><dt>თემები</dt><dd>{l.interests.join(' · ')}</dd></>}
+          </dl>
+          {l.transcript.length > 0 && (
+            <details>
+              <summary>საუბარი ({l.transcript.length})</summary>
+              <ul>{l.transcript.map((m, i) => <li key={i}><b>{m.role === 'user' ? 'კლიენტი' : 'ბოტი'}:</b> {m.content}</li>)}</ul>
+            </details>
+          )}
+        </>
       ) : (
         <>
           <dl>
@@ -75,7 +91,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   const leads = await listLeads();
   const shown = leads.filter(l =>
     tab === 'done' ? l.status === 'done'
-    : tab === 'booking' || tab === 'audit' ? l.type === tab && l.status === 'new'
+    : tab === 'booking' || tab === 'audit' || tab === 'chat' ? l.type === tab && l.status === 'new'
     : l.status === 'new');
   const count = (id: string) => id === 'done' ? leads.filter(l => l.status === 'done').length
     : leads.filter(l => l.status === 'new' && (id === 'all' || l.type === id)).length;

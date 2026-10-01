@@ -1,4 +1,5 @@
 import Effects from '@/components/Effects';
+import AssistantLoader from '@/components/assistant/AssistantLoader';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Tracker from '@/components/Tracker';
@@ -18,6 +19,8 @@ export default function Shell({ lang, alt, sections = {}, children }: { lang: La
       <Effects />
       <Tracker />
       <GooScrollbar labels={sections} />
+      {/* Chat assistant: its data is Georgian only, so it appears on the Georgian pages. */}
+      {lang === 'ka' && <AssistantLoader />}
       <EggsProvider lang={lang}>
         <div className="page">
           <Header lang={lang} t={d.nav} alt={alt} />

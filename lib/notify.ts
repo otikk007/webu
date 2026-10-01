@@ -3,10 +3,10 @@ import { ADMIN_PATH } from './admin-auth';
 import { SITE_URL } from './site';
 
 // Sends a Telegram message to the owner. Never throws: a failed notification
-// must not lose the lead, which is already saved.
-export async function notify(text: string) {
+// must not lose the lead, which is already saved. Returns whether it was delivered.
+export async function notify(text: string): Promise<boolean> {
   const token = process.env.TELEGRAM_BOT_TOKEN, chat = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chat) return;
+  if (!token || !chat) return false;
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
@@ -19,7 +19,9 @@ export async function notify(text: string) {
       signal: AbortSignal.timeout(5000),
     });
     if (!res.ok) console.error('telegram', res.status, await res.text());
+    return res.ok;
   } catch (e) {
     console.error('telegram failed', e);
+    return false;
   }
 }

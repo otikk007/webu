@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ADMIN_PATH, isAdmin } from '@/lib/admin-auth';
+import { unansweredQuestions } from '@/lib/chat-log';
 import { getCrawlStats } from '@/lib/crawl-log';
 import { getStats, type Row } from '@/lib/stats';
 import AdminNav from '../AdminNav';
@@ -84,7 +85,7 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
 
   const d = Number((await searchParams).d);
   const days = PERIODS.some(p => p.d === d) ? d : 7;
-  const [s, crawl] = await Promise.all([getStats(days), getCrawlStats(days)]);
+  const [s, crawl, chat] = await Promise.all([getStats(days), getCrawlStats(days), unansweredQuestions(days)]);
   const secOrder = Object.keys(SECTIONS);
   const sections = secOrder.filter(k => k !== 'top').map(k => ({ k, n: s.sections.find(r => r.k === k)?.n ?? 0 }));
 
@@ -113,6 +114,17 @@ export default async function AnalyticsPage({ searchParams }: { searchParams: Pr
         <Bars title="რას აჭერენ" rows={s.clicks} name={k => k.replace(/^(top|services|work|process|audit|price|faq|contact) · /, (_, id: string) => `${SECTIONS[id]} · `)} />
         <Bars title="მოწყობილობა" rows={s.devices} />
         <Bars title="ქალაქი / ქვეყანა" rows={s.places} />
+
+        <section className="an-card">
+          <h2>ჩატბოტი: უპასუხო კითხვები</h2>
+          {chat.rows.length ? (
+            <table className="an-table">
+              <thead><tr><th>კითხვა</th><th>რამდენჯერ</th></tr></thead>
+              <tbody>{chat.rows.map(r => <tr key={r.k}><td>{r.k}</td><td className="num">{r.n}</td></tr>)}</tbody>
+            </table>
+          ) : <p className="an-empty">ჩატბოტმა ყველა კითხვას უპასუხა</p>}
+          <p className="an-note">ამ პერიოდში ჩატში {chat.total} კითხვა დაისვა. აქ ჩანს ისინი, რომლებზეც ბოტმა ვერ უპასუხა ან მომხმარებელმა უთხრა, რომ ეს არ იყო. ხშირ კითხვებს lib/webu-assistant/faq-data.json-ში შესაბამისი თემის questions-ში დაამატებ.</p>
+        </section>
 
         <section className="an-card">
           <h2>AI და საძიებო ბოტები</h2>

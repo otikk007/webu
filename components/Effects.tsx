@@ -204,7 +204,7 @@ export default function Effects() {
         const stage = t.closest?.('[data-stage]');
         const link = t.closest?.<HTMLElement>('a,button');
         setMode(t.closest?.('input') ? 'hide' : stage ? 'stage' : link ? 'link' : '');
-        const m = link && !link.closest('[data-goo]') && !link.closest('.nav-links') && !stage ? link : null;
+        const m = link && !link.closest('[data-goo]') && !link.closest('.nav-links') && !link.closest('.vb-root') && !stage ? link : null;
         if (m !== mag) { releaseMag(); mag = m; if (mag) mag.style.transition = 'translate .15s ease-out, background .25s, color .25s, border-color .25s'; }
         if (mag) {
           const r = mag.getBoundingClientRect(), cl = (v: number, n: number) => Math.max(-n, Math.min(n, v));

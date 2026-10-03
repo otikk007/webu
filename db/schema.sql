@@ -77,3 +77,13 @@ CREATE TABLE IF NOT EXISTS chat_questions (
   rejected integer NOT NULL DEFAULT 0
 );
 CREATE INDEX IF NOT EXISTS chat_questions_created ON chat_questions (created_at);
+
+-- Facebook Messenger conversations with the assistant: the engine is stateless,
+-- so the context the website keeps in the browser (previous intent, intents
+-- already answered) is kept here per Page-scoped user id.
+CREATE TABLE IF NOT EXISTS meta_chats (
+  psid text PRIMARY KEY,
+  previous text,
+  seen text NOT NULL DEFAULT '[]',  -- JSON array of intent ids
+  updated_at text NOT NULL
+);

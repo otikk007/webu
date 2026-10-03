@@ -6,7 +6,7 @@ import BugGame from './BugGame';
 import Mascot, { type Mood } from './Mascot';
 import './assistant.css';
 
-// Webu assistant "ვები". Logic: AIBOT/WEBU_CHATBOT.md (answers come only from the server-side
+// Webu assistant "webu". Logic: AIBOT/WEBU_CHATBOT.md (answers come only from the server-side
 // FAQ engine, /api/assistant/*). Look and motion: AIBOT/desing (mascot, panel, scrollbar, game).
 
 type Reply = {
@@ -303,9 +303,9 @@ export default function Assistant() {
       {open && (
         <section className="vb-panel" role="dialog" aria-label="Webu ასისტენტი">
           <header className="vb-head">
-            <button type="button" className="vb-btn vb-head-bot" aria-label="ვები" onClick={flash}><Mascot size={58} mood={topMood} /></button>
+            <button type="button" className="vb-btn vb-head-bot" aria-label="webu" onClick={flash}><Mascot size={58} mood={topMood} /></button>
             <div className="vb-head-txt">
-              <span className="vb-name">ვები</span>
+              <span className="vb-name">webu</span>
               <span className="vb-status" aria-live="polite">{status}</span>
             </div>
             {!leadSent && (
@@ -328,7 +328,7 @@ export default function Assistant() {
                 <>
                   <div className="vb-hello">
                     <span className="vb-hello-bot"><Mascot size={130} mood={focus ? 'happy' : 'idle'} /></span>
-                    <span className="vb-hello-h">გამარჯობა! მე ვები ვარ.</span>
+                    <span className="vb-hello-h">გამარჯობა! მე webu ვარ.</span>
                     <span className="vb-hello-p">Webu-ს ასისტენტი ვარ. დაგეხმარებით სერვისების, ფასების, ვადებისა და პროცესის გარკვევაში.</span>
                   </div>
                   <div className="vb-starters">
@@ -413,7 +413,7 @@ export default function Assistant() {
               {thinking && (
                 <div className="vb-botrow">
                   <span className="vb-avatar"><Mascot size={22} mood="think" noIntro /></span>
-                  <div className="vb-wait" aria-label="ვები ფიქრობს"><span /><span /><span /></div>
+                  <div className="vb-wait" aria-label="webu ფიქრობს"><span /><span /><span /></div>
                 </div>
               )}
               {error && <p className="vb-error" role="alert">{error}</p>}
@@ -427,7 +427,7 @@ export default function Assistant() {
                 rows={1}
                 value={draft}
                 maxLength={2000}
-                placeholder="ჰკითხეთ Webu-ს ასისტენტს…"
+                placeholder="ჰკითხეთ webu-ს ასისტენტს…"
                 aria-label="შეკითხვა"
                 onChange={e => {
                   setDraft(e.target.value);
@@ -456,7 +456,7 @@ export default function Assistant() {
       <button
         type="button"
         className="vb-btn vb-launcher"
-        aria-label={open ? 'ჩატის დახურვა' : 'ჩატი Webu-ს ასისტენტთან'}
+        aria-label={open ? 'ჩატის დახურვა' : 'ჩატი webu-ს ასისტენტთან'}
         aria-expanded={open}
         onClick={() => { markTouched(); setOpen(o => !o); }}
         onMouseEnter={() => setHoverL(true)}

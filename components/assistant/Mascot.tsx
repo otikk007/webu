@@ -6,7 +6,7 @@ export const BOT_COLOR = '#C6F432';
 const EASE = 'cubic-bezier(.3,1.5,.5,1)';
 
 /**
- * The mascot "ვები" (AIBOT/desing, WebuBot). Box = size × size*0.62, unit u = size/100.
+ * The mascot "webu" (AIBOT/desing, WebuBot). Box = size × size*0.62, unit u = size/100.
  * Layers each own one transform: [data-vb-tilt] (cursor tilt) → body animation →
  * pieces + [data-vb-eyes] (cursor follow) → scan → squash (mood) → eyes (blink).
  */

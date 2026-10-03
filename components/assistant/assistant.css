@@ -1,4 +1,4 @@
-/* Webu assistant "ვები" (AIBOT/desing). Keyframes copied verbatim from the design file. */
+/* Webu assistant "webu" (AIBOT/desing). Keyframes copied verbatim from the design file. */
 @keyframes vbIn{0%{opacity:0;transform:translate(var(--x),var(--y)) scale(.2) rotate(-40deg)}55%{opacity:1;transform:translate(0,0) scale(1.18,.82) rotate(6deg)}75%{transform:scale(.92,1.08) rotate(-2deg)}100%{opacity:1;transform:none}}
 @keyframes vbBlink{0%,88%,94%,100%{transform:scaleY(1)}91%{transform:scaleY(.08)}97%{transform:scaleY(.08)}}
 @keyframes vbIdle{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(calc(var(--u)*-3)) rotate(-2deg)}70%{transform:translateY(calc(var(--u)*-1)) rotate(2deg)}}

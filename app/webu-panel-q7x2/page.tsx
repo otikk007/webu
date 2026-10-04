@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Fragment } from 'react';
 import { ADMIN_PATH, isAdmin } from '@/lib/admin-auth';
 import { listLeads, type Lead } from '@/lib/leads';
 import { removeLead, toggleStatus } from './actions';
@@ -12,6 +13,7 @@ const TABS = [
   { id: 'booking', label: 'კონსულტაციები' },
   { id: 'audit', label: 'აუდიტის მოთხოვნები' },
   { id: 'chat', label: 'ჩატბოტი' },
+  { id: 'facebook', label: 'Facebook ფორმა' },
   { id: 'done', label: 'დასრულებული' },
 ] as const;
 
@@ -22,7 +24,7 @@ function Card({ l }: { l: Lead }) {
   return (
     <article className={`adm-card${l.status === 'done' ? ' is-done' : ''}`}>
       <header>
-        <span className={`adm-badge ${l.type}`}>{l.type === 'booking' ? 'კონსულტაცია' : l.type === 'chat' ? 'ჩატბოტი' : 'აუდიტი'}</span>
+        <span className={`adm-badge ${l.type}`}>{l.type === 'booking' ? 'კონსულტაცია' : l.type === 'chat' ? 'ჩატბოტი' : l.type === 'facebook' ? 'Facebook ფორმა' : 'აუდიტი'}</span>
         {l.status === 'new' && <span className="adm-new">ახალი</span>}
         {l.lang && l.lang !== 'ka' && <span className="adm-lang">{l.lang.toUpperCase()}</span>}
         <time dateTime={l.createdAt}>{when(l.createdAt)}</time>
@@ -33,6 +35,14 @@ function Card({ l }: { l: Lead }) {
           <dt>კონტაქტი</dt><dd><a href={isEmail(l.contact) ? `mailto:${l.contact}` : `tel:${l.contact.replace(/[^\d+]/g, '')}`}>{l.contact}</a></dd>
           <dt>შეხვედრა</dt><dd>{l.date}, {l.time}</dd>
           {l.quote && <><dt>პაკეტი</dt><dd>{l.quote}</dd></>}
+        </dl>
+      ) : l.type === 'facebook' ? (
+        <dl>
+          <dt>სახელი</dt><dd>{l.name}</dd>
+          {l.contact && <><dt>კონტაქტი</dt><dd><a href={isEmail(l.contact) ? `mailto:${l.contact}` : `tel:${l.contact.replace(/[^\d+]/g, '')}`}>{l.contact}</a></dd></>}
+          {l.answers.filter(x => x.a !== l.name && x.a !== l.contact).map(x => (
+            <Fragment key={x.q}><dt>{x.q.replace(/:$/, '')}</dt><dd>{x.a}</dd></Fragment>
+          ))}
         </dl>
       ) : l.type === 'chat' ? (
         <>
@@ -91,7 +101,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   const leads = await listLeads();
   const shown = leads.filter(l =>
     tab === 'done' ? l.status === 'done'
-    : tab === 'booking' || tab === 'audit' || tab === 'chat' ? l.type === tab && l.status === 'new'
+    : tab === 'booking' || tab === 'audit' || tab === 'chat' || tab === 'facebook' ? l.type === tab && l.status === 'new'
     : l.status === 'new');
   const count = (id: string) => id === 'done' ? leads.filter(l => l.status === 'done').length
     : leads.filter(l => l.status === 'new' && (id === 'all' || l.type === id)).length;

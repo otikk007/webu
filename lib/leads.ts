@@ -35,11 +35,21 @@ export type ChatLead = {
   lang?: string;
 };
 
-export type Lead = (AuditLead | BookingLead | ChatLead) & { id: string; createdAt: string; status: LeadStatus };
+// A Facebook lead ad (Instant Form) answered in Messenger; see lib/meta.
+export type FacebookLead = {
+  type: 'facebook';
+  name: string;
+  contact: string;
+  answers: { q: string; a: string }[];
+  psid: string;  // Messenger sender id of the person who filled the form
+  lang?: string;
+};
+
+export type Lead = (AuditLead | BookingLead | ChatLead | FacebookLead) & { id: string; createdAt: string; status: LeadStatus };
 
 const parse = (r: Record<string, unknown>) => ({ ...JSON.parse(String(r.data)), status: r.status }) as Lead;
 
-export async function saveLead(data: AuditLead | BookingLead | ChatLead) {
+export async function saveLead(data: AuditLead | BookingLead | ChatLead | FacebookLead) {
   const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const lead = { ...data, id, createdAt: new Date().toISOString(), status: 'new' } as Lead;
   await sql`INSERT INTO leads (id, created_at, status, data) VALUES (${id}, ${lead.createdAt}, ${lead.status}, ${JSON.stringify(lead)})`;

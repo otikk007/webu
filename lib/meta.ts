@@ -3,6 +3,8 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import { logChatQuestion } from './chat-log';
 import { sql } from './db';
 import { allow } from './guard';
+import { saveLead } from './leads';
+import { notify } from './notify';
 import { assistant, isIntent } from './webu-assistant';
 
 // The website assistant on Facebook Messenger (webugeo Page, Meta app "Webu_bot").
@@ -77,10 +79,47 @@ async function context(psid: string) {
   return { previous: r && isIntent(r.previous) ? String(r.previous) : null, seen };
 }
 
+// Lead ads with a Messenger destination: when someone submits the Instant Form,
+// Meta posts the answers into the chat as that person's own message: an intro line
+// ("Hello! I filled out your form…") and then one "Question: answer" line per field.
+const FORM_INTRO = /filled out (your|the) form|заполнил[аи]? (вашу )?форму|შევავსე .*ფორმა/i;
+
+export function parseFormMessage(text: string) {
+  const [intro, ...lines] = text.split('\n').map(l => l.trim()).filter(Boolean);
+  if (!intro || !FORM_INTRO.test(intro)) return null;
+  const answers = lines.flatMap(l => {
+    const i = l.indexOf(': ');
+    return i > 0 ? [{ q: l.slice(0, i).slice(0, 200), a: l.slice(i + 2).slice(0, 500) }] : [];
+  });
+  return answers.length ? answers : null;
+}
+
+/** Saves an Instant Form submission as a lead; true if the message was one. */
+async function formLead(psid: string, text: string) {
+  const answers = parseFormMessage(text);
+  if (!answers) return false;
+  // Meta retries unacknowledged webhooks; one lead per person per 10 minutes.
+  if (!allow(`fb-form:${psid}`, 1, 10 * 60_000)) return true;
+
+  const field = (re: RegExp) => answers.find(x => re.test(x.q))?.a ?? '';
+  const name = field(/name|სახელი|имя/i) || 'Facebook-ის მომხმარებელი';
+  const contact = field(/phone|ტელეფონ|телефон/i) || field(/e-?mail|ელფოსტ|почт/i);
+  try {
+    await saveLead({ type: 'facebook', name, contact, answers, psid, lang: 'ka' });
+  } catch (e) {
+    console.error('facebook form lead save failed', e);
+  }
+  await notify(`📋 ახალი მოთხოვნა (Facebook ფორმა)\n\n${answers.map(x => `${x.q.replace(/:$/, '')}: ${x.a}`).join('\n')}`);
+  return true;
+}
+
 /** Answers one Messenger message with the website's FAQ engine. */
 export async function answer(psid: string, text: string) {
   const message = text.trim().slice(0, 2000);
   if (!message) return;
+  // A form submission is not a question: Meta already showed its thank-you
+  // message, so it is stored as a lead and left without a bot reply.
+  if (await formLead(psid, message)) return;
   if (!allow(`fb:${psid}`, 20, 60_000)) return;
 
   const { previous, seen } = await context(psid);

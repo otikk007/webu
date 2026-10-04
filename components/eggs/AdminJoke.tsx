@@ -30,6 +30,25 @@ export default function AdminJoke({ lang }: { lang: Lang }) {
     return () => removeEventListener('pointermove', move);
   }, []);
 
+  // The punchline: a 1 MB "virus.exe" downloads as the "caught" screen appears.
+  // It is plain text (not a program) built in the browser, so no .exe is ever
+  // hosted on the site for Safe Browsing to flag.
+  useEffect(() => {
+    if (stage !== 'caught') return;
+    const line = new TextEncoder().encode(`${t.caught} virus.exe :) webu.ge\r\n`);
+    const data = new Uint8Array(1024 * 1024);
+    for (let i = 0; i < data.length; i += line.length) data.set(line.subarray(0, data.length - i), i);
+    const url = URL.createObjectURL(new Blob([data], { type: 'application/octet-stream' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'virus.exe';
+    document.body.append(a);
+    a.click();
+    a.remove();
+    const revoke = setTimeout(() => URL.revokeObjectURL(url), 10_000);
+    return () => clearTimeout(revoke);
+  }, [stage, t.caught]);
+
   const hack = [`> admin@webu:~$ sudo login ${user || 'guest'}`, ...t.hack.map(l => `  ${l}`)];
   const canDodge = () => dodge < 3 && matchMedia('(hover:hover)').matches;
   const submit = () => {
